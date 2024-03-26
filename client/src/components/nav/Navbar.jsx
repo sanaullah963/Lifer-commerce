@@ -11,9 +11,6 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 function Navbar() {
   const [show, setShow] = useState(false);
-  const handelMenu = () => {
-    console.log("hello");
-  };
   return (
     <div className="">
       <div className="bg-yellow-400">
@@ -34,9 +31,7 @@ function Navbar() {
                 <IoSearch />
               </button>
             </div>
-
             {/* login && signup */}
-
             <div className="sm:flex gap-1 hidden">
               {/* login */}
               <div className="flex justify-center items-center gap-1 text-md hover:underline">
@@ -52,7 +47,6 @@ function Navbar() {
               </div>
             </div>
             {/* add to card */}
-            {/* <div className=""> */}
             <div className="bg-gray-600/50 h-7 w-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center relative">
               <span className="absolute text-[11px] sm:text-sm bottom-[-12px] font-semibold text-white bg-[#E36349] px-1 sm:px-2 rounded-md">
                 10
@@ -61,7 +55,7 @@ function Navbar() {
                 <FaCartArrowDown />
               </span>
             </div>
-            {/* </div> */}
+            {/* mobile screen button */}
             <div className=" flex items-start justify-center">
               <button
                 onClick={() => (show ? setShow(false) : setShow(true))}
