@@ -17,7 +17,7 @@ function CarouselComponent() {
       <div>
         <Carousel
           autoPlay={true}
-          transitionTime={1000}
+          // transitionTime={1000}
           infiniteLoop={true}
           showStatus={false}
         >

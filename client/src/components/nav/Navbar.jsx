@@ -69,7 +69,7 @@ function Navbar() {
       </div>
       {/* mobile screen login button */}
       {show && (
-        <div className="absolute flex justify-end w-full">
+        <div className="absolute flex justify-end w-full z-10">
           <div className="bg-yellow-500 flex flex-col w-28 items-start">
             {/* login */}
             <div className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2">
