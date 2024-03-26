@@ -12,8 +12,8 @@ import Image from "next/image";
 
 function CarouselComponent() {
   return (
-    <main>
-      {/* <Container> */}
+    <main className="">
+      <Container>
       <div>
         <Carousel
           autoPlay={true}
@@ -39,7 +39,7 @@ function CarouselComponent() {
           </div>
         </Carousel>
       </div>
-      {/* </Container> */}
+      </Container>
     </main>
   );
 }
