@@ -20,7 +20,7 @@ function ProductCard({ deliveryFree }) {
       </div>
       {/* image */}
       {/* image must be 1:1 */}
-      <div className="overflow-hidden  bg-slate-400">
+      <div className="overflow-hidden  bg-yellow-400">
         <Image src={product1} alt="something" className="" />
       </div>
 

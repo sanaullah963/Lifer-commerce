@@ -12,8 +12,8 @@ import { IoLogoYoutube } from "react-icons/io";
 import Link from "next/link";
 function Footer() {
   return (
-    <main className="bg-yellow-300 py-10">
-      <Container className={"px-8 my-0"}>
+    <main className="bg-yellow-300 py-14">
+      <div className={"px-8 max-w-screen-xl md:px-5 lg:px-14 mx-auto"}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-14">
           {/* col 1 */}
           <div className="">
@@ -51,7 +51,7 @@ function Footer() {
             <Image src={googlePlay} alt="google Play" className="w-1/2" />
           </div>
         </div>
-      </Container>
+      </div>
     </main>
   );
 }
