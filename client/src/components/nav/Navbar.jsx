@@ -9,6 +9,7 @@ import { FaCartArrowDown } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
+import Link from "next/link";
 function Navbar() {
   const [show, setShow] = useState(false);
   return (
@@ -17,9 +18,9 @@ function Navbar() {
         <Container>
           <nav className="flex items-center gap-2 sm:gap-3 md:gap-8 w-full h-16">
             {/* logo */}
-            <div className="w-[80px] sm:w-[150px]">
+            <Link href={'/'} className="w-[80px] sm:w-[150px]">
               <Image src={logo} alt="LifeR" className="w-full" />
-            </div>
+            </Link>
             {/* search box */}
             <div className="flex-1 flex bg-white h-10 rounded-md">
               <input

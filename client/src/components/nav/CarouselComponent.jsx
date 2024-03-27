@@ -20,6 +20,7 @@ function CarouselComponent() {
           // transitionTime={1000}
           infiniteLoop={true}
           showStatus={false}
+          showThumbs={false}
         >
           {/* 1350 * 675 is perfict carusel image size */}
           <div className="">

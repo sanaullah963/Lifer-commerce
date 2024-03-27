@@ -1,16 +1,15 @@
 import React from "react";
 import Container from "../Container";
 import Image from "next/image";
-import spatialone from "@/image/spacalDeals/dealsone.png";
 import { spatialDealsArray } from "@/constant/data";
 import Headding from "../Headding";
 function SpatialDeals() {
   return (
     <main>
-      <Container>
+      <Container className={''}>
         {/* <h1 className="text-center text-3xl mt-16"></h1> */}
         <Headding Headding={'Spatial Deals'}/>
-        <div className="my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 xl:gap-16 mx-5 sm:mx-10">
+        <div className="my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 xl:gap-16">
           {spatialDealsArray.map((i, index) => (
             <div key={index}>
               <Image src={i.image} alt="offer image" />
@@ -34,7 +33,7 @@ function SpatialDeals() {
                       59
                     </span>
                     <span className="text-sm text-center text-white capitalize py-1">
-                      hr
+                      h
                     </span>
                   </div>
                   {/* minute counting */}
