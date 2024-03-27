@@ -13,7 +13,7 @@ import Link from "next/link";
 function Footer() {
   return (
     <main className="bg-yellow-300 py-10">
-      <Container className={"px-8"}>
+      <Container className={"px-8 my-0"}>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-14">
           {/* col 1 */}
           <div className="">
