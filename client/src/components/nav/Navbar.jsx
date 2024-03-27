@@ -60,9 +60,9 @@ function Navbar() {
             <div className=" flex items-start justify-center">
               <button
                 onClick={() => (show ? setShow(false) : setShow(true))}
-                className="sm:hidden text-xl"
+                className="sm:hidden text-3xl"
               >
-                {show ? <AiOutlineMenuUnfold /> : <AiOutlineMenuFold />}
+                {show ? <AiOutlineMenuUnfold  /> : <AiOutlineMenuFold />}
               </button>
             </div>
           </nav>
@@ -73,13 +73,13 @@ function Navbar() {
         <div className="absolute flex justify-end w-full z-10">
           <div className="bg-yellow-500 flex flex-col w-28 items-start">
             {/* login */}
-            <div className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2">
+            <div onClick={()=>setShow(false)} className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2">
               <FaUser />
               <Link href={'/login'} className="">Log-In</Link>
             </div>
 
             {/* signup */}
-            <div className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2">
+            <div onClick={()=>setShow(false)} className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2">
               <FaUserPlus />
               <Link href={'/signup'} >Sign-Up</Link>
             </div>
