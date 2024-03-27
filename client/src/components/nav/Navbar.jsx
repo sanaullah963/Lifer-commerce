@@ -15,7 +15,7 @@ function Navbar() {
   return (
     <div className="">
       <div className="bg-yellow-400">
-        <Container>
+        <div className={'max-w-screen-xl px-2 md:px-5 lg:px-14 mx-auto'}>
           <nav className="flex items-center gap-2 sm:gap-3 md:gap-8 w-full h-16">
             {/* logo */}
             <Link href={'/'} className="w-[80px] sm:w-[150px]">
@@ -66,7 +66,7 @@ function Navbar() {
               </button>
             </div>
           </nav>
-        </Container>
+        </div>
       </div>
       {/* mobile screen login button */}
       {show && (

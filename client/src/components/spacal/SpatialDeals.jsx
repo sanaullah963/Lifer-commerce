@@ -6,9 +6,9 @@ import Headding from "../Headding";
 function SpatialDeals() {
   return (
     <main>
-      <Container className={''}>
+      <Container className={""}>
         {/* <h1 className="text-center text-3xl mt-16"></h1> */}
-        <Headding Headding={'Spatial Deals'}/>
+        <h2 className="text-center text-3xl mt-16">Spatial Deals</h2>
         <div className="my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 xl:gap-16">
           {spatialDealsArray.map((i, index) => (
             <div key={index}>
