@@ -4,27 +4,20 @@ import Headding from "../Headding";
 import ProductCard from "../product/ProductCard";
 import ProductContainer from "../product/ProductContainer";
 
-function LatestProduct() {
+function FreeDeliveryProduct() {
   return (
     <main>
-      <Container className={""}>
-        <Headding Headding={"latest product"} />
+      <Container>
+        <Headding Headding={"free delivery for you"} />
 
-        {/* image must be 1:1 */}
         <ProductContainer>
           <ProductCard deliveryFree={true} />
-          <ProductCard />
           <ProductCard deliveryFree={true} />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <ProductCard deliveryFree={true} />
         </ProductContainer>
       </Container>
     </main>
   );
 }
 
-export default LatestProduct;
+export default FreeDeliveryProduct;

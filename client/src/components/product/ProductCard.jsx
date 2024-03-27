@@ -3,16 +3,17 @@ import React from "react";
 import { TbCurrencyTaka } from "react-icons/tb";
 import delivaryFreeImg from "@/image/free_delivery.svg";
 import product1 from "@/image/proudct/product1.jpeg";
-import p1 from "@/image/proudct/p7.png";
 import Link from "next/link";
 
 function ProductCard({ deliveryFree }) {
   let title = "Joypuri Ari Work Salwar Kameez for Women - JSS 12 (Multicolor)";
   return (
-    <Link href={'/'} className="border-2 relative hover:shadow-lg group cursor-pointer">
+    <Link
+      href={"/"}
+      className="border-2 relative hover:shadow-lg group cursor-pointer"
+    >
       <span className="h-[23px] block"></span>
       {/* discount */}
-
       <div className="font-semibold bg-green-400 absolute top-2 px-2 py-1 rounded-e-lg">
         <span className="me-2">30%</span>
         <span className="text-[12px]">off</span>
@@ -20,7 +21,7 @@ function ProductCard({ deliveryFree }) {
       {/* image */}
       {/* image must be 1:1 */}
       <div className="overflow-hidden  bg-slate-400">
-        <Image src={p1} alt="something" className="" />
+        <Image src={product1} alt="something" className="" />
       </div>
 
       {/* delivary free */}

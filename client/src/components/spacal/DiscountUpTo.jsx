@@ -1,20 +1,18 @@
 import React from "react";
+import ProductContainer from "../product/ProductContainer";
+import ProductCard from "../product/ProductCard";
 import Container from "../Container";
 import Headding from "../Headding";
-import ProductCard from "../product/ProductCard";
-import ProductContainer from "../product/ProductContainer";
 
-function LatestProduct() {
+function DiscountUpTo() {
+  let discount = 60
   return (
     <main>
-      <Container className={""}>
-        <Headding Headding={"latest product"} />
-
-        {/* image must be 1:1 */}
+      
+      <Container>
+        <Headding Headding={`discount up to ${discount}%`} />
         <ProductContainer>
-          <ProductCard deliveryFree={true} />
           <ProductCard />
-          <ProductCard deliveryFree={true} />
           <ProductCard />
           <ProductCard />
           <ProductCard />
@@ -27,4 +25,4 @@ function LatestProduct() {
   );
 }
 
-export default LatestProduct;
+export default DiscountUpTo;
