@@ -9,13 +9,13 @@ import SpatialDeals from "@/components/spacal/SpatialDeals";
 export default function Home() {
   return (
     <main>
-      <Navbar/>
+      
       <CarouselComponent/>
       <FreeDeliveryProduct/>
       <SpatialDeals/>
       <LatestProduct/>
       <DiscountUpTo/>
-      <Footer/>
+      
     </main>
   );
 }

@@ -3,6 +3,7 @@ import React from "react";
 import { TbCurrencyTaka } from "react-icons/tb";
 import delivaryFreeImg from "@/image/free_delivery.svg";
 import product1 from "@/image/proudct/product1.jpeg";
+// import product1 from "@/image/proudct/p3.jpg";
 import Link from "next/link";
 
 function ProductCard({ deliveryFree }) {
@@ -10,7 +11,7 @@ function ProductCard({ deliveryFree }) {
   return (
     <Link
       href={"/"}
-      className="border-2 relative hover:shadow-lg group cursor-pointer"
+      className="border-2 relative hover:shadow-lg group cursor-pointer rounded-xl"
     >
       <span className="h-[23px] block"></span>
       {/* discount */}

@@ -37,14 +37,14 @@ function Navbar() {
               {/* login */}
               <div className="flex justify-center items-center gap-1 text-md hover:underline">
                 <FaUser />
-                <button className="">Log-In</button>
+                <Link href={'/login'}>Log-In</Link>
               </div>
               {/* center fration */}
               <span className="text-2xl text-[#E36349]"> / </span>
               {/* signup */}
               <div className="flex justify-center items-center gap-1 text-md hover:underline">
                 <FaUserPlus />
-                <button className="">Sign-Up</button>
+                <Link href={'/signup'} >Sign-Up</Link>
               </div>
             </div>
             {/* add to card */}
@@ -75,13 +75,13 @@ function Navbar() {
             {/* login */}
             <div className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2">
               <FaUser />
-              <button className="">Log-In</button>
+              <Link href={'/login'} className="">Log-In</Link>
             </div>
 
             {/* signup */}
             <div className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2">
               <FaUserPlus />
-              <button className="">Sign-Up</button>
+              <Link href={'/signup'} >Sign-Up</Link>
             </div>
           </div>
         </div>
