@@ -46,7 +46,7 @@ function ProductDetail() {
             </p>
             <hr />
             {/* brnad */}
-            <p className="capitalize text-md mt-3">brand : "no brand"</p>
+            <p className="capitalize text-md mt-3">brand : no brand</p>
             {/* like && share */}
             <div className=" flex gap-2">
               <span className="items-center flex">
