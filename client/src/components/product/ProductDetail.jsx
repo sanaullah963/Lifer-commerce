@@ -18,6 +18,7 @@ import Link from "next/link";
 import ProductContainer from "./ProductContainer";
 import ProductCard from "./ProductCard";
 import Review from "./Review";
+import ProductDetailHeadding from "./ProductDetailHeadding";
 function ProductDetail() {
   const [count, setCount] = useState(1);
   const minusCount = () => {
@@ -202,27 +203,18 @@ function ProductDetail() {
             </div>
           </div>
         </div>
+        {/*--------product description */}
+        <div className="border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 my-10 ps-4">
+          <ProductDetailHeadding headding={"details"} />
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
+            voluptatum doloremque hic accusamus laborum sunt nemo eligendi
+            veritatis reprehenderit voluptate?
+          </p>
+        </div>
         {/* ---------user review */}
         <div className="border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 my-10 ps-4 flex flex-col gap-y-3">
-          <Review/>
-        </div>
-        {/*--------product description */}
-        <div className="border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 my-10 ps-4 flex flex-col gap-y-3">
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-            voluptatum doloremque hic accusamus laborum sunt nemo eligendi
-            veritatis reprehenderit voluptate?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-            voluptatum doloremque hic accusamus laborum sunt nemo eligendi
-            veritatis reprehenderit voluptate?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-            voluptatum doloremque hic accusamus laborum sunt nemo eligendi
-            veritatis reprehenderit voluptate?
-          </li>
+          <Review />
         </div>
       </div>
       {/*----------similar product section */}

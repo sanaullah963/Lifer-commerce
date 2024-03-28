@@ -13,7 +13,7 @@ import Image from "next/image";
 function CarouselComponent() {
   return (
     <main className="">
-      <div className={'max-w-screen-xl px-2 md:px-5 lg:px-14 mx-auto'}>
+      <div className={'max-w-screen-xl  md:px-5 lg:px-14 mx-auto'}>
       <div>
         <Carousel
           autoPlay={true}
