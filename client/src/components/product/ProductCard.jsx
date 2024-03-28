@@ -3,14 +3,15 @@ import React from "react";
 import { TbCurrencyTaka } from "react-icons/tb";
 import delivaryFreeImg from "@/image/free_delivery.svg";
 import product1 from "@/image/proudct/product1.jpeg";
-// import product1 from "@/image/proudct/p3.jpg";
+import freeDelivery from "@/image/free_delivery.svg";
+
 import Link from "next/link";
 
 function ProductCard({ deliveryFree }) {
   let title = "Joypuri Ari Work Salwar Kameez for Women - JSS 12 (Multicolor)";
   return (
     <Link
-      href={"/"}
+      href={"/product/:id"}
       className="border-2 relative hover:shadow-lg group cursor-pointer rounded-xl"
     >
       <span className="h-[23px] block"></span>
