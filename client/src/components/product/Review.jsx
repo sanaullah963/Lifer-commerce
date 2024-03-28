@@ -75,7 +75,7 @@ function Review() {
         </div>
 
         {/* input */}
-        <div className="max-w-md ">
+        <div className="max-w-lg ">
           <textarea
             placeholder="Enter Your Review Here...."
             className="ms-[-4px] px-2 pt-1  w-full border-2 border-green-400 rounded text-sm  h-28"

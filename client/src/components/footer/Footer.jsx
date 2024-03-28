@@ -1,7 +1,8 @@
 import Image from "next/image";
 
 import logoWithIcon from "@/image/logotwo.png";
-import googlePlay from "@/image/googlePlay.jpg";
+import googlePlay from "@/image/googlePlay.svg";
+import appstore from "@/image/appstore.svg";
 import React from "react";
 import Container from "../Container";
 import FooterHeadding from "./FooterHeadding";
@@ -48,7 +49,10 @@ function Footer() {
           {/* col 4 */}
           <div className="">
             <FooterHeadding headding={"get lifeR app"} />
-            <Image src={googlePlay} alt="google Play" className="w-1/2" />
+            <div className="flex gap-2 ">
+              <Image src={googlePlay} alt="google Play" className="w-1/2" />
+              <Image src={appstore} alt="google Play" className="w-1/2" />
+            </div>
           </div>
         </div>
       </div>
