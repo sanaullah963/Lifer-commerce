@@ -12,7 +12,7 @@ function ProductCard({ deliveryFree }) {
   return (
     <Link
       href={"/product/:id"}
-      className="border-2 relative hover:shadow-lg group cursor-pointer rounded-xl"
+      className="border-2 relative hover:shadow-xl group cursor-pointer rounded-xl"
     >
       <span className="h-[23px] block"></span>
       {/* discount */}

@@ -15,9 +15,9 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { TbTruckReturn } from "react-icons/tb";
 import { FaShield } from "react-icons/fa6";
 import Link from "next/link";
-import SimilarProduct from "./SimilarProduct";
 import ProductContainer from "./ProductContainer";
 import ProductCard from "./ProductCard";
+import Review from "./Review";
 function ProductDetail() {
   const [count, setCount] = useState(1);
   const minusCount = () => {
@@ -29,9 +29,10 @@ function ProductDetail() {
   };
   return (
     <div>
+      {/* product info */}
       <div className="max-w-[450px] md:max-w-[650px] lg:max-w-screen-lg mx-auto my-10 xl:max-w-screen-xl px-2 xl:px-14">
         <div className="flex flex-col lg:flex-row items-center min-h-[390px] gap-x-5 gap-y-10 w-full  border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 ">
-          {/*left side product image*/}
+          {/*---------left side product image*/}
           <div className="w-full lg:w-[30%] relative inline-flex border rounded-md shadow-lg">
             <Image
               src={product1}
@@ -41,7 +42,7 @@ function ProductDetail() {
               className="w-full lg:w-full md:w-[80%] mx-auto   rounded-md"
             />
           </div>
-          {/*center product detaisl */}
+          {/*--------center product detaisl */}
           <div className="lg:flex-1 mx-0 bg-white">
             {/* title */}
             <p className="text-[15px] capitalize my-2">
@@ -129,7 +130,7 @@ function ProductDetail() {
               </button>
             </div>
           </div>
-          {/* right side delivery details */}
+          {/*--------right side delivery details */}
           <div className="w-full lg:w-[25%] border border-gray-200 rounded-lg">
             <p className="capitalize bg-gray-200 rounded-t-lg ps-2 py-2 text-xl font-[500] mb-2">
               delivery
@@ -201,7 +202,11 @@ function ProductDetail() {
             </div>
           </div>
         </div>
-        {/* product description */}
+        {/* ---------user review */}
+        <div className="border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 my-10 ps-4 flex flex-col gap-y-3">
+          <Review/>
+        </div>
+        {/*--------product description */}
         <div className="border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 my-10 ps-4 flex flex-col gap-y-3">
           <li>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
@@ -220,9 +225,8 @@ function ProductDetail() {
           </li>
         </div>
       </div>
-      {/* similar product */}
+      {/*----------similar product section */}
       <div className="px-3 max-w-md sm:max-w-screen-xl mx-auto sm:w-full">
-        {/* <SimilarProduct/> */}
         <ProductContainer
           className={
             "border-[4px] rounded-md shadow-lg shadow-gray-400 my-10 px-1 sm:px-3 py-3"
