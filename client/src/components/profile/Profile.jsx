@@ -16,7 +16,7 @@ function Profile() {
       <div className="">
         {show && <Modal closeModal={closeModal} />}
       </div>
-      <Container className={" "}>
+      <Container>
         <div className="border-[4px] max-w-sm  sm:max-w-md md:max-w-[820px] mx-auto rounded-md p-1 sm:p-2 md:py-5 shadow-lg shadow-gray-400 my-10">
           {/* inner border */}
           <div className="flex flex-col md:flex-row gap-2 md:gap-5 mx-auto mb-8">

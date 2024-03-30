@@ -18,7 +18,7 @@ export const spatialDealsArray = [
 export const districtArray = [
   {
     district: "Bagerhat",
-    allSubDistrict: [
+    upazila: [
       "Bagerhat Sadar",
       "Chitalmari",
       "Fakirhat",
@@ -32,11 +32,11 @@ export const districtArray = [
   },
   {
     district: "Bandarban",
-    allSubDistrict: ["Bandarban Sadar", "Thanchi", "Ruma", "Lama"],
+    upazila: ["Bandarban Sadar", "Thanchi", "Ruma", "Lama"],
   },
   {
     district: "Barguna",
-    allSubDistrict: [
+    upazila: [
       "Amtali",
       "Barguna Sadar",
       "Betagi",
@@ -46,7 +46,7 @@ export const districtArray = [
   },
   {
     district: "Barishal",
-    allSubDistrict: [
+    upazila: [
       "Agailjhara",
       "Babuganj",
       "Bakerganj",
@@ -61,7 +61,7 @@ export const districtArray = [
   },
   {
     district: "Bhola",
-    allSubDistrict: [
+    upazila: [
       "Bhola Sadar",
       "Burhanuddin",
       "Char Fasson",
@@ -73,7 +73,7 @@ export const districtArray = [
   },
   {
     district: "Bogura",
-    allSubDistrict: [
+    upazila: [
       "Adamdighi",
       "Bogura Sadar",
       "Dhunat",
@@ -86,7 +86,7 @@ export const districtArray = [
   },
   {
     district: "Brahmanbaria",
-    allSubDistrict: [
+    upazila: [
       "Akhaura",
       "Ashuganj",
       "Bancharampur",
@@ -99,7 +99,7 @@ export const districtArray = [
   },
   {
     district: "Chandpur",
-    allSubDistrict: [
+    upazila: [
       "Chandpur Sadar",
       "Faridganj",
       "Hajiganj",
@@ -112,7 +112,7 @@ export const districtArray = [
   },
   {
     district: "Chattogram",
-    allSubDistrict: [
+    upazila: [
       "Anwara",
       "Banshkhali",
       "Boalkhali",
@@ -131,11 +131,11 @@ export const districtArray = [
   },
   {
     district: "Chuadanga",
-    allSubDistrict: ["Alamdanga", "Chuadanga Sadar", "Damurhuda", "Jibannagar"],
+    upazila: ["Alamdanga", "Chuadanga Sadar", "Damurhuda", "Jibannagar"],
   },
   {
     district: "Comilla",
-    allSubDistrict: [
+    upazila: [
       "Barura",
       "Brahmanpara",
       "Burichong",
@@ -154,7 +154,7 @@ export const districtArray = [
   },
   {
     district: "Coxs Bazar",
-    allSubDistrict: [
+    upazila: [
       "Chakaria",
       "Coxs Bazar Sadar",
       "Kutubdia",
@@ -166,7 +166,7 @@ export const districtArray = [
   },
   {
     district: "Dhaka",
-    allSubDistrict: [
+    upazila: [
       "Dhamrai",
       "Dohar",
       "Dhaka",
@@ -177,7 +177,7 @@ export const districtArray = [
   },
   {
     district: "Dinajpur",
-    allSubDistrict: [
+    upazila: [
       "Birol",
       "Birganj",
       "Birampur",
@@ -193,7 +193,7 @@ export const districtArray = [
   },
   {
     district: "Faridpur",
-    allSubDistrict: [
+    upazila: [
       "Alfadanga",
       "Bhanga",
       "Boalmari",
@@ -207,7 +207,7 @@ export const districtArray = [
   },
   {
     district: "Feni",
-    allSubDistrict: [
+    upazila: [
       "Chhagalnaiya",
       "Daganbhuiyan",
       "Feni Sadar",
@@ -217,7 +217,7 @@ export const districtArray = [
   },
   {
     district: "Gaibandha",
-    allSubDistrict: [
+    upazila: [
       "Fulchhari",
       "Gaibandha Sadar",
       "Gobindaganj",
@@ -228,7 +228,7 @@ export const districtArray = [
   },
   {
     district: "Gazipur",
-    allSubDistrict: [
+    upazila: [
       "Gazipur Sadar",
       "Kaliakair",
       "Kaliganj",
@@ -238,7 +238,7 @@ export const districtArray = [
   },
   {
     district: "Gopalganj",
-    allSubDistrict: [
+    upazila: [
       "Gopalganj Sadar",
       "Kashiani",
       "Kotalipara",
@@ -248,7 +248,7 @@ export const districtArray = [
   },
   {
     district: "Habiganj",
-    allSubDistrict: [
+    upazila: [
       "Bahubal",
       "Baniachang",
       "Chunarughat",
@@ -260,7 +260,7 @@ export const districtArray = [
   },
   {
     district: "Jamalpur",
-    allSubDistrict: [
+    upazila: [
       "Bakshiganj",
       "Dewanganj",
       "Islampur",
@@ -272,7 +272,7 @@ export const districtArray = [
   },
   {
     district: "Jashore",
-    allSubDistrict: [
+    upazila: [
       "Abhaynagar",
       "Bagherpara",
       "Chowgacha",
@@ -285,11 +285,11 @@ export const districtArray = [
   },
   {
     district: "Jhalokati",
-    allSubDistrict: ["Jhalokati Sadar", "Kathalia", "Nalchity", "Rajapur"],
+    upazila: ["Jhalokati Sadar", "Kathalia", "Nalchity", "Rajapur"],
   },
   {
     district: "Jhenaidah",
-    allSubDistrict: [
+    upazila: [
       "Harinakundu",
       "Jhenaidah Sadar",
       "Kaliganj",
@@ -300,7 +300,7 @@ export const districtArray = [
   },
   {
     district: "Joypurhat",
-    allSubDistrict: [
+    upazila: [
       "Akkelpur",
       "Joypurhat Sadar",
       "Kalai",
@@ -310,7 +310,7 @@ export const districtArray = [
   },
   {
     district: "Khagrachhari",
-    allSubDistrict: [
+    upazila: [
       "Dighinala",
       "Khagrachhari Sadar",
       "Lakshmichhari",
@@ -323,7 +323,7 @@ export const districtArray = [
   },
   {
     district: "Khulna",
-    allSubDistrict: [
+    upazila: [
       "Batiaghata",
       "Dacope",
       "Daulatpur",
@@ -338,7 +338,7 @@ export const districtArray = [
   },
   {
     district: "Kishoreganj",
-    allSubDistrict: [
+    upazila: [
       "Austagram",
       "Bajitpur",
       "Bhairab",
@@ -356,7 +356,7 @@ export const districtArray = [
   },
   {
     district: "Kurigram",
-    allSubDistrict: [
+    upazila: [
       "Bhurungamari",
       "Char Rajibpur",
       "Chilmari",
@@ -369,7 +369,7 @@ export const districtArray = [
   },
   {
     district: "Kushtia",
-    allSubDistrict: [
+    upazila: [
       "Bheramara",
       "Daulatpur",
       "Khoksa",
@@ -379,7 +379,7 @@ export const districtArray = [
   },
   {
     district: "Lakshmipur",
-    allSubDistrict: [
+    upazila: [
       "Kamalnagar",
       "Lakshmipur Sadar",
       "Ramganj",
@@ -389,7 +389,7 @@ export const districtArray = [
   },
   {
     district: "Lalmonirhat",
-    allSubDistrict: [
+    upazila: [
       "Aditmari",
       "Hatibandha",
       "Kaliganj",
@@ -399,15 +399,15 @@ export const districtArray = [
   },
   {
     district: "Madaripur",
-    allSubDistrict: ["Kalkini", "Madaripur Sadar", "Rajoir"],
+    upazila: ["Kalkini", "Madaripur Sadar", "Rajoir"],
   },
   {
     district: "Magura",
-    allSubDistrict: ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"],
+    upazila: ["Magura Sadar", "Mohammadpur", "Shalikha", "Sreepur"],
   },
   {
     district: "Manikganj",
-    allSubDistrict: [
+    upazila: [
       "Daulatpur",
       "Ghior",
       "Harirampur",
@@ -418,11 +418,11 @@ export const districtArray = [
   },
   {
     district: "Meherpur",
-    allSubDistrict: ["Gangni", "Meherpur Sadar", "Mujibnagar"],
+    upazila: ["Gangni", "Meherpur Sadar", "Mujibnagar"],
   },
   {
     district: "Moulvibazar",
-    allSubDistrict: [
+    upazila: [
       "Barlekha",
       "Juri",
       "Kamalganj",
@@ -434,7 +434,7 @@ export const districtArray = [
   },
   {
     district: "Munshiganj",
-    allSubDistrict: [
+    upazila: [
       "Gazaria",
       "Lohajang",
       "Munshiganj Sadar",
@@ -445,7 +445,7 @@ export const districtArray = [
   },
   {
     district: "Mymensingh",
-    allSubDistrict: [
+    upazila: [
       "Bhaluka",
       "Dhobaura",
       "Fulbaria",
@@ -462,7 +462,7 @@ export const districtArray = [
   },
   {
     district: "Naogaon",
-    allSubDistrict: [
+    upazila: [
       "Atrai",
       "Badalgachhi",
       "Dhamoirhat",
@@ -475,10 +475,10 @@ export const districtArray = [
       "Sapahar",
     ],
   },
-  { district: "Narail", allSubDistrict: ["Kalia", "Lohagara", "Narail Sadar"] },
+  { district: "Narail", upazila: ["Kalia", "Lohagara", "Narail Sadar"] },
   {
     district: "Narayanganj",
-    allSubDistrict: [
+    upazila: [
       "Araihazar",
       "Bandar",
       "Narayanganj Sadar",
@@ -488,7 +488,7 @@ export const districtArray = [
   },
   {
     district: "Narsingdi",
-    allSubDistrict: [
+    upazila: [
       "Belabo",
       "Monohardi",
       "Narsingdi Sadar",
@@ -499,7 +499,7 @@ export const districtArray = [
   },
   {
     district: "Natore",
-    allSubDistrict: [
+    upazila: [
       "Bagatipara",
       "Baraigram",
       "Gurudaspur",
@@ -511,7 +511,7 @@ export const districtArray = [
   },
   {
     district: "Netrokona",
-    allSubDistrict: [
+    upazila: [
       "Atpara",
       "Barhatta",
       "Durgapur",
@@ -526,7 +526,7 @@ export const districtArray = [
   },
   {
     district: "Nilphamari",
-    allSubDistrict: [
+    upazila: [
       "Dimla",
       "Domar",
       "Jaldhaka",
@@ -537,7 +537,7 @@ export const districtArray = [
   },
   {
     district: "Noakhali",
-    allSubDistrict: [
+    upazila: [
       "Begumganj",
       "Chatkhil",
       "Companiganj",
@@ -549,7 +549,7 @@ export const districtArray = [
   },
   {
     district: "Pabna",
-    allSubDistrict: [
+    upazila: [
       "Atgharia",
       "Bera",
       "Bhangura",
@@ -563,7 +563,7 @@ export const districtArray = [
   },
   {
     district: "Panchagarh",
-    allSubDistrict: [
+    upazila: [
       "Atwari",
       "Boda",
       "Debiganj",
@@ -573,7 +573,7 @@ export const districtArray = [
   },
   {
     district: "Patuakhali",
-    allSubDistrict: [
+    upazila: [
       "Bauphal",
       "Dashmina",
       "Dumki",
@@ -586,7 +586,7 @@ export const districtArray = [
   },
   {
     district: "Pirojpur",
-    allSubDistrict: [
+    upazila: [
       "Bhandaria",
       "Kawkhali",
       "Mathbaria",
@@ -597,11 +597,11 @@ export const districtArray = [
   },
   {
     district: "Rajbari",
-    allSubDistrict: ["Baliakandi", "Goalandaghat", "Pangsha", "Rajbari Sadar"],
+    upazila: ["Baliakandi", "Goalandaghat", "Pangsha", "Rajbari Sadar"],
   },
   {
     district: "Rajshahi",
-    allSubDistrict: [
+    upazila: [
       "Bagha",
       "Bagmara",
       "Charghat",
@@ -616,7 +616,7 @@ export const districtArray = [
   },
   {
     district: "Rangamati",
-    allSubDistrict: [
+    upazila: [
       "Baghaichhari",
       "Barkal",
       "Kaptai",
@@ -628,7 +628,7 @@ export const districtArray = [
   },
   {
     district: "Rangpur",
-    allSubDistrict: [
+    upazila: [
       "Badarganj",
       "Gangachara",
       "Kaunia",
@@ -641,7 +641,7 @@ export const districtArray = [
   },
   {
     district: "Satkhira",
-    allSubDistrict: [
+    upazila: [
       "Assasuni",
       "Debhata",
       "Kaliganj",
@@ -653,7 +653,7 @@ export const districtArray = [
   },
   {
     district: "Shariatpur",
-    allSubDistrict: [
+    upazila: [
       "Bhedarganj",
       "Damudya",
       "Gosairhat",
@@ -664,11 +664,11 @@ export const districtArray = [
   },
   {
     district: "Sherpur",
-    allSubDistrict: ["Jhenaigati", "Nalitabari", "Sherpur Sadar", "Sreebardi"],
+    upazila: ["Jhenaigati", "Nalitabari", "Sherpur Sadar", "Sreebardi"],
   },
   {
     district: "Sirajganj",
-    allSubDistrict: [
+    upazila: [
       "Belkuchi",
       "Chauhali",
       "Kamarkhanda",
@@ -682,7 +682,7 @@ export const districtArray = [
   },
   {
     district: "Sunamganj",
-    allSubDistrict: [
+    upazila: [
       "Bishwamvarpur",
       "Chhatak",
       "Derai",
@@ -696,7 +696,7 @@ export const districtArray = [
   },
   {
     district: "Sylhet",
-    allSubDistrict: [
+    upazila: [
       "Balaganj",
       "Beanibazar",
       "Bishwanath",
@@ -712,7 +712,7 @@ export const districtArray = [
   },
   {
     district: "Tangail",
-    allSubDistrict: [
+    upazila: [
       "Basail",
       "Bhuapur",
       "Delduar",
@@ -728,7 +728,7 @@ export const districtArray = [
   },
   {
     district: "Thakurgaon",
-    allSubDistrict: [
+    upazila: [
       "Baliadangi",
       "Haripur",
       "Pirganj",
