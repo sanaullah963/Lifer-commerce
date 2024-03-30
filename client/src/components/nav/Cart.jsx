@@ -18,13 +18,13 @@ function Cart() {
   };
   let title =
     "Joypuri Ari Work Salwar Kameez for Women - JSS 12 (Multicolor)Joypuri Ari Work Salwar Kameez for Women - JSS 12 Kameez for";
-    const arr = [1,1,1,1,1,1,1,1,1,1,1,1]
+  const arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   return (
     <div className="px-1 sm:px-5 bg-[#dff9fb] py-10">
       <div className="border-[4px] max-w-[820px] mx-auto rounded-md p-1 sm:p-2 md:py-5 shadow-lg shadow-gray-400 bg-white">
-          {/* singel row */}
-          {arr.map((i)=>(
-            <div>
+        {/* singel row */}
+        {arr.map((i, index) => (
+          <div key={index}>
             <div className="flex gap-0 sm:gap-2 my-1 ">
               {/* checkbox */}
               <div className="my-auto">
@@ -95,10 +95,7 @@ function Cart() {
             </div>
             <hr className="h-[1px] sm:h-[2px] bg-gray-400 my-2" />
           </div>
-          ))}
-        
-
-        
+        ))}
       </div>
     </div>
   );
