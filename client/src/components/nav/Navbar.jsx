@@ -9,24 +9,24 @@ import { IoSearch } from "react-icons/io5";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 function Navbar() {
   const [show, setShow] = useState(false);
-  const [showCart, setShowCart] = useState(false);
+  const router = useRouter()
 
   // handel card
-  const handelCart=()=>{
-    console.log('cart');
-    showCart ? setShowCart(false):setShowCart(true)
-    console.log(showCart);
-  }
+  const handelCart = () => {
+    
+  };
   return (
     <div className="">
+      
       <div className="bg-yellow-400">
-        <div className={'max-w-screen-xl px-2 md:px-5 lg:px-14 mx-auto'}>
-
+        <div className={"max-w-screen-xl px-2 md:px-5 lg:px-14 mx-auto"}>
           <nav className="flex items-center gap-2 sm:gap-3 md:gap-8 w-full h-16">
             {/* logo */}
-            <Link href={'/'} className="w-[80px] sm:w-[150px]">
+            <Link href={"/"} className="w-[80px] sm:w-[150px]">
               <Image src={logo} alt="LifeR" className="w-full" />
             </Link>
             {/* search box */}
@@ -45,18 +45,21 @@ function Navbar() {
               {/* login */}
               <div className="flex justify-center items-center gap-1 text-md hover:underline">
                 <FaUser />
-                <Link href={'/login'}>Log-In</Link>
+                <Link href={"/login"}>Log-In</Link>
               </div>
               {/* center fration */}
               <span className="text-2xl text-[#E36349]"> / </span>
               {/* signup */}
               <div className="flex justify-center items-center gap-1 text-md hover:underline">
                 <FaUserPlus />
-                <Link href={'/signup'} >Sign-Up</Link>
+                <Link href={"/signup"}>Sign-Up</Link>
               </div>
             </div>
             {/* add to card */}
-            <div onClick={handelCart} className="bg-gray-600/50 h-7 w-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center relative cursor-pointer">
+            <div
+              onClick={()=>router.push('/cart')}
+              className="bg-gray-600/50 h-7 w-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center relative cursor-pointer"
+            >
               <span className="absolute text-[11px] sm:text-sm bottom-[-12px] font-semibold text-white bg-[#E36349] px-1 sm:px-2 rounded-md">
                 10
               </span>
@@ -70,7 +73,7 @@ function Navbar() {
                 onClick={() => (show ? setShow(false) : setShow(true))}
                 className="sm:hidden text-3xl"
               >
-                {show ? <AiOutlineMenuUnfold  /> : <AiOutlineMenuFold />}
+                {show ? <AiOutlineMenuUnfold /> : <AiOutlineMenuFold />}
               </button>
             </div>
           </nav>
@@ -81,15 +84,23 @@ function Navbar() {
         <div className="absolute flex justify-end w-full z-10">
           <div className="bg-yellow-500 flex flex-col w-28 items-start">
             {/* login */}
-            <div onClick={()=>setShow(false)} className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2">
+            <div
+              onClick={() => setShow(false)}
+              className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2"
+            >
               <FaUser />
-              <Link href={'/login'} className="">Log-In</Link>
+              <Link href={"/login"} className="">
+                Log-In
+              </Link>
             </div>
 
             {/* signup */}
-            <div onClick={()=>setShow(false)} className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2">
+            <div
+              onClick={() => setShow(false)}
+              className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2"
+            >
               <FaUserPlus />
-              <Link href={'/signup'} >Sign-Up</Link>
+              <Link href={"/signup"}>Sign-Up</Link>
             </div>
           </div>
         </div>

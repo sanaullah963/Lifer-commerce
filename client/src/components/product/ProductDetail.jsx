@@ -19,6 +19,7 @@ import ProductContainer from "./ProductContainer";
 import ProductCard from "./ProductCard";
 import Review from "./Review";
 import ProductDetailHeadding from "./ProductDetailHeadding";
+
 function ProductDetail() {
   const [count, setCount] = useState(1);
   const minusCount = () => {
@@ -85,6 +86,7 @@ function ProductDetail() {
             </div>
             <hr />
             {/* quantity counter */}
+
             <div className="my-5 flex items-center gap-2 sm:gap-4">
               <span className="text-gray-500 capitalize me-2">Quantity</span>
               <button
