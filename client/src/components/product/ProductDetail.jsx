@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 
 function ProductDetail() {
   const [count, setCount] = useState(1);
-  const router=useRouter()
+  const router = useRouter();
   const minusCount = () => {
     if (count <= 1) return;
     setCount(count - 1);
@@ -124,7 +124,8 @@ function ProductDetail() {
                 add to cart
               </button>
               {/* buy-now button */}
-              <button onClick={()=>router.push('/buy')}
+              <button
+                onClick={() => router.push("/buy")}
                 className={`${
                   count <= 0
                     ? "bg-gray-400 text-gray-800 cursor-not-allowed"
@@ -207,6 +208,7 @@ function ProductDetail() {
             </div>
           </div>
         </div>
+
         {/*--------product description */}
         <div className="border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 my-10 ps-4">
           <ProductDetailHeadding headding={"details"} />
