@@ -7,30 +7,42 @@ import Image from "next/image";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { MdDeleteOutline } from "react-icons/md";
 import Link from "next/link";
+import ProductDetailHeadding from "../product/ProductDetailHeadding";
+import { useRouter } from "next/navigation";
+
 function Cart() {
   const [count, setCount] = useState(1);
+  const router = useRouter()
+  // munus count
   const minusCount = () => {
     if (count <= 1) return;
     setCount(count - 1);
   };
+  // plus count
   const plusCounter = () => {
     setCount(count + 1);
   };
+  // test element
   let title =
     "Joypuri Ari Work Salwar Kameez for Women - JSS 12 (Multicolor)Joypuri Ari Work Salwar Kameez for Women - JSS 12 Kameez for";
-  const arr = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   return (
-    <div className="px-1 sm:px-5 bg-[#dff9fb] py-10">
+    <div className="px-2 sm:px-5 bg-[#dff9fb] py-10">
       <div className="border-[4px] max-w-[820px] mx-auto rounded-md p-1 sm:p-2 md:py-5 shadow-lg shadow-gray-400 bg-white">
+        <ProductDetailHeadding headding={"10 product"} />
         {/* singel row */}
-        {arr.map((i, index) => (
-          <div key={index}>
+        {arr.map((i) => (
+          <div key={i}>
             <div className="flex gap-0 sm:gap-2 my-1 ">
               {/* checkbox */}
               <div className="my-auto">
-                <input type="checkbox" className=" w-[20px] h-[20px]" />
+                <input
+                  type="checkbox"
+                  className=" w-[20px] h-[20px]"
+                  onChange={(e) => console.log(e.target.checked)}
+                />
               </div>
-              {/* image */}
+              {/*product image */}
               <div className="w-[130px] md:w-[100px]">
                 <Image
                   src={product}
@@ -42,6 +54,7 @@ function Cart() {
               </div>
               {/* title and outher info */}
               <div className="">
+                {/* title */}
                 <div className="leading-[11px]">
                   <Link
                     href={"/product/cart"}
@@ -67,7 +80,7 @@ function Cart() {
                       </button>
                       <span className="text-lg">{count}</span>
                       <button
-                        onClick={plusCounter}
+                        onClick={()=>setCount(count + 1)}
                         className={` bg-gray-300 border-gray-500  text-black
                   text-sm sm:text-lg p-[2px] sm:p-[5px] rounded-md border`}
                       >
@@ -83,8 +96,8 @@ function Cart() {
                   </div>
                   {/* order button */}
                   <div className="w-full sm:w-1/5 flex flex-row sm:flex-col sm:gap-y-1 gap-x-1">
-                    <button className="bg-green-600 hover:bg-green-700 w-full py-1 capitalize text-white rounded-md text-sm sm:text-md">
-                      order
+                    <button onClick={()=>router.push('/buy')} className="bg-green-600 hover:bg-green-700 w-full py-1 capitalize text-white rounded-md text-sm sm:text-md">
+                      buy now
                     </button>
                     <button className="w-full text-[18px] py-1  rounded-md text-red-700 bg-red-200 hover:bg-red-300">
                       <MdDeleteOutline className="mx-auto" />
@@ -97,6 +110,7 @@ function Cart() {
           </div>
         ))}
       </div>
+     
     </div>
   );
 }

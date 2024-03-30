@@ -1,13 +1,10 @@
-import Cart from '@/components/nav/Cart'
-
-
+import Buy from '@/components/buy/buy'
 import React from 'react'
 
 function page() {
   return (
     <main>
-      <Cart/>
-
+      <Buy/>
     </main>
   )
 }

@@ -19,9 +19,11 @@ import ProductContainer from "./ProductContainer";
 import ProductCard from "./ProductCard";
 import Review from "./Review";
 import ProductDetailHeadding from "./ProductDetailHeadding";
+import { useRouter } from "next/navigation";
 
 function ProductDetail() {
   const [count, setCount] = useState(1);
+  const router=useRouter()
   const minusCount = () => {
     if (count <= 1) return;
     setCount(count - 1);
@@ -122,7 +124,7 @@ function ProductDetail() {
                 add to cart
               </button>
               {/* buy-now button */}
-              <button
+              <button onClick={()=>router.push('/buy')}
                 className={`${
                   count <= 0
                     ? "bg-gray-400 text-gray-800 cursor-not-allowed"
