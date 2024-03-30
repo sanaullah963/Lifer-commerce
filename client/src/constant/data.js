@@ -233,7 +233,7 @@ export const districtArray = [
       "Kaliakair",
       "Kaliganj",
       "Kapasia",
-      Sreepur,
+      'Sreepur',
     ],
   },
   {
