@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Container from "../Container";
 import Image from "next/image";
 import logo from "@/image/logotwo.png";
 import { FaUser } from "react-icons/fa";
@@ -12,10 +11,19 @@ import { AiOutlineMenuUnfold } from "react-icons/ai";
 import Link from "next/link";
 function Navbar() {
   const [show, setShow] = useState(false);
+  const [showCart, setShowCart] = useState(false);
+
+  // handel card
+  const handelCart=()=>{
+    console.log('cart');
+    showCart ? setShowCart(false):setShowCart(true)
+    console.log(showCart);
+  }
   return (
     <div className="">
       <div className="bg-yellow-400">
         <div className={'max-w-screen-xl px-2 md:px-5 lg:px-14 mx-auto'}>
+
           <nav className="flex items-center gap-2 sm:gap-3 md:gap-8 w-full h-16">
             {/* logo */}
             <Link href={'/'} className="w-[80px] sm:w-[150px]">
@@ -48,7 +56,7 @@ function Navbar() {
               </div>
             </div>
             {/* add to card */}
-            <div className="bg-gray-600/50 h-7 w-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center relative">
+            <div onClick={handelCart} className="bg-gray-600/50 h-7 w-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center relative cursor-pointer">
               <span className="absolute text-[11px] sm:text-sm bottom-[-12px] font-semibold text-white bg-[#E36349] px-1 sm:px-2 rounded-md">
                 10
               </span>

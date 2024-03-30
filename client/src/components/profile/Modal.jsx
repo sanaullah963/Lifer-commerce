@@ -2,6 +2,8 @@
 import { districtArray } from "@/constant/data";
 import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Modal({ closeModal }) {
   const [district, setDistrict] = useState("");
@@ -20,11 +22,20 @@ function Modal({ closeModal }) {
     });
   };
   // submit handel
-  const handelSubmit=()=>{
+  const handelSubmit = () => {
+    const obj = JSON.stringify({
+      name,
+      number,
+      country,
+      district,
+      upazila: upazilaValue,
+      address,
+    });
 
-    console.log(district,upazilaValue,name,number,country,address);
-    closeModal()
-  }
+    console.log(obj);
+
+    closeModal();
+  };
   return (
     <div className=" absolute h-auto top-0 right-0 left-0 bg-gray-200 px-2 md:px-10">
       {/* inner div */}
@@ -54,7 +65,7 @@ function Modal({ closeModal }) {
                 type="text"
                 placeholder="Enter Full Name"
                 className="outline-none border  hover:border-green-400 focus:border-green-400 rounded px-2 py-1"
-                onChange={(e)=>setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             {/* number */}
@@ -67,7 +78,7 @@ function Modal({ closeModal }) {
                 type="text"
                 placeholder="Enter number"
                 className="outline-none border hover:border-green-400 focus:border-green-400 rounded px-2 py-1"
-                onChange={(e)=>setNumber(e.target.value)}
+                onChange={(e) => setNumber(e.target.value)}
               />
             </div>
             {/* country */}
@@ -78,7 +89,7 @@ function Modal({ closeModal }) {
               <select
                 id="country"
                 className="outline-none border hover:border-green-400 focus:border-green-400 rounded px-2 py-1"
-                onChange={(e)=>setCountry(e.target.value)}
+                onChange={(e) => setCountry(e.target.value)}
               >
                 <option value="bangladesh" selected>
                   Bangladesh
@@ -112,13 +123,16 @@ function Modal({ closeModal }) {
               <select
                 id="upazila"
                 className="outline-none border hover:border-green-400 focus:border-green-400 rounded px-2 py-1"
-                onChange={(e)=>setUpazilaValue(e.target.value)}
+                onChange={(e) => setUpazilaValue(e.target.value)}
               >
                 {upazila.length <= 0 ? (
                   <option selected>select district fist</option>
                 ) : (
                   upazila.map((i, index) => (
-                    <option key={index} value={i}>{i}</option>))
+                    <option key={index} value={i}>
+                      {i}
+                    </option>
+                  ))
                 )}
               </select>
             </div>
@@ -132,17 +146,20 @@ function Modal({ closeModal }) {
                 type="text"
                 placeholder=" Area , Road , House"
                 className="outline-none border  hover:border-green-400 focus:border-green-400 rounded px-2 py-1"
-                onChange={(e)=>setAddress(e.target.value)}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
             {/* submit button */}
-            <button className="w-full bg-green-400 hover:bg-green-500 py-1 capitalize font-[500] rounded text-xl mt-4"
-            onClick={handelSubmit}>
+            <button
+              className="w-full bg-green-400 hover:bg-green-500 py-1 capitalize font-[500] rounded text-xl mt-4"
+              onClick={handelSubmit}
+            >
               add address
             </button>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
