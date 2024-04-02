@@ -737,3 +737,42 @@ export const districtArray = [
     ],
   },
 ];
+// product categories
+export const productCategoriesArray = [
+  "Electronics",
+  "mobile",
+  "Clothing",
+  "Home & Kitchen",
+  "Books",
+  "Beauty & Personal Care",
+  "Toys & Games",
+  "Sports",
+  "Health & Wellness",
+  "Pet Supplies",
+  "Jewelry",
+  "Grocery",
+  "Furniture",
+  "Tools & Home Improvement",
+  "Movies & Music",
+  "Garden & Outdoor Living",
+  "Baby Products",
+  "Industrial & Scientific",
+  "Handmade",
+  "Digital Products",
+  "Gifts & Occasions"
+];
+// product weight
+export const productWeight =[
+  {weight:"Under 2 KG",charge:0},
+  {weight:"2-5 KG",charge:10},
+  {weight:"5-10 KG",charge:25},
+  {weight:"10-15 KG",charge:40},
+  {weight:"25-40 KG",charge:250},
+]
+// product warranty
+export const productWarranty =[
+  false,'3 Days','7 Days','7 Days',
+  "mobile",
+  "Clothing",
+  "Home & Kitchen",
+]

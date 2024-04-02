@@ -7,12 +7,12 @@ import Image from "next/image";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { MdDeleteOutline } from "react-icons/md";
 import Link from "next/link";
-import ProductDetailHeadding from "../product/ProductDetailHeadding";
 import { useRouter } from "next/navigation";
+import Headding from "../Headding";
 
 function Cart() {
   const [count, setCount] = useState(1);
-  const router = useRouter()
+  const router = useRouter();
   // munus count
   const minusCount = () => {
     if (count <= 1) return;
@@ -29,7 +29,7 @@ function Cart() {
   return (
     <div className="px-2 sm:px-5 bg-[#dff9fb] py-10">
       <div className="border-[4px] max-w-[820px] mx-auto rounded-md p-1 sm:p-2 md:py-5 shadow-lg shadow-gray-400 bg-white">
-        <ProductDetailHeadding headding={"10 product"} />
+        <Headding Headding={"10 product in your cart"} />
         {/* singel row */}
         {arr.map((i) => (
           <div key={i}>
@@ -80,7 +80,7 @@ function Cart() {
                       </button>
                       <span className="text-lg">{count}</span>
                       <button
-                        onClick={()=>setCount(count + 1)}
+                        onClick={() => setCount(count + 1)}
                         className={` bg-gray-300 border-gray-500  text-black
                   text-sm sm:text-lg p-[2px] sm:p-[5px] rounded-md border`}
                       >
@@ -96,7 +96,10 @@ function Cart() {
                   </div>
                   {/* order button */}
                   <div className="w-full sm:w-1/5 flex flex-row sm:flex-col sm:gap-y-1 gap-x-1">
-                    <button onClick={()=>router.push('/buy')} className="bg-green-600 hover:bg-green-700 w-full py-1 capitalize text-white rounded-md text-sm sm:text-md">
+                    <button
+                      onClick={() => router.push("/buy")}
+                      className="bg-green-600 hover:bg-green-700 w-full py-1 capitalize text-white rounded-md text-sm sm:text-md"
+                    >
                       buy now
                     </button>
                     <button className="w-full text-[18px] py-1  rounded-md text-red-700 bg-red-200 hover:bg-red-300">
@@ -110,7 +113,6 @@ function Cart() {
           </div>
         ))}
       </div>
-     
     </div>
   );
 }
