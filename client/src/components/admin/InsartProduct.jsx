@@ -13,22 +13,21 @@ function InsartProduct() {
   const [imageLoadding, setImageLoadding] = useState(false);
   const [formSubmitLodder, setFormSubmitLodder] = useState(false);
 
-
   // handel change
   const handelChange = (e) => {
     const { value, name } = e.target;
     setProduct({ ...product, [name]: value });
   };
-  // handel image lodder showing 
+  // handel image lodder showing
   const imageUpLoadding = () => {
     setImageLoadding(true);
   };
-  // handel image change 
+  // handel image change
   const handelImage = (e) => {
     setImage(e.target.files[0]);
     setImageLoadding(false);
   };
-  // submit handel 
+  // submit handel
   const { title, detail, price, sellPrice, brand, stock, categories, weight } =
     product;
   const handelSubmit = async () => {
@@ -49,17 +48,25 @@ function InsartProduct() {
     } else if (product?.detail?.length > 500) {
       toast.error("Detail shuld be under 500 text");
     } else {
-      setFormSubmitLodder(true)
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/product/insartProduct`,
-        { product, image },{headers: {
-            "Content-Type": "multipart/form-data",
-          }});
-        if(res){
-          toast.success('Product Add Successfull')
-          setFormSubmitLodder(false)
+      setFormSubmitLodder(true);
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_API}/product/insartProduct`,
+          { product, image },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (res) {
+          toast.success("Product Add Successfull");
+          setFormSubmitLodder(false);
           console.log(res);
         }
+      } catch (error) {
+        console.log("add new product axios error");
+      }
     }
   };
 
@@ -203,7 +210,11 @@ function InsartProduct() {
                 className="w-full bg-[#e13614] text-white h-10 text-xl rounded-md hover:bg-primary"
                 onClick={handelSubmit}
               >
-                {formSubmitLodder ? (<CircleLoader color="#ffff" size={20} />):'Add'}
+                {formSubmitLodder ? (
+                  <CircleLoader color="#ffff" size={20} />
+                ) : (
+                  "Add"
+                )}
               </button>
             </div>
           </div>
