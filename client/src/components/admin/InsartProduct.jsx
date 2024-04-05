@@ -54,6 +54,8 @@ function InsartProduct() {
           },
         }
       );
+
+      console.log(res);
       if(res)toast.success('product added')
       console.log(res);
     }
