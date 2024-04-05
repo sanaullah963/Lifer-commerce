@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import TestUpload from "./TestUpload";
+
 
 function InsartProduct() {
   const [product, setProduct] = useState({});
@@ -62,7 +62,6 @@ function InsartProduct() {
   return (
     <div className="md:max-w-[900px] lg:max-w-[1100px]  mx-auto flex flex-col gap-y-10 my-5">
       {/* --------------1 */}
-      {/* <TestUpload /> */}
       <div className="px-3  flex-1">
         <div className="bg-gray-200 shadow-lg shadow-gray-500  mx-auto rounded-lg py-5">
           <h1 className="text-center text-2xl">Insart new product</h1>
