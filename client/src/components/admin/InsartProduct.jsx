@@ -1,30 +1,34 @@
 "use client";
 import { productCategoriesArray, productWeight } from "@/constant/data";
 import axios from "axios";
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import CircleLoader from "react-spinners/ClipLoader";
 
 function InsartProduct() {
   const [product, setProduct] = useState({});
   const [image, setImage] = useState(null);
+  const [imageLoadding, setImageLoadding] = useState(false);
+  const [formSubmitLodder, setFormSubmitLodder] = useState(false);
+
 
   // handel change
   const handelChange = (e) => {
     const { value, name } = e.target;
     setProduct({ ...product, [name]: value });
   };
-  // handel image change
+  // handel image lodder showing 
+  const imageUpLoadding = () => {
+    setImageLoadding(true);
+  };
+  // handel image change 
   const handelImage = (e) => {
     setImage(e.target.files[0]);
-    if (image) {
-      formData.append("image", image);
-    }
+    setImageLoadding(false);
   };
-  // submit handel function
+  // submit handel 
   const { title, detail, price, sellPrice, brand, stock, categories, weight } =
     product;
   const handelSubmit = async () => {
@@ -39,31 +43,30 @@ function InsartProduct() {
       !weight ||
       !image
     ) {
-      toast.error("Requier fild are empty");
+      toast.error("Requier field are empty");
     } else if (product?.title?.length > 150) {
-      toast.error("title under 150");
+      toast.error("Title shuld be under 150 text");
     } else if (product?.detail?.length > 500) {
-      toast.error("detail under 150 ");
+      toast.error("Detail shuld be under 500 text");
     } else {
+      setFormSubmitLodder(true)
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/product/insartProduct`,
-        { product, image },
-        {
-          headers: {
+        { product, image },{headers: {
             "Content-Type": "multipart/form-data",
-          },
+          }});
+        if(res){
+          toast.success('Product Add Successfull')
+          setFormSubmitLodder(false)
+          console.log(res);
         }
-      );
-
-      console.log(res);
-      if(res)toast.success('product added')
-      console.log(res);
     }
   };
 
   return (
     <div className="md:max-w-[900px] lg:max-w-[1100px]  mx-auto flex flex-col gap-y-10 my-5">
       {/* --------------1 */}
+
       <div className="px-3  flex-1">
         <div className="bg-gray-200 shadow-lg shadow-gray-500  mx-auto rounded-lg py-5">
           <h1 className="text-center text-2xl">Insart new product</h1>
@@ -138,22 +141,31 @@ function InsartProduct() {
               value={product.detail}
             />
             {/*upload image */}
+
             <p className="mb-[-10px]">Upload image</p>
 
-            <div className="relative border-2 border-green-400 w-full rounded bg-green-100 h-20 ">
-              <label
-                htmlFor="image"
-                className="w-full h-full text-5xl flex items-center justify-center text-green-800 cursor-pointer"
-              >
-                <FaCloudUploadAlt />
-              </label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                hidden
-                onChange={handelImage}
-              />
+            <div className="w-full h-full">
+              {imageLoadding ? (
+                <CircleLoader color="#36d7b7" size={20} />
+              ) : (
+                <p>{image?.name}</p>
+              )}
+              <div className="relative border-2 border-green-400 w-full rounded bg-green-100 h-20 ">
+                <label
+                  htmlFor="image"
+                  className="w-full h-full text-5xl flex items-center justify-center text-green-800 cursor-pointer"
+                >
+                  <FaCloudUploadAlt />
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  hidden
+                  onChange={handelImage}
+                  onClick={imageUpLoadding}
+                />
+              </div>
             </div>
             {/* select categories */}
             <select
@@ -185,14 +197,13 @@ function InsartProduct() {
                 </option>
               ))}
             </select>
-
             {/* signup button */}
             <div className="max-w-md w-full">
               <button
                 className="w-full bg-[#e13614] text-white h-10 text-xl rounded-md hover:bg-primary"
                 onClick={handelSubmit}
               >
-                Add
+                {formSubmitLodder ? (<CircleLoader color="#ffff" size={20} />):'Add'}
               </button>
             </div>
           </div>
