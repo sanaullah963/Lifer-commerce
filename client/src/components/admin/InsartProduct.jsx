@@ -59,14 +59,14 @@ function InsartProduct() {
             },
           }
         );
-        if (res.status==200){
+        if (res?.status===200){
           setFormSubmitLodder(false);
           toast.success("Product Add Successfull");
           console.log(res);
         } 
         else return toast.error('Unknown error');
       } catch (error) {
-        console.log("product submit axios error in client");
+        console.log("product submit axios error in client",error);
       }
     }
   };
