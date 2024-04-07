@@ -59,13 +59,14 @@ function InsartProduct() {
             },
           }
         );
-        if (res) {
-          toast.success("Product Add Successfull");
+        if (res.status!==200) return toast.error('Unknown error');
+        else {
           setFormSubmitLodder(false);
+          toast.success("Product Add Successfull");
           console.log(res);
         }
       } catch (error) {
-        console.log("add new product axios error");
+        console.log("product submit axios error in client");
       }
     }
   };
@@ -206,16 +207,19 @@ function InsartProduct() {
             </select>
             {/* signup button */}
             <div className="max-w-md w-full">
-              <button
-                className="w-full bg-[#e13614] text-white h-10 text-xl rounded-md hover:bg-primary"
-                onClick={handelSubmit}
-              >
-                {formSubmitLodder ? (
-                  <CircleLoader color="#ffff" size={20} />
+              {
+                formSubmitLodder ? (<button
+                  className="w-full text-white h-10 text-xl rounded-md bg-gray-400" disabled
+                  >
+                    <CircleLoader color="#ffff" size={20} />
+                  </button>
                 ) : (
-                  "Add"
-                )}
-              </button>
+                  <button
+                  className="w-full bg-[#e13614] text-white h-10 text-xl rounded-md hover:bg-primary"
+                  onClick={handelSubmit}>add</button>
+              )
+              }
+              
             </div>
           </div>
         </div>

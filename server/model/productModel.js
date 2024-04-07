@@ -1,0 +1,50 @@
+const mongoose=require('mongoose')
+
+const ProductModel=mongoose.Schema({
+  title:{
+    type:String,
+    require:true
+  },
+  brand:{
+    type:String,
+    require:true
+  },
+  categories:{
+    type:String,
+    require:true
+  },
+  detail:{
+    type:String,
+    require:true
+  },
+  price:{
+    type:Number,
+    require:true
+  },
+  sellPrice:{
+    type:Number,
+    require:true
+  },
+  stock:{
+    type:Number,
+    require:true
+  },
+  weight:{
+    type:String,
+    require:true
+  },
+  imageUrl:{
+    type:String,
+    require:true
+  },
+  imagePublicID:{
+    type:String,
+    require:true
+  },
+  insartDate:{
+    type:Number,
+    require:true,
+    default: Date.now()
+  },
+})
+module.exports=mongoose.model('product',ProductModel)
