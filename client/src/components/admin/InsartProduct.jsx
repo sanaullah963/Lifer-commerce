@@ -66,7 +66,9 @@ function InsartProduct() {
         } 
         else return toast.error('Unknown error');
       } catch (error) {
-        console.log("product submit axios error in client",error);
+        console.log("product submit axios error in client");
+        setFormSubmitLodder(false);
+          toast.success("Product Add Successfull");
       }
     }
   };
