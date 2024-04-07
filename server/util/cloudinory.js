@@ -6,13 +6,13 @@ cloudinary.config({
   api_key: "427848982249692",
   api_secret: "O76qjP7pESJfO8mPVtrnGL4969k",
 });
-const uploadOnCloudinory = async (loaclFilePath) => {
+const uploadOnCloudinory = async (filePath) => {
   try {
     const res = await cloudinary.uploader.upload(
-      loaclFilePath,{ resource_type: "image" }
+      filePath,{ resource_type: "image" }
     )
     console.log('uploaded successfull');
-    fs.unlinkSync(loaclFilePath)
+    fs.unlinkSync(filePath)
     return res
   } catch (error) {
     console.log('cloudinory upload error');
