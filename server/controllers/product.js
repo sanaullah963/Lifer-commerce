@@ -2,7 +2,7 @@ const express = require("express");
 const uploadOnCloudinory = require("../util/cloudinory");
 
 const ProductModel = require("../model/productModel");
-const { Mongoose } = require("mongoose");
+// const { Mongoose } = require("mongoose");
 
 
 // insart product
@@ -15,9 +15,7 @@ const insartProduct = async (req, res) => {
   const newproduct = new ProductModel({
     brand,categories,detail,price,sellPrice,stock,title,weight,imageUrl:url,imagePublicID:public_id
   })
-
   const uploadMongoRes=await newproduct.save()
-
 
   res.json({data:uploadMongoRes});
 
