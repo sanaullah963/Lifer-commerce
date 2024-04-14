@@ -36,7 +36,6 @@ function InsartProduct() {
       !detail ||
       !sellPrice ||
       !price ||
-      !brand ||
       !stock ||
       !categories ||
       !weight ||

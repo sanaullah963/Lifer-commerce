@@ -9,20 +9,17 @@ const { Mongoose } = require("mongoose");
 const insartProduct = async (req, res) => {
   const {brand,categories,detail,price,sellPrice,stock,title,weight,} =await req.body.product;
   // upload image on cloudinory
-  const imageUpRes =await uploadOnCloudinory(req.file.path)
-  console.log(req.file);
-  // const {url,public_id}=imageUpRes
-console.log(imageUpRes);
-
+  const uploadImageRes =await uploadOnCloudinory(req.file.path)
+  const {url,public_id}=uploadImageRes
   //--------save on mongoDb
-  // const newproductModel = new ProductModel({
-  //   brand,categories,detail,price,sellPrice,stock,title,weight,imageUrl:url,imagePublicID:public_id
-  // })
+  const newproduct = new ProductModel({
+    brand,categories,detail,price,sellPrice,stock,title,weight,imageUrl:url,imagePublicID:public_id
+  })
 
-  // const mongoUpRes=await newproductModel.save()
+  const uploadMongoRes=await newproduct.save()
   // console.log(mongoUpRes);
 
-  res.json({data:imageUpRes});
+  res.json({data:uploadMongoRes});
 
 };
 

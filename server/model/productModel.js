@@ -7,7 +7,7 @@ const ProductModel=mongoose.Schema({
   },
   brand:{
     type:String,
-    require:true
+    require:false
   },
   categories:{
     type:String,
