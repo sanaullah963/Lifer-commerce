@@ -9,13 +9,13 @@ cloudinary.config({
 const uploadOnCloudinory = async (filePath) => {
   try {
     const res = await cloudinary.uploader.upload(
-      filePath,{ resource_type: "image" }
+      filePath,{ resource_type: "auto" }
     )
-    console.log('uploaded successfull');
-    fs.unlinkSync(filePath)
+    console.log('cloudinary uploaded successfull');
+    // fs.unlinkSync(filePath)
     return res
-  } catch (error) {
-    console.log('cloudinory upload error');
+  } catch (err) {
+    console.log('cloudinory upload error',err);
   }
 };
 

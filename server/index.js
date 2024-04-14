@@ -9,14 +9,15 @@ app.use(cors());
 app.use(express.json());
 app.use("/product", product);
 
+// start server on post 8000
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log("server is running in port :", PORT);
 });
+// root get route
 app.get("/", (req, res) => {
-  res.send("Astag firullah");
+  res.send("Alhamdulillah");
 });
-
 // connect mongoDb
 async function connect() {
   try {
