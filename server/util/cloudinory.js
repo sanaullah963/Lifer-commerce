@@ -1,4 +1,5 @@
 const cloudinary = require("cloudinary").v2;
+const { log } = require("console");
 const fs = require("fs")
 
 cloudinary.config({
@@ -12,7 +13,8 @@ const uploadOnCloudinory = async (filePath) => {
       filePath,{ resource_type: "auto" }
     )
     console.log('cloudinary uploaded successfull');
-    // fs.unlinkSync(filePath)
+    fs.unlinkSync(filePath)
+    // console.log(filePath);
     return res
   } catch (err) {
     console.log('cloudinory upload error',err);
