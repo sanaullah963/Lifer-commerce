@@ -17,7 +17,7 @@ const insartProduct = async (req, res) => {
   })
 
   const uploadMongoRes=await newproduct.save()
-  // console.log(mongoUpRes);
+
 
   res.json({data:uploadMongoRes});
 
