@@ -75,7 +75,6 @@ function InsartProduct() {
   return (
     <div className="md:max-w-[900px] lg:max-w-[1100px]  mx-auto flex flex-col gap-y-10 my-5">
       {/* --------------1 */}
-
       <div className="px-3  flex-1">
         <div className="bg-gray-200 shadow-lg shadow-gray-500  mx-auto rounded-lg py-5">
           <h1 className="text-center text-2xl">Insart new product</h1>
@@ -91,7 +90,7 @@ function InsartProduct() {
             </div>
             <textarea
               placeholder="Product Title (150)*"
-              className=" px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400 h-20"
+              className=" px-1 sm:px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400 h-20"
               onChange={handelChange}
               value={product.title}
               name="title"
@@ -101,7 +100,7 @@ function InsartProduct() {
               type="text"
               name="brand"
               placeholder="Brand*"
-              className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
+              className="h-10 px-1 sm:px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
               onChange={handelChange}
               value={product.brand}
             />
@@ -110,7 +109,7 @@ function InsartProduct() {
               type="number"
               name="price"
               placeholder="Price"
-              className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
+              className="h-10 px-1 sm:px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
               onChange={handelChange}
               value={product.price}
             />
@@ -119,7 +118,7 @@ function InsartProduct() {
               type="number"
               name="sellPrice"
               placeholder="Sell price*"
-              className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
+              className="h-10 px-1 sm:px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
               onChange={handelChange}
               value={product.sellPrice}
             />
@@ -128,7 +127,7 @@ function InsartProduct() {
               type="Number"
               name="stock"
               placeholder="stock*"
-              className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
+              className="h-10 px-1 sm:px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
               onChange={handelChange}
               value={product.stock}
             />
@@ -145,7 +144,7 @@ function InsartProduct() {
             <textarea
               name="detail"
               placeholder="Details (500)"
-              className=" px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400 h-28"
+              className=" px-1 sm:px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400 h-28"
               onChange={handelChange}
               value={product.detail}
             />

@@ -1,7 +1,38 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa6";
 
 function Signup() {
+  const [formdata, setFormdata] = useState({});
+  const [seePss, setSeePass] = useState(false);
+
+  // handel change function
+  const handelChange = (e) => {
+    const { value, name } = e.target;
+    // console.log(name,value);
+    setFormdata({ ...formdata, [name]: value });
+  };
+  // handle submit
+  const handelSubmit = () => {
+    if (
+      !formdata?.name ||
+      !formdata?.numberORemail ||
+      !formdata?.password ||
+      !formdata?.conformPass
+    ) {
+      toast.error("Requier fild is empty");
+    } else if (formdata.password !== formdata.conformPass) {
+      toast.error("Password not match");
+    } else {
+      console.log(formdata);
+    }
+  };
+  // handel See password
+  const handelSeePass = () => {};
   return (
     <div className="px-3">
       <div className="bg-gray-200 shadow-lg shadow-gray-500 max-w-screen-sm mx-auto rounded-lg my-20 py-10 px-4 sm:px-16">
@@ -11,31 +42,63 @@ function Signup() {
           {/* name */}
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Name*"
+            name="name"
             className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
+            onChange={handelChange}
+            value={formdata?.name}
           />
           {/* email or number */}
           <input
             type="text"
-            placeholder="Email or Number"
+            placeholder="Email or Number*"
+            name="numberORemail"
             className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
+            onChange={handelChange}
+            value={formdata?.numberORemail}
           />
           {/* password */}
-          <input
-            type="password"
-            placeholder="Password"
-            className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
-          />
+          <div className="w-full max-w-md flex">
+            <input
+              type={seePss?'text' : 'password'}
+              name="password"
+              placeholder="Password*"
+              className="h-10 px-3 rounded-s-md hover:outline-green-400 outline-green-400 flex-1"
+              onChange={handelChange}
+              value={formdata?.password}
+            />
+            <span
+              className="w-10 flex items-center justify-center cursor-pointer bg-zinc-100 rounded-e-md"
+              onClick={() => (!seePss ? setSeePass(true) : setSeePass(false))}
+            >
+              {seePss ? <FaEye /> : <FaEyeSlash />}
+            </span>
+          </div>
+
           {/*confirm password */}
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
-          />
-         
+          <div className="w-full max-w-md flex">
+            <input
+              type={seePss?'text' : 'password'}
+              placeholder="Confirm Password*"
+              name="conformPass"
+              className="h-10 px-3 rounded-s-md hover:outline-green-400 outline-green-400 flex-1"
+              onChange={handelChange}
+              value={formdata?.conformPass}
+            />
+            <span
+              className="w-10 flex items-center justify-center cursor-pointer bg-zinc-100 rounded-e-md"
+              onClick={() => (!seePss ? setSeePass(true) : setSeePass(false))}
+            >
+              {seePss ? <FaEye /> : <FaEyeSlash />}
+            </span>
+          </div>
+
           {/* signup button */}
           <div className="max-w-md w-full">
-            <button className="w-full bg-primary text-white h-10 text-xl rounded-md hover:bg-[#e13614]">
+            <button
+              className="w-full bg-primary text-white h-10 text-xl rounded-md hover:bg-[#e13614]"
+              onClick={handelSubmit}
+            >
               Signup
             </button>
           </div>
@@ -53,6 +116,7 @@ function Signup() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
