@@ -30,7 +30,7 @@ const signupControl = async (req, res) => {
       const token = genaretToken(tokenInfo);
       // console.log(token);
       const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
-      res.cookie("token",token,{httpOnly:true,expires: exp})
+      res.cookie("token",token,{expires: exp})
       res.send(newuser)
       
       
