@@ -2,12 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const product = require("./router/product");
+const user = require("./router/user");
 require("dotenv").config();
 
 const app = express();
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true,optionsSuccessStatus: 200 }));
 app.use(express.json());
 app.use("/product", product);
+app.use('/uaer',user)
 
 // start server on post 8000
 const PORT = process.env.PORT || 8000;

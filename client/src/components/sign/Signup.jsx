@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
+import axios from "axios";
 
 function Signup() {
   const [formdata, setFormdata] = useState({});
@@ -17,7 +18,7 @@ function Signup() {
     setFormdata({ ...formdata, [name]: value });
   };
   // handle submit
-  const handelSubmit = () => {
+  const handelSubmit = async() => {
     if (
       !formdata?.name ||
       !formdata?.numberORemail ||
@@ -28,11 +29,12 @@ function Signup() {
     } else if (formdata.password !== formdata.conformPass) {
       toast.error("Password not match");
     } else {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/uaer/signup`,formdata)
       console.log(formdata);
+      console.log(res);
     }
   };
   // handel See password
-  const handelSeePass = () => {};
   return (
     <div className="px-3">
       <div className="bg-gray-200 shadow-lg shadow-gray-500 max-w-screen-sm mx-auto rounded-lg my-20 py-10 px-4 sm:px-16">

@@ -1,6 +1,5 @@
 const express = require("express");
 const uploadOnCloudinory = require("../util/cloudinory");
-
 const ProductModel = require("../model/productModel");
 // const { Mongoose } = require("mongoose");
 
