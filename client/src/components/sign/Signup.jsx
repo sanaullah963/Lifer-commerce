@@ -18,7 +18,7 @@ function Signup() {
     setFormdata({ ...formdata, [name]: value });
   };
   // handle submit
-  const handelSubmit = async() => {
+  const handelSubmit = async () => {
     if (
       !formdata?.name ||
       !formdata?.numberORemail ||
@@ -29,9 +29,19 @@ function Signup() {
     } else if (formdata.password !== formdata.conformPass) {
       toast.error("Password not match");
     } else {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/uaer/signup`,formdata)
-      console.log(formdata);
-      console.log(res);
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_API}/uaer/signup`,
+          formdata,
+          { withCredentials: true }
+        );
+        console.log(res);
+        if (res.data.status === "error") {
+          toast.error(res.data.data);
+        }
+      } catch (err) {
+        console.log("client side error");
+      }
     }
   };
   // handel See password
@@ -62,7 +72,7 @@ function Signup() {
           {/* password */}
           <div className="w-full max-w-md flex">
             <input
-              type={seePss?'text' : 'password'}
+              type={seePss ? "text" : "password"}
               name="password"
               placeholder="Password*"
               className="h-10 px-3 rounded-s-md hover:outline-green-400 outline-green-400 flex-1"
@@ -80,7 +90,7 @@ function Signup() {
           {/*confirm password */}
           <div className="w-full max-w-md flex">
             <input
-              type={seePss?'text' : 'password'}
+              type={seePss ? "text" : "password"}
               placeholder="Confirm Password*"
               name="conformPass"
               className="h-10 px-3 rounded-s-md hover:outline-green-400 outline-green-400 flex-1"
