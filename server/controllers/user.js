@@ -32,7 +32,7 @@ const signupControl = async (req, res) => {
       // console.log(token);
       const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
       res.cookie("token",token,{expires: exp,httpOnly:true})
-      res.send(newuser)
+      res.send({status:"success",data:'Signup successfull'})
       
       
     }

@@ -6,10 +6,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
 import axios from "axios";
+import LoadingSpinner from "../LoadingSpinner";
 
 function Signup() {
   const [formdata, setFormdata] = useState({});
   const [seePss, setSeePass] = useState(false);
+  const [loaderState, setLoaderState] = useState(false);
 
   // handel change function
   const handelChange = (e) => {
@@ -29,18 +31,24 @@ function Signup() {
     } else if (formdata.password !== formdata.conformPass) {
       toast.error("Password not match");
     } else {
+      setLoaderState(true);
       try {
+        // send sign up data
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API}/uaer/signup`,
           formdata,
           { withCredentials: true }
         );
-        console.log(res);
+        res ? setLoaderState(false) : setLoaderState(true);
+        //  remove input filed data
+        setFormdata({name: "",conformPass: "",password: "",numberORemail: "", });
         if (res.data.status === "error") {
           toast.error(res.data.data);
+        } else if (res.data.status === "success") {
+          toast.success(res.data.data);
         }
       } catch (err) {
-        console.log("data fatcjong error side error",err);
+        console.log("data fatcjong error");
       }
     }
   };
@@ -86,7 +94,6 @@ function Signup() {
               {seePss ? <FaEye /> : <FaEyeSlash />}
             </span>
           </div>
-
           {/*confirm password */}
           <div className="w-full max-w-md flex">
             <input
@@ -107,12 +114,21 @@ function Signup() {
 
           {/* signup button */}
           <div className="max-w-md w-full">
-            <button
-              className="w-full bg-primary text-white h-10 text-xl rounded-md hover:bg-[#e13614]"
-              onClick={handelSubmit}
-            >
-              Signup
-            </button>
+            {loaderState ? (
+              <button
+                className="w-full bg-primary text-white h-10 rounded-md "
+                disabled
+              >
+                <LoadingSpinner />
+              </button>
+            ) : (
+              <button
+                className="w-full bg-primary text-white h-10 text-xl rounded-md hover:bg-[#e13614]"
+                onClick={handelSubmit}
+              >
+                Signup
+              </button>
+            )}
           </div>
           {/* redirect signup */}
           <div className="max-w-md w-full">

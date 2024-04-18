@@ -6,6 +6,7 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CircleLoader from "react-spinners/ClipLoader";
+import LoadingSpinner from "../LoadingSpinner";
 
 function InsartProduct() {
   const [product, setProduct] = useState({});
@@ -211,7 +212,8 @@ function InsartProduct() {
                 formSubmitLodder ? (<button
                   className="w-full text-white h-10 text-xl rounded-md bg-gray-400" disabled
                   >
-                    <CircleLoader color="#ffff" size={20} />
+                    {/* <CircleLoader color="#ffff" size={20} /> */}
+                    <LoadingSpinner/>
                   </button>
                 ) : (
                   <button
