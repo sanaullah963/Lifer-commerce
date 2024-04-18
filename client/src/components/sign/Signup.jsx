@@ -14,7 +14,7 @@ function Signup() {
   const [seePss, setSeePass] = useState(false);
   const [loaderState, setLoaderState] = useState(false);
   //if have token then verify 
-  VerifyToken()
+  // VerifyToken()
   // handel change function
   const handelChange = (e) => {
     const { value, name } = e.target;
