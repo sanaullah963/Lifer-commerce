@@ -5,13 +5,13 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from "../LoadingSpinner";
-import verifyToken from "../verifyToken";
+import VerifyToken from "../verifyToken";
 
 function Login() {
   const [formData, setFormData] = useState({});
   const [loaderState, setLoaderState] = useState(false);
   // verify token
-  verifyToken()
+  VerifyToken()
   // handel change
   const handelChange = (e) => {
     const { value, name } = e.target;

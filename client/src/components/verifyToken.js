@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
-function verifyToken() {
+function VerifyToken() {
   const token = Cookies.get("token");
   const router = useRouter();
   useEffect(() => {
@@ -27,4 +27,4 @@ function verifyToken() {
   }, []);
 }
 
-export default verifyToken;
+export default VerifyToken;
