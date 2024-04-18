@@ -33,7 +33,7 @@ function Signup() {
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API}/uaer/signup`,
           formdata,
-          // { withCredentials: true }
+          { withCredentials: true }
         );
         console.log(res);
         if (res.data.status === "error") {
