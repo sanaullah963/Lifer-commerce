@@ -78,6 +78,7 @@ const verifyToken = async (req, res) => {
       .findOne({ numberORemail: tokenInfo.numberORemail })
       .select({ _id: 1 });
     if (response) {
+      res.cookie('token',token)
       return res.send({ user: true });
     } else {
       return res.send({ user: false });
