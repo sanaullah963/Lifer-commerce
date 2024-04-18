@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const cookieParser = require('cookie-parser')
 const product = require("./router/product");
 const user = require("./router/user");
 require("dotenv").config();
@@ -13,6 +14,7 @@ app.use(
   })
 );
 app.use(express.json());
+app.use(cookieParser())
 app.use("/product", product);
 app.use("/uaer", user);
 

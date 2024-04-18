@@ -7,12 +7,14 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner";
+import verifyToken from "../verifyToken";
 
 function Signup() {
   const [formdata, setFormdata] = useState({});
   const [seePss, setSeePass] = useState(false);
   const [loaderState, setLoaderState] = useState(false);
-
+  //if have token then verify 
+  verifyToken()
   // handel change function
   const handelChange = (e) => {
     const { value, name } = e.target;

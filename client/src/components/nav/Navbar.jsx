@@ -16,12 +16,7 @@ function Navbar() {
   const [show, setShow] = useState(false);
   const router = useRouter()
 
-  // handel card
-  const handelCart = () => {
-    const cc = Cookies.get('token')
-    console.log('fj');
-    console.log(cc);
-  };
+
   return (
     <div className="">
       <div className="bg-yellow-400">
@@ -107,7 +102,6 @@ function Navbar() {
           </div>
         </div>
       )}
-      <button onClick={handelCart}>click</button>
     </div>
   );
 }
