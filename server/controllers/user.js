@@ -29,12 +29,9 @@ const signupControl = async (req, res) => {
       // genaret token
       const tokenInfo = { _id: user._id, numberORemail: user.numberORemail };
       const token = genaretToken(tokenInfo);
-      // console.log(token);
       const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
-      res.cookie("token",token,{expires: exp,httpOnly:true})
+      res.cookie("token",token,{expires: exp})
       res.send({status:"success",data:'Signup successfull'})
-      
-      
     }
   }
 };
@@ -55,12 +52,12 @@ const loginControl = async (req,res)=>{
       else{
         const token = genaretToken({id: findUser._id, numberORemail: findUser.numberORemail})
         console.log(token);
-        res.cookie('token',token)
+        
+        const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
+        res.cookie('token',token,{expires: exp})
         res.send({status:'success',data:"login successfull"})
       }
       console.log(comparePass,findUser);
-
-      // console.log(numberORemail);
     } catch (err) {
       console.log('mongodb data fatching error',err);
     }

@@ -10,6 +10,7 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 function Navbar() {
   const [show, setShow] = useState(false);
@@ -17,11 +18,12 @@ function Navbar() {
 
   // handel card
   const handelCart = () => {
-    
+    const cc = Cookies.get('token')
+    console.log('fj');
+    console.log(cc);
   };
   return (
     <div className="">
-      
       <div className="bg-yellow-400">
         <div className={"max-w-screen-xl px-2 md:px-5 lg:px-14 mx-auto"}>
           <nav className="flex items-center gap-2 sm:gap-3 md:gap-8 w-full h-16">
@@ -105,6 +107,7 @@ function Navbar() {
           </div>
         </div>
       )}
+      <button onClick={handelCart}>click</button>
     </div>
   );
 }
