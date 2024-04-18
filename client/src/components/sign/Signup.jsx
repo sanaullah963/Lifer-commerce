@@ -33,14 +33,14 @@ function Signup() {
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API}/uaer/signup`,
           formdata,
-          { withCredentials: true }
+          // { withCredentials: true }
         );
         console.log(res);
         if (res.data.status === "error") {
           toast.error(res.data.data);
         }
       } catch (err) {
-        console.log("client side error");
+        console.log("data fatcjong error side error",err);
       }
     }
   };

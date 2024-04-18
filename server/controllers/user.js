@@ -5,11 +5,12 @@ const userModel = require("../model/userModel");
 const genaretToken = require("../util/genaretToken");
 // signup controllers
 const signupControl = async (req, res) => {
+  // distructer req.body
   const { name, numberORemail, password, conformPass } = req.body;
   if (!name || !numberORemail || !password || !conformPass) {
-    return res.status(500).send("requier fild are empty");
+    return res.status(500).send(`requier fild are empty ${name, numberORemail, password, conformPass}`);
   } else if (password !== conformPass) {
-    return res.status(500).send("pass not match");
+    return res.status(500).send(`pass not match`);
   } else {
     // check unique user
     const existingUser = await userModel.findOne({ numberORemail });
@@ -30,7 +31,7 @@ const signupControl = async (req, res) => {
       const token = genaretToken(tokenInfo);
       // console.log(token);
       const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
-      res.cookie("token",token,{expires: exp})
+      // res.cookie("token",token,{expires: exp,httpOnly:true})
       res.send(newuser)
       
       
