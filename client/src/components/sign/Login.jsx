@@ -1,7 +1,44 @@
+"use client";
+import axios from "axios";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import LoadingSpinner from "../LoadingSpinner";
 
 function Login() {
+  const [formData, setFormData] = useState({});
+  const [loaderState, setLoaderState] = useState(false);
+  // handel change
+  const handelChange = (e) => {
+    const { value, name } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  // const handel submit
+  const handelSubmit = async () => {
+    const { numberORemail, password } = formData;
+    if (!numberORemail || !password) {
+      toast.error("Empty fild not accepted");
+    } else {
+      setLoaderState(true);
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_API}/uaer/login`,
+          formData,{withCredentials:true}
+        );
+        res ? setLoaderState(false) : setLoaderState(true);
+        setFormData({ numberORemail: "", password: "" });
+        if (res.data.status === "error") {
+          toast.error(res.data.data);
+        } else if (res.data.status === "success") {
+          toast.success(res.data.data);
+        }
+      } catch (err) {
+        console.log("server side error");
+      }
+    }
+  };
+
   return (
     <div className="px-3">
       <div className="bg-gray-200 shadow-lg shadow-gray-500 max-w-screen-sm mx-auto rounded-lg my-20 py-10 px-4 sm:px-16">
@@ -10,11 +47,17 @@ function Login() {
         <div className=" flex flex-col items-center gap-y-3 my-5">
           <input
             type="text"
+            name="numberORemail"
+            value={formData.numberORemail}
+            onChange={handelChange}
             placeholder="Email or Number"
             className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
           />
           <input
             type="password"
+            name="password"
+            value={formData.password}
+            onChange={handelChange}
             placeholder="Password"
             className="h-10 px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400"
           />
@@ -29,9 +72,21 @@ function Login() {
           </div>
           {/* login button */}
           <div className="max-w-md w-full">
-            <button className="w-full bg-primary text-white h-10 text-xl rounded-md hover:bg-[#e13614]">
-              Login
-            </button>
+            {loaderState ? (
+              <button
+                className="w-full bg-primary text-white h-10 rounded-md "
+                disabled
+              >
+                <LoadingSpinner />
+              </button>
+            ) : (
+              <button
+                onClick={handelSubmit}
+                className="w-full bg-primary text-white h-10 text-xl rounded-md hover:bg-[#e13614]"
+              >
+                Login
+              </button>
+            )}
           </div>
           {/* redirect signup */}
           <div className="max-w-md w-full">
@@ -47,6 +102,7 @@ function Login() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

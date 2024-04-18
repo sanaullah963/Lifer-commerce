@@ -33,7 +33,7 @@ function Signup() {
     } else {
       setLoaderState(true);
       try {
-        // send sign up data
+        // send data
         const res = await axios.post(
           `${process.env.NEXT_PUBLIC_API}/uaer/signup`,
           formdata,
