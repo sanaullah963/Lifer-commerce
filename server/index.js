@@ -6,10 +6,15 @@ const user = require("./router/user");
 require("dotenv").config();
 
 const app = express();
-app.use(cors({ origin: process.env.CLIENT_URL || "https://lifer-bd.vercel.app", credentials: true}));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://lifer-bd.vercel.app"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use("/product", product);
-app.use('/uaer',user)
+app.use("/uaer", user);
 
 // start server on post 8000
 const PORT = process.env.PORT || 8000;
