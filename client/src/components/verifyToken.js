@@ -11,7 +11,7 @@ function VerifyToken() {
     if (token) {
       const verToken = async () => {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}/uaer/verify-token`,
+          `${process.env.NEXT_PUBLIC_API}/user/verify-token`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

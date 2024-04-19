@@ -37,7 +37,7 @@ function Signup() {
       try {
         // send data
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API}/uaer/signup`,
+          `${process.env.NEXT_PUBLIC_API}/user/signup`,
           formdata,
           { withCredentials: true }
         );
@@ -49,7 +49,10 @@ function Signup() {
         } else if (res.data.status === "success") {
           toast.success(res.data.data);
           Cookies.set('clientToken',res.data.token,{ expires: 1 })
-          setTimeout(()=>history.back(),2000)
+          setTimeout(()=>{
+            history.back()
+            location.reload()
+          },500)
           
         }
       } catch (err) {

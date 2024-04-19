@@ -16,7 +16,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser())
 app.use("/product", product);
-app.use("/uaer", user);
+app.use("/user", user);
 
 // start server on post 8000
 const PORT = process.env.PORT || 8000;

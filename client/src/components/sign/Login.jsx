@@ -27,7 +27,7 @@ function Login() {
       setLoaderState(true);
       try {
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API}/uaer/login`,
+          `${process.env.NEXT_PUBLIC_API}/user/login`,
           formData,{withCredentials:true}
         );
         res ? setLoaderState(false) : setLoaderState(true);
@@ -37,7 +37,10 @@ function Login() {
         } else if (res.data.status === "success") {
           toast.success(res.data.data);
           Cookies.set('clientToken',res.data.token,{ expires: 1 })
-          setTimeout(()=>history.back(),2000)
+          setTimeout(()=>{
+            history.back()
+            location.reload()
+          },500)
         }
       } catch (err) {
         console.log("server side error");

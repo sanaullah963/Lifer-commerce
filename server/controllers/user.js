@@ -69,8 +69,8 @@ const loginControl = async (req, res) => {
 };
 // ------------ verify token -------------
 const verifyToken = async (req, res) => {
+  // access token
   const token = req.headers.authorization.split(" ")[1];
-
   const tokenInfo = jwt.verify(token, process.env.JWT_SECRET);
   // get user data
   try {
@@ -87,5 +87,16 @@ const verifyToken = async (req, res) => {
     console.log("token verify error",err);
   }
 };
+const haveUserControl =async(req,res)=>{
+ // access token
+ const token = req.headers.authorization.split(" ")[1];
+ const tokenInfo = jwt.verify(token, process.env.JWT_SECRET);
+ try {
+  const userinfo=await userModel.findOne({_id:tokenInfo.id}).select({name:1,numberORemail:1})
+  res.send(userinfo)
+ } catch (err) {
+  console.log('data fatching error in sercer');
+ }
 
-module.exports = { signupControl, loginControl, verifyToken };
+}
+module.exports = { signupControl, loginControl, verifyToken,haveUserControl };

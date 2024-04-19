@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "@/image/logotwo.png";
 import { FaUser } from "react-icons/fa";
@@ -11,12 +11,32 @@ import { AiOutlineMenuUnfold } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 function Navbar() {
   const [show, setShow] = useState(false);
-  const router = useRouter()
-
-
+  const [userInfo, setUserInfo] = useState({});
+  const router = useRouter();
+ 
+  const token = Cookies.get("clientToken");
+  // setUserToken(token)
+  // if token then get user info
+  // location.reload()
+  useEffect(() => {
+    const haveUser = async () => {
+      if (token) {
+        try {
+          const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/user/user-name`,{
+            headers:{
+              Authorization: `Bearer ${token}`,
+            }
+          })
+          setUserInfo(res.data)
+        } catch (err) {console.log('data fatching error');}
+      }
+    };
+    haveUser()
+  }, []);
   return (
     <div className="">
       <div className="bg-yellow-400">
@@ -54,7 +74,7 @@ function Navbar() {
             </div>
             {/* add to card */}
             <div
-              onClick={()=>router.push('/cart')}
+              onClick={() => router.push("/cart")}
               className="bg-gray-600/50 h-7 w-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center relative cursor-pointer"
             >
               <span className="absolute text-[11px] sm:text-sm bottom-[-12px] font-semibold text-white bg-[#E36349] px-1 sm:px-2 rounded-md">
@@ -102,6 +122,7 @@ function Navbar() {
           </div>
         </div>
       )}
+      
     </div>
   );
 }
