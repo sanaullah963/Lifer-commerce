@@ -4,6 +4,7 @@ import Image from "next/image";
 import logo from "@/image/logotwo.png";
 import { FaUser } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa6";
+import { IoExitOutline } from "react-icons/io5";
 import { FaCartArrowDown } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 import { AiOutlineMenuFold } from "react-icons/ai";
@@ -12,31 +13,42 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
+import Avatar from "react-avatar";
 
 function Navbar() {
   const [show, setShow] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const router = useRouter();
- 
+
   const token = Cookies.get("clientToken");
-  // setUserToken(token)
   // if token then get user info
-  // location.reload()
   useEffect(() => {
     const haveUser = async () => {
       if (token) {
-        try {
-          const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/user/user-name`,{
-            headers:{
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}/user/user-name`,
+          {
+            headers: {
               Authorization: `Bearer ${token}`,
-            }
-          })
-          setUserInfo(res.data)
-        } catch (err) {console.log('data fatching error');}
+            },
+          }
+        );
+        setUserInfo(res.data);
+      } catch (err) {
+        console.log("data fatching error");
+      }
       }
     };
-    haveUser()
+    haveUser();
   }, []);
+  // logout handel
+  const handelLogout=()=>{
+    console.log('logour');
+    Cookies.remove('clientToken')
+    setShow(false)
+    location.reload()
+  }
   return (
     <div className="">
       <div className="bg-yellow-400">
@@ -58,20 +70,45 @@ function Navbar() {
               </button>
             </div>
             {/* login && signup */}
-            <div className="sm:flex gap-1 hidden">
-              {/* login */}
-              <div className="flex justify-center items-center gap-1 text-md hover:underline">
-                <FaUser />
-                <Link href={"/login"}>Log-In</Link>
+            {userInfo?.name ? (
+              //---if user
+              <div className="sm:flex gap-4 hidden">
+                {/* login */}
+                <div
+                  className="flex justify-center items-center gap-1 text-md hover:underline cursor-pointer"
+                  onClick={() => router.push("/profile")}
+                >
+                  <Avatar name={userInfo?.name} size="50" round={true} />
+                  <Link href={"/profile"} className="hidden lg:inline-flex">
+                    {userInfo?.name || "My name"}
+                  </Link>
+                </div>
+                {/* logout button */}
+                <div className="flex  justify-center items-center">
+                  <button className="bg-black text-white py-2 px-2 text-lg rounded-md  hover:bg-gray-800" onClick={handelLogout}>
+                    <IoExitOutline />
+                  </button>
+                  {/* <Link href={"/signup"}>Sign-Up</Link> */}
+                </div>
               </div>
-              {/* center fration */}
-              <span className="text-2xl text-[#E36349]"> / </span>
-              {/* signup */}
-              <div className="flex justify-center items-center gap-1 text-md hover:underline">
-                <FaUserPlus />
-                <Link href={"/signup"}>Sign-Up</Link>
+            ) : (
+              // if not-have user
+              <div className="sm:flex gap-1 hidden">
+                {/* login */}
+                <div className="flex justify-center items-center gap-1 text-md hover:underline">
+                  <FaUser />
+                  <Link href={"/login"}>Log-In</Link>
+                </div>
+                {/* center fration */}
+                <span className="text-2xl text-[#E36349]"> / </span>
+                {/* signup */}
+                <div className="flex justify-center items-center gap-1 text-md hover:underline">
+                  <FaUserPlus />
+                  <Link href={"/signup"}>Sign-Up</Link>
+                </div>
               </div>
-            </div>
+            )}
+
             {/* add to card */}
             <div
               onClick={() => router.push("/cart")}
@@ -99,30 +136,57 @@ function Navbar() {
       {/* mobile screen login button */}
       {show && (
         <div className="absolute flex justify-end w-full z-10">
-          <div className="bg-yellow-500 flex flex-col w-28 items-start">
-            {/* login */}
-            <div
-              onClick={() => setShow(false)}
-              className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2"
-            >
-              <FaUser />
-              <Link href={"/login"} className="">
-                Log-In
-              </Link>
-            </div>
+          {userInfo?.name ? (
+            // if have user
+            <div className="bg-yellow-500 flex flex-col w-auto items-start">
+              {/* login */}
+              <div
+                onClick={() => (setShow(false), router.push("/profile"))}
+                className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2"
+              >
+                <Avatar name={userInfo?.name} size="30" />
+                <Link href={"/profile"} className="pe-2">
+                  {userInfo?.name || "My name"}
+                </Link>
+              </div>
 
-            {/* signup */}
-            <div
-              onClick={() => setShow(false)}
-              className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2"
-            >
-              <FaUserPlus />
-              <Link href={"/signup"}>Sign-Up</Link>
+              {/* logout */}
+              <div
+                onClick={handelLogout}
+                className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2"
+              >
+                <button className="bg-black text-white py-2 px-2 text-lg rounded-md  hover:bg-gray-800">
+                  <IoExitOutline />
+                </button>
+                <p>Log-out</p>
+              </div>
             </div>
-          </div>
+          ) : (
+            // if not-have user
+            <div className="bg-yellow-500 flex flex-col w-28 items-start">
+              {/* login */}
+              <div
+                onClick={() => setShow(false)}
+                className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2"
+              >
+                <FaUser />
+                <Link href={"/login"} className="">
+                  Log-In
+                </Link>
+              </div>
+
+              {/* signup */}
+              <div
+                onClick={() => setShow(false)}
+                className="flex justify-center items-center gap-1 text-md hover:underline py-2 ps-2"
+              >
+                <FaUserPlus />
+                <Link href={"/signup"}>Sign-Up</Link>
+              </div>
+            </div>
+          )}
         </div>
       )}
-      
     </div>
   );
 }
