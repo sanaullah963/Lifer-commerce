@@ -34,7 +34,7 @@ const signupControl = async (req, res) => {
       const tokenInfo = { _id: user._id, numberORemail: user.numberORemail };
       const token = genaretToken(tokenInfo);
       const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
-      res.cookie("token", token, { expires: exp });
+      res.cookie("token", token, { expires: exp ,httpOnly:true});
       res.send({ status: "success", data: "Signup successfull" });
     }
   }
@@ -59,8 +59,8 @@ const loginControl = async (req, res) => {
           numberORemail: findUser.numberORemail,
         });
         const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
-        res.cookie("token", token, { expires: exp,httpOnly:true });
-        res.send({ status: "success", data: "login successfull" });
+        res.cookie("token", token, { expires: exp ,httpOnly:true});
+        res.send({ status: "success", data: "login successfull",token });
       }
     } catch (err) {
       console.log("mongodb data fatching error", err);

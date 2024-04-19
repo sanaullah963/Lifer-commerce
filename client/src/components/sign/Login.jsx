@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from "../LoadingSpinner";
 import VerifyToken from "../verifyToken";
+import Cookies from "js-cookie";
 
 function Login() {
   const [formData, setFormData] = useState({});
@@ -35,6 +36,7 @@ function Login() {
           toast.error(res.data.data);
         } else if (res.data.status === "success") {
           toast.success(res.data.data);
+          Cookies.set('clientToken',res.data.token,{ expires: 1 })
         }
       } catch (err) {
         console.log("server side error");
