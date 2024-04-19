@@ -59,7 +59,7 @@ const loginControl = async (req, res) => {
           numberORemail: findUser.numberORemail,
         });
         const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
-        res.cookie("token", token, { expires: exp });
+        res.cookie("token", token, { expires: exp,httpOnly:true });
         res.send({ status: "success", data: "login successfull" });
       }
     } catch (err) {
