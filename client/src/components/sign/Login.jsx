@@ -37,6 +37,7 @@ function Login() {
         } else if (res.data.status === "success") {
           toast.success(res.data.data);
           Cookies.set('clientToken',res.data.token,{ expires: 1 })
+          setTimeout(()=>history.back(),2000)
         }
       } catch (err) {
         console.log("server side error");
