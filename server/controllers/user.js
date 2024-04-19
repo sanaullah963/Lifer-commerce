@@ -35,7 +35,7 @@ const signupControl = async (req, res) => {
       const token = genaretToken(tokenInfo);
       const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
       res.cookie("token", token, { expires: exp ,httpOnly:true});
-      res.send({ status: "success", data: "Signup successfull" });
+      res.send({ status: "success", data: "Signup successfull",token });
     }
   }
 };

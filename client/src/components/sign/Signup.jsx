@@ -14,7 +14,7 @@ function Signup() {
   const [seePss, setSeePass] = useState(false);
   const [loaderState, setLoaderState] = useState(false);
   //if have token then verify 
-  // VerifyToken()
+  VerifyToken()
   // handel change function
   const handelChange = (e) => {
     const { value, name } = e.target;
@@ -48,6 +48,7 @@ function Signup() {
           toast.error(res.data.data);
         } else if (res.data.status === "success") {
           toast.success(res.data.data);
+          Cookies.set('clientToken',res.data.token,{ expires: 1 })
         }
       } catch (err) {
         console.log("data fatcjong error");

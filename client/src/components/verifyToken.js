@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 function VerifyToken() {
-  const token = Cookies.get("token");
+  const token = Cookies.get("clientToken");
   const router = useRouter();
   useEffect(() => {
     if (token) {

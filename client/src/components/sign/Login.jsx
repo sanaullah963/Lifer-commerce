@@ -12,7 +12,7 @@ function Login() {
   const [formData, setFormData] = useState({});
   const [loaderState, setLoaderState] = useState(false);
   // verify token
-  // VerifyToken()
+  VerifyToken()
   // handel change
   const handelChange = (e) => {
     const { value, name } = e.target;
