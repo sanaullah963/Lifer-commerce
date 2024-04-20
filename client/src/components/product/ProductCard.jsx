@@ -5,8 +5,8 @@ import delivaryFreeImg from "@/image/free_delivery.svg";
 import product1 from "@/image/proudct/product1.jpeg";
 import Link from "next/link";
 
-function ProductCard({ deliveryFree }) {
-  let title = "Joypuri Ari Work Salwar Kameez for Women - JSS 12 (Multicolor)";
+function ProductCard({ deliveryFree,title,price,sellPrice,imageUrl }) {
+  // let title = "Joypuri Ari Work Salwar Kameez for Women - JSS 12 (Multicolor)";
   return (
     <Link
       href={"/product/:id"}
@@ -33,7 +33,7 @@ function ProductCard({ deliveryFree }) {
       {/* title */}
       <div className="px-1 lg:px-2">
         <p className="text-[13px] leading-4 capitalize group-hover:underline">
-          {title.length > 45 ? title.slice(0, 45) + "..." : title}
+          {title?.length > 45 ? title.slice(0, 45) + "..." : title}
         </p>
         {/* price */}
         <div className="flex items-end gap-2">

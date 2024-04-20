@@ -46,5 +46,10 @@ const ProductModel=mongoose.Schema({
     require:true,
     default: Date.now()
   },
+  deliveryFree:{
+    type:Boolean,
+    default:false,
+    require:true,
+  }
 })
 module.exports=mongoose.model('product',ProductModel)
