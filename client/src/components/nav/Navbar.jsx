@@ -35,12 +35,14 @@ function Navbar() {
           }
         );
         setUserInfo(res.data);
+        
       } catch (err) {
         console.log("data fatching error");
       }
       }
     };
     haveUser();
+    console.log();
   }, []);
   // logout handel
   const handelLogout=()=>{

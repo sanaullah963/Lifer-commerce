@@ -55,7 +55,7 @@ const loginControl = async (req, res) => {
         return res.send({ status: "error", data: "Invalid User" });
       } else {
         const token = genaretToken({
-          id: findUser._id,
+          _id: findUser._id,
           numberORemail: findUser.numberORemail,
         });
         const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
@@ -87,15 +87,16 @@ const verifyToken = async (req, res) => {
     console.log("token verify error",err);
   }
 };
+//--------access token && get token info---------
 const haveUserControl =async(req,res)=>{
  // access token
  const token = req.headers.authorization.split(" ")[1];
  const tokenInfo = jwt.verify(token, process.env.JWT_SECRET);
  try {
-  const userinfo=await userModel.findOne({_id:tokenInfo.id}).select({name:1,numberORemail:1})
+  const userinfo=await userModel.findById({_id:tokenInfo._id}).select({name:1,numberORemail:1})
   res.send(userinfo)
  } catch (err) {
-  console.log('data fatching error in sercer');
+  console.log('data fatching error in server',);
  }
 
 }

@@ -8,6 +8,7 @@ import { FaEyeSlash } from "react-icons/fa6";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner";
 import VerifyToken from "../verifyToken";
+import Cookies from "js-cookie";
 
 function Signup() {
   const [formdata, setFormdata] = useState({});
@@ -41,22 +42,24 @@ function Signup() {
           formdata,
           { withCredentials: true }
         );
-        res ? setLoaderState(false) : setLoaderState(true);
+        
         //  remove input filed data
         setFormdata({name: "",conformPass: "",password: "",numberORemail: "", });
         if (res.data.status === "error") {
           toast.error(res.data.data);
+          setLoaderState(false)
         } else if (res.data.status === "success") {
           toast.success(res.data.data);
           Cookies.set('clientToken',res.data.token,{ expires: 1 })
           setTimeout(()=>{
             history.back()
             location.reload()
+            setLoaderState(false)
           },500)
           
         }
       } catch (err) {
-        console.log("data fatcjong error");
+        console.log("data fatcjong error",err);
       }
     }
   };
