@@ -25,32 +25,32 @@ function Navbar() {
   useEffect(() => {
     const haveUser = async () => {
       if (token) {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}/user/user-name`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUserInfo(res.data);
-        
-      } catch (err) {
-        console.log("data fatching error");
-      }
+        try {
+          const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_API}/user/user-name`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setUserInfo(res.data);
+        } catch (err) {
+          console.log("data fatching error");
+        }
       }
     };
     haveUser();
     console.log();
   }, []);
   // logout handel
-  const handelLogout=()=>{
-    console.log('logour');
-    Cookies.remove('clientToken')
-    setShow(false)
-    location.reload()
-  }
+  const handelLogout = () => {
+    console.log("logour");
+    Cookies.remove("clientToken");
+    setShow(false);
+    location.reload();
+  };
+
   return (
     <div className="">
       <div className="bg-yellow-400">
@@ -87,7 +87,10 @@ function Navbar() {
                 </div>
                 {/* logout button */}
                 <div className="flex  justify-center items-center">
-                  <button className="bg-black text-white py-2 px-2 text-lg rounded-md  hover:bg-gray-800" onClick={handelLogout}>
+                  <button
+                    className="bg-black text-white py-2 px-2 text-lg rounded-md  hover:bg-gray-800"
+                    onClick={handelLogout}
+                  >
                     <IoExitOutline />
                   </button>
                   {/* <Link href={"/signup"}>Sign-Up</Link> */}

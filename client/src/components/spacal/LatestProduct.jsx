@@ -5,6 +5,7 @@ import Headding from "../Headding";
 import ProductCard from "../product/ProductCard";
 import ProductContainer from "../product/ProductContainer";
 import axios from "axios";
+import LoadingSpinner from "../LoadingSpinner";
 
 function LatestProduct() {
   const [product, setProduct] = useState([]);
@@ -26,20 +27,27 @@ function LatestProduct() {
     <main>
       <Container className={""}>
         <Headding Headding={"latest product"} />
-
         {/* image must be 1:1 */}
-        <ProductContainer>
-          {product.map((i) => (
-            <ProductCard
-              key={i._id}
-              deliveryFree={i.deliveryFree}
-              title={i.title}
-              price={i.price}
-              sellPrice={i.sellPrice}
-              imageUrl={i.imageUrl}
-            />
-          ))}
-        </ProductContainer>
+        {product.length <= 0 ? (
+          // lodding spinner
+          <div className="flex justify-start">
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <ProductContainer>
+            {product.map((i) => (
+              <ProductCard
+                key={i._id}
+                deliveryFree={i.deliveryFree}
+                title={i.title}
+                price={i.price}
+                sellPrice={i.sellPrice}
+                imageUrl={i.imageUrl}
+                percentage={i.percentage}
+              />
+            ))}
+          </ProductContainer>
+        )}
       </Container>
     </main>
   );

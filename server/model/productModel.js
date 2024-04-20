@@ -50,6 +50,11 @@ const ProductModel=mongoose.Schema({
     type:Boolean,
     default:false,
     require:true,
-  }
+  },
+  percentage:{
+    type:Number,
+    require:true,
+  },
+
 })
 module.exports=mongoose.model('product',ProductModel)

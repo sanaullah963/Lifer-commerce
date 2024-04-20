@@ -143,16 +143,14 @@ function InsartProduct() {
               <span className="">{product?.detail?.length}</span>
             </div>
             <textarea
+              className=" px-1 py-2 sm:px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400 h-28"
               name="detail"
               placeholder="Details (500)"
-              className=" px-1 sm:px-3 max-w-md w-full rounded-md hover:outline-green-400 outline-green-400 h-28"
               onChange={handelChange}
               value={product.detail}
             />
             {/*upload image */}
-
             <p className="mb-[-10px]">Upload image</p>
-
             <div className="w-full h-full">
               {imageLoadding ? (
                 <CircleLoader color="#36d7b7" size={20} />
