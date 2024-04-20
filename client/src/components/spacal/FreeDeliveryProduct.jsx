@@ -43,16 +43,11 @@ function FreeDeliveryProduct() {
                 price={i.price}
                 sellPrice={i.sellPrice}
                 imageUrl={i.imageUrl}
+                _id={i._id}
               />
             ))}
           </ProductContainer>
         )}
-
-        {/* <ProductContainer>
-          <ProductCard deliveryFree={true} />
-          <ProductCard deliveryFree={true} />
-          <ProductCard deliveryFree={true} />
-        </ProductContainer> */}
       </Container>
     </main>
   );

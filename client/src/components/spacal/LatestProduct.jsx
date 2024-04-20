@@ -44,6 +44,7 @@ function LatestProduct() {
                 sellPrice={i.sellPrice}
                 imageUrl={i.imageUrl}
                 percentage={i.percentage}
+                _id={i._id}
               />
             ))}
           </ProductContainer>

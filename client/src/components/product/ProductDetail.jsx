@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../Container";
 import Image from "next/image";
 import { TbCurrencyTaka } from "react-icons/tb";
@@ -20,14 +20,31 @@ import ProductCard from "./ProductCard";
 import Review from "./Review";
 import ProductDetailHeadding from "./ProductDetailHeadding";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
-function ProductDetail() {
+function ProductDetail({params}) {
   const [count, setCount] = useState(1);
+  const [product,setProduct]=useState({})
   const router = useRouter();
+  const _id = params.detail[0]
+  useEffect(()=>{
+    try {
+      const fatchData = async ()=>{
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/product/product-detail/${_id}`)
+        setProduct(res.data);
+      }
+      fatchData()
+    } catch (err) {
+      console.log('data fatching server error',err);
+    }
+  },[])
+  console.log(product);
+  // minus count
   const minusCount = () => {
     if (count <= 1) return;
     setCount(count - 1);
   };
+  // plus count
   const plusCounter = () => {
     setCount(count + 1);
   };
@@ -39,7 +56,7 @@ function ProductDetail() {
           {/*---------left side product image*/}
           <div className="w-full lg:w-[30%] relative inline-flex border rounded-md shadow-lg">
             <Image
-              src={product1}
+              src={product.imageUrl}
               height={1000}
               width={1000}
               alt="product image"
@@ -50,12 +67,11 @@ function ProductDetail() {
           <div className="lg:flex-1 mx-0 bg-white">
             {/* title */}
             <p className="text-[15px] capitalize my-2">
-              Vintage T9 Hair Cutting Machine Hair Trimmer Recharge Professional
-              Cordless Hair Trimmer
+              {product.title}
             </p>
             <hr />
             {/* brnad */}
-            <p className="capitalize text-md mt-3">brand : no brand</p>
+            <p className="capitalize text-md mt-3">{product?.brand || 'no brand'}</p>
             {/* like && share */}
             <div className=" flex gap-2">
               <span className="items-center flex">
@@ -72,23 +88,26 @@ function ProductDetail() {
                 <span className="text-3xl ">
                   <TbCurrencyTaka />
                 </span>
-                <span className="text-xl">250</span>
+                <span className="text-xl">{product.price}</span>
               </div>
-              <del className="text-lg text-gray-600 mt-2">352</del>
+              <del className="text-lg text-gray-600 mt-2">{product.sellPrice}</del>
               {/* off */}
               <div className="relative">
                 <div className="font-semibold bg-yellow-400 absolute top-0 px-2 py-1 rounded-md">
-                  <span className="me-2">30%</span>
+                  <span className="me-2">{product.percentage}%</span>
                   <span className="text-[12px]">off</span>
                 </div>
               </div>
             </div>
+            {/* free delivery */}
             <div className="ms-2">
-              <Image src={freeDelivery} alt="free delivery" />
+              {
+                product.deliveryFree && <Image src={freeDelivery} alt="free delivery" />
+              }
+              
             </div>
             <hr />
             {/* quantity counter */}
-
             <div className="my-5 flex items-center gap-2 sm:gap-4">
               <span className="text-gray-500 capitalize me-2">Quantity</span>
               <button
@@ -109,7 +128,7 @@ function ProductDetail() {
               >
                 <FaPlus />
               </button>
-              <span className="text-gray-500 capitalize">22 item left</span>
+              <span className="text-gray-500 capitalize">{product.stock} item left</span>
             </div>
             {/* button */}
             <div className="flex gap-5 ">
@@ -212,11 +231,7 @@ function ProductDetail() {
         {/*--------product description */}
         <div className="border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 my-10 ps-4">
           <ProductDetailHeadding headding={"details"} />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
-            voluptatum doloremque hic accusamus laborum sunt nemo eligendi
-            veritatis reprehenderit voluptate?
-          </p>
+          <p>{product.detail}</p>
         </div>
         {/* ---------user review */}
         <div className="border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 my-10 ps-4 flex flex-col gap-y-3">

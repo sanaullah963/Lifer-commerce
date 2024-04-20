@@ -5,11 +5,11 @@ import delivaryFreeImg from "@/image/free_delivery.svg";
 import product1 from "@/image/proudct/product1.jpeg";
 import Link from "next/link";
 
-function ProductCard({ deliveryFree,title,price,sellPrice,imageUrl,percentage }) {
+function ProductCard({ _id,deliveryFree,title,price,sellPrice,imageUrl,percentage }) {
   // let title = "Joypuri Ari Work Salwar Kameez for Women - JSS 12 (Multicolor)";
   return (
     <Link
-      href={"/product/:id"}
+      href={`/product/${_id}`}
       className="border-2 relative hover:shadow-xl group cursor-pointer rounded-xl pb-3"
     >
       <span className="h-[23px] block"></span>
@@ -21,7 +21,7 @@ function ProductCard({ deliveryFree,title,price,sellPrice,imageUrl,percentage })
       {/* image */}
       {/* image must be 1:1 */}
       <div className="overflow-hidden max-h-[240px] h-auto w-[100%]">
-        <Image src={imageUrl} width={300} height={300} alt="something" className="" />
+        <Image src={imageUrl} width={300} height={300} alt="something" />
       </div>
 
       {/* delivary free */}

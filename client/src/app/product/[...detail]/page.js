@@ -3,10 +3,10 @@ import ProductDetail from '@/components/product/ProductDetail'
 
 import React from 'react'
 
-function page() {
+function page({ params }) {
   return (
     <main >
-      <ProductDetail/>
+      <ProductDetail params={params}/>
       <PopulerProduct/>
     </main>
   )

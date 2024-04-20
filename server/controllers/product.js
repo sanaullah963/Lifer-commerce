@@ -1,7 +1,6 @@
 const express = require("express");
 const uploadOnCloudinory = require("../util/cloudinory");
 const ProductModel = require("../model/productModel");
-const { Mongoose } = require("mongoose");
 const productModel = require("../model/productModel");
 
 // insart product
@@ -14,7 +13,7 @@ const insartProduct = async (req, res) => {
   // console.log(uploadImageRes);
   const { url, public_id } = uploadImageRes;
   // //--------save on mongoDb
-  const percentage = (((price - sellPrice) / price) * 100).toFixed(1)
+  const percentage = (((price - sellPrice) / price) * 100).toFixed(1);
   const newproduct = new ProductModel({
     brand,
     categories,
@@ -40,7 +39,14 @@ const latestProductcontrol = async (req, res) => {
       .find()
       .sort({ _id: -1 })
       .limit(15)
-      .select({ imageUrl:1, sellPrice:1, price:1, title:1,deliveryFree:1,percentage:1 });
+      .select({
+        imageUrl: 1,
+        sellPrice: 1,
+        price: 1,
+        title: 1,
+        deliveryFree: 1,
+        percentage: 1,
+      });
     // console.log(latestProduct);
     // latestProduct.reverse()
     res.send(latestProduct);
@@ -53,30 +59,65 @@ const deliveryFreeProductControl = async (req, res) => {
   try {
     // find product
     const deliveryFreeProduct = await productModel
-      .find({deliveryFree:true})
+      .find({ deliveryFree: true })
       .sort({ _id: -1 })
       .limit(10)
-      .select({ imageUrl:1, sellPrice:1, price:1, title:1,deliveryFree:1,percentage:1 });
+      .select({
+        imageUrl: 1,
+        sellPrice: 1,
+        price: 1,
+        title: 1,
+        deliveryFree: 1,
+        percentage: 1,
+      });
     // console.log(deliveryFreeProduct);
     res.send(deliveryFreeProduct);
   } catch (err) {
     console.log("data fatching server error");
   }
 };
-
-// discount up-to 
-const discountUpToControl = async(req,res)=>{
+// discount up-to
+const discountUpToControl = async (req, res) => {
   try {
     // find product
     const discountProduct = await productModel
-      .find({percentage:{$gte:40}})
+      .find({ percentage: { $gte: 40 } })
       .sort({ _id: -1 })
       .limit(10)
-      .select({ imageUrl:1, sellPrice:1, price:1, title:1,deliveryFree:1,percentage:1 });
+      .select({
+        imageUrl: 1,
+        sellPrice: 1,
+        price: 1,
+        title: 1,
+        deliveryFree: 1,
+        percentage: 1,
+      });
     // console.log(discountProduct);
     res.send(discountProduct);
   } catch (err) {
     console.log("data fatching server error");
   }
-}
-module.exports = { insartProduct, latestProductcontrol,deliveryFreeProductControl,discountUpToControl };
+};
+// product Details
+const productDetailControl = async (req, res) => {
+  const _id = req.params._id;
+  // find product details
+  try {
+    const product = await productModel.findById(_id);
+    if (!product) {
+      return res.send({ status: "error", data: "Invalid product" });
+    }else{
+    res.send(product);
+    } 
+  } catch (err) {
+    console.log("server error");
+    return res.send({ status: "error", data: "Invalid product" });
+  }
+};
+module.exports = {
+  insartProduct,
+  latestProductcontrol,
+  deliveryFreeProductControl,
+  discountUpToControl,
+  productDetailControl,
+};
