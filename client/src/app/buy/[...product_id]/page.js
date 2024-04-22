@@ -1,10 +1,10 @@
 import Buy from '@/components/buy/buy'
 import React from 'react'
 
-function page() {
+function page({params}) {
   return (
     <main>
-      <Buy/>
+      <Buy params={params}/>
     </main>
   )
 }

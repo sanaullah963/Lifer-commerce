@@ -2,6 +2,12 @@
 import React, { useEffect, useState } from "react";
 import Container from "../Container";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { TbCurrencyTaka } from "react-icons/tb";
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
@@ -14,19 +20,19 @@ import { HiOutlineCash } from "react-icons/hi";
 import { TbTruckDelivery } from "react-icons/tb";
 import { TbTruckReturn } from "react-icons/tb";
 import { FaShield } from "react-icons/fa6";
-import Link from "next/link";
 import ProductContainer from "./ProductContainer";
 import ProductCard from "./ProductCard";
 import Review from "./Review";
 import ProductDetailHeadding from "./ProductDetailHeadding";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 
 function ProductDetail({params}) {
   const [count, setCount] = useState(1);
   const [product,setProduct]=useState({})
   const router = useRouter();
+  // access token
+  const token = Cookies.get('clientToken')
   const _id = params.detail[0]
+  // fatch product detail
   useEffect(()=>{
     try {
       const fatchData = async ()=>{
@@ -38,7 +44,6 @@ function ProductDetail({params}) {
       console.log('data fatching server error',err);
     }
   },[])
-  console.log(product);
   // minus count
   const minusCount = () => {
     if (count <= 1) return;
@@ -48,13 +53,27 @@ function ProductDetail({params}) {
   const plusCounter = () => {
     setCount(count + 1);
   };
+  // handel buy button
+  const handelBuyNow = async ()=> {
+    if(!token){
+      toast.error('Login your account')
+      setTimeout(() => {
+        router.push('/login')
+      }, 500);
+    }else{
+
+      router.push(`/buy/${product?._id}.${count}/6624076ae777fb6e3c52f113.2/662338b8954b74a477fdb410.3`)
+    }
+  }
   return (
     <div>
       {/* product info */}
       <div className="max-w-[450px] md:max-w-[650px] lg:max-w-screen-lg mx-auto my-10 xl:max-w-screen-xl px-2 xl:px-14">
+        {/*--------product image & price & delivery */}
         <div className="flex flex-col lg:flex-row items-center min-h-[390px] gap-x-5 gap-y-10 w-full  border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 ">
           {/*---------left side product image*/}
           <div className="w-full lg:w-[30%] relative inline-flex border rounded-md shadow-lg">
+            <Link href={product?.imageUrl || 'lifer-bd.vercel.app'} target="_blank">
             <Image
               src={product.imageUrl}
               height={1000}
@@ -62,6 +81,7 @@ function ProductDetail({params}) {
               alt="product image"
               className="w-full lg:w-full md:w-[80%] mx-auto   rounded-md"
             />
+            </Link>
           </div>
           {/*--------center product detaisl */}
           <div className="lg:flex-1 mx-0 bg-white">
@@ -71,7 +91,7 @@ function ProductDetail({params}) {
             </p>
             <hr />
             {/* brnad */}
-            <p className="capitalize text-md mt-3">{product?.brand || 'no brand'}</p>
+            <p className="capitalize text-md mt-3">Brand : {product?.brand || 'no brand'}</p>
             {/* like && share */}
             <div className=" flex gap-2">
               <span className="items-center flex">
@@ -144,7 +164,7 @@ function ProductDetail({params}) {
               </button>
               {/* buy-now button */}
               <button
-                onClick={() => router.push("/buy")}
+                onClick={handelBuyNow}
                 className={`${
                   count <= 0
                     ? "bg-gray-400 text-gray-800 cursor-not-allowed"
@@ -255,6 +275,7 @@ function ProductDetail({params}) {
           <ProductCard />
         </ProductContainer>
       </div>
+      <ToastContainer/>
     </div>
   );
 }

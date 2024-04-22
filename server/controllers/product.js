@@ -114,10 +114,41 @@ const productDetailControl = async (req, res) => {
     return res.send({ status: "error", data: "Invalid product" });
   }
 };
+// buy product || order product
+const buyConrtol = async (req,res) => {
+  const ids =req.headers.ids.split(',')
+  const ttt = req.headers.ttt
+  let allId = []
+  let idAndQuantity = []
+  ids.map(item=>{
+    const element = item.split('.')
+    idAndQuantity.push({
+      _id:element[0],
+      quantity:element[1]
+    })
+    allId.push(element[0])
+  })
+  console.log(allId);
+  try {
+    const data = await productModel.find({_id:allId})
+    console.log(data);
+    res.send({data,allId,ttt})
+  } catch (err) {
+    console.log('data fatching error',err);
+  }
+
+
+// res.send('buy sedd')
+
+
+
+}
 module.exports = {
   insartProduct,
   latestProductcontrol,
   deliveryFreeProductControl,
   discountUpToControl,
   productDetailControl,
+  buyConrtol,
 };
+

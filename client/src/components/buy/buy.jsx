@@ -1,14 +1,40 @@
-// "use client";
+"use client";
 import Container from "../Container";
 
 import Image from "next/image";
 import Link from "next/link";
 import imm from "@/image/proudct/p4.jpg";
 import BorderContainer from "../BorderContainer";
-async function Odder() {
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+async function Odder({ params }) {
+  const token = Cookies.get("clientToken");
+  // fatch data
+  useEffect(() => {
+    const fatchData = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}/product/buy-product`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              ids: params.product_id,
+            },
+            withCredentials:true,
+          }
+        );
+        console.log(res);
+      } catch (err) {
+        console.log("server error", err);
+      }
+    };
+    fatchData();
+  }, []);
   const title =
     "Vintage T9 Hair Cutting Machine Hair Trimmer Recharge Professional Cordless Hair Trimmer";
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
   return (
     <main>
       {/* first box */}
