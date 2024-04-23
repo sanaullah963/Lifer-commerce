@@ -2,6 +2,7 @@ const express = require("express");
 const uploadOnCloudinory = require("../util/cloudinory");
 const ProductModel = require("../model/productModel");
 const productModel = require("../model/productModel");
+const userModel = require("../model/userModel");
 
 // insart product
 const insartProduct = async (req, res) => {
@@ -106,43 +107,59 @@ const productDetailControl = async (req, res) => {
     const product = await productModel.findById(_id);
     if (!product) {
       return res.send({ status: "error", data: "Invalid product" });
-    }else{
-    res.send(product);
-    } 
+    } else {
+      res.send(product);
+    }
   } catch (err) {
     console.log("server error");
     return res.send({ status: "error", data: "Invalid product" });
   }
 };
 // buy product || order product
-const buyConrtol = async (req,res) => {
-  const ids =req.headers.ids.split(',')
-  const ttt = req.headers.ttt
-  let allId = []
-  let idAndQuantity = []
-  ids.map(item=>{
-    const element = item.split('.')
+const buyConrtol = async (req, res) => {
+  // spalit id && quanty ==> get new array
+  const ids = req.headers.ids.split(",");
+  const user = req.headers.user
+  let allId = [];
+  let idAndQuantity = [];
+  let fullProductArr = [];
+  let totalQuantity = 0;
+  let totalPrice = 0;
+  // split id & get id
+  ids.map((item) => {
+    const element = item.split(".");
     idAndQuantity.push({
-      _id:element[0],
-      quantity:element[1]
-    })
-    allId.push(element[0])
-  })
-  console.log(allId);
+      _id: element[0],
+      quantity: element[1],
+    });
+    allId.push(element[0]);
+  });
+
   try {
-    const data = await productModel.find({_id:allId})
-    console.log(data);
-    res.send({data,allId,ttt})
+    // const address = await userModel.findById({_id:user}).select({})
+    const response = await productModel.find({ _id: allId }).select({title:1,imageUrl:1,sellPrice:1,stock:1,})
+    if (response) {
+      // map response &&
+      response.map((item1) => {
+        idAndQuantity.map((item2) => {
+          if (item1._id == item2._id) {
+            fullProductArr.push({ product: item1, quantity: item2.quantity }); // insart product
+            totalPrice = totalPrice + Number(item1.sellPrice); // total price
+            totalQuantity = totalQuantity + Number(item2.quantity); // total quantity
+          }
+        });
+      });
+      // send res
+      res.send({
+        productArr: fullProductArr,
+        priceDetail: { totalQuantity, totalPrice },
+        user,
+      });
+    }
   } catch (err) {
-    console.log('data fatching error',err);
+    console.log("data fatching error", err);
   }
-
-
-// res.send('buy sedd')
-
-
-
-}
+};
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -151,4 +168,3 @@ module.exports = {
   productDetailControl,
   buyConrtol,
 };
-

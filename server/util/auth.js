@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../model/userModel");
 require("dotenv").config();
 const auth = async (req, res, next) => {
-  const ttt =req.cookies
-  // console.log('tttt',ttt);
+
+
   // access token
   const mainToken = req.headers?.authorization;
   if (!mainToken) {
@@ -19,8 +19,8 @@ const auth = async (req, res, next) => {
         if (!respons) {
           return res.send({ status: "error", data: "Invalid User" });
         } else {
+          // set user
           req.headers.user = respons._id;
-          req.headers.ttt = ttt
         }
       } catch (err) {
         console.log("auth error", err);
