@@ -119,7 +119,7 @@ const productDetailControl = async (req, res) => {
 const buyConrtol = async (req, res) => {
   // spalit id && quanty ==> get new array
   const ids = req.headers.ids.split(",");
-  const user = req.headers.user
+  const user = req.headers.user;
   let allId = [];
   let idAndQuantity = [];
   let fullProductArr = [];
@@ -134,17 +134,20 @@ const buyConrtol = async (req, res) => {
     });
     allId.push(element[0]);
   });
-
+  // find data
   try {
     // const address = await userModel.findById({_id:user}).select({})
-    const response = await productModel.find({ _id: allId }).select({title:1,imageUrl:1,sellPrice:1,stock:1,})
+    const response = await productModel
+      .find({ _id: allId })
+      .select({ title: 1, imageUrl: 1, sellPrice: 1, stock: 1 });
     if (response) {
       // map response &&
       response.map((item1) => {
         idAndQuantity.map((item2) => {
           if (item1._id == item2._id) {
             fullProductArr.push({ product: item1, quantity: item2.quantity }); // insart product
-            totalPrice = totalPrice + (Number(item1.sellPrice) * Number(item2.quantity)); // total price
+            totalPrice =
+              totalPrice + Number(item1.sellPrice) * Number(item2.quantity); // total price
             totalQuantity = totalQuantity + Number(item2.quantity); // total quantity
           }
         });
@@ -160,6 +163,32 @@ const buyConrtol = async (req, res) => {
     console.log("data fatching error", err);
   }
 };
+// cart data
+const cartProductControl = async (req, res) => {
+  const cart = req.body;
+  const _id = [];
+  const allCart = [];
+  // get product id
+  cart.map((i) => {
+    _id.push(i.product);
+  });
+  // find product
+  try {
+    const data = await productModel
+      .find({ _id })
+      .select({ imageUrl: 1, title: 1, price: 1, sellPrice: 1, stock: 1 });
+    cart.map((item1) => {
+      data.map((item2) => {
+        if (item1.product == item2._id) {
+          allCart.push({ productList: item2, quantity: item1.quantity });
+        }
+      });
+    });
+    res.send(allCart)
+  } catch (err) {
+    console.log("data fatching error");
+  }
+};
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -167,4 +196,5 @@ module.exports = {
   discountUpToControl,
   productDetailControl,
   buyConrtol,
+  cartProductControl,
 };

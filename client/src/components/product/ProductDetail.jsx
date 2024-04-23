@@ -82,7 +82,7 @@ function ProductDetail({ params }) {
       existingCart.map((i, index) => {
         if (i.product == product._id) {
           existingCart.splice(index, 1);
-          toast.success("Allready had added ");
+          // toast.success("Allready had added ");
         }
       });
       existingCart.push(newCart);
