@@ -78,10 +78,17 @@ function ProductDetail({ params }) {
         product: product?._id,
         quantity: count,
       };
+      // console.log(existingCart);
+      existingCart.map((i, index) => {
+        if (i.product == product._id) {
+          existingCart.splice(index, 1);
+          toast.success("Allready had added ");
+        }
+      });
       existingCart.push(newCart);
       const totalcart = JSON.stringify(existingCart);
       localStorage.setItem("cart", totalcart);
-      console.log(totalcart);
+      toast.success("Product Successfully added");
     } else {
       const newCart = JSON.stringify([
         {
@@ -90,9 +97,9 @@ function ProductDetail({ params }) {
         },
       ]);
       localStorage.setItem("cart", newCart);
+      toast.success("Product Successfully added");
     }
     setCartLodder(false);
-    toast.success("Product Successfully added");
   };
 
   return (
