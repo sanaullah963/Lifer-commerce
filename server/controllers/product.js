@@ -144,7 +144,7 @@ const buyConrtol = async (req, res) => {
         idAndQuantity.map((item2) => {
           if (item1._id == item2._id) {
             fullProductArr.push({ product: item1, quantity: item2.quantity }); // insart product
-            totalPrice = totalPrice + Number(item1.sellPrice); // total price
+            totalPrice = totalPrice + (Number(item1.sellPrice) * Number(item2.quantity)); // total price
             totalQuantity = totalQuantity + Number(item2.quantity); // total quantity
           }
         });

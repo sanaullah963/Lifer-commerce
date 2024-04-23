@@ -19,7 +19,7 @@ function VerifyToken() {
           }
         );
         if (res.data.user) {
-          router.push("/");
+          router.push('/');
         }
       };
       verToken();

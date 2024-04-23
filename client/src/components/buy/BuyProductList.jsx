@@ -4,6 +4,7 @@ import BorderContainer from "../BorderContainer";
 import LoadingSpinner from "../LoadingSpinner";
 import Image from "next/image";
 import { MdOutlineDelete } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 
 function BuyProductList({ productArr,priceDetail }) {
@@ -11,7 +12,12 @@ function BuyProductList({ productArr,priceDetail }) {
   const removeProduct=(_id)=>{
     alert('Feature coming soon ):')
   }
-
+// handelPlaceOrder
+const router=useRouter()
+const handelPlaceOrder =()=>{
+  // const bark = router.back()
+  console.log(router);
+}
   return (
     <main>
       <BorderContainer className=" flex flex-col my-0 md:flex-row gap-1">
@@ -80,7 +86,7 @@ function BuyProductList({ productArr,priceDetail }) {
           {/* place order button */}
           <button
             className="text-white bg-primary w-full h-10 mt-3 rounded-md"
-            onClick={"placeOrder"}
+            onClick={handelPlaceOrder}
           >
             Order Now
           </button>

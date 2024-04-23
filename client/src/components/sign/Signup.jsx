@@ -54,7 +54,6 @@ function Signup() {
           setTimeout(()=>{
             history.back()
             location.reload()
-            setLoaderState(false)
           },500)
           
         }

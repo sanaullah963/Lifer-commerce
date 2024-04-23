@@ -38,7 +38,7 @@ function Login() {
           toast.success(res.data.data);
           Cookies.set('clientToken',res.data.token,{ expires: 1 })
           setTimeout(()=>{
-            history.back()
+            // history.back()
             location.reload()
           },500)
         }

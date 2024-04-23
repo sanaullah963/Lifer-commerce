@@ -6,8 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
@@ -24,26 +24,31 @@ import ProductContainer from "./ProductContainer";
 import ProductCard from "./ProductCard";
 import Review from "./Review";
 import ProductDetailHeadding from "./ProductDetailHeadding";
+import LoadingSpinner from "../LoadingSpinner";
 
-function ProductDetail({params}) {
+function ProductDetail({ params }) {
   const [count, setCount] = useState(1);
-  const [product,setProduct]=useState({})
+  const [product, setProduct] = useState({});
+  const [cart, setCart] = useState([]);
+  const [cartLodder, setCartLodder] = useState(false);
   const router = useRouter();
   // access token
-  const token = Cookies.get('clientToken')
-  const _id = params.detail[0]
+  const token = Cookies.get("clientToken");
+  const _id = params.detail[0];
   // fatch product detail
-  useEffect(()=>{
+  useEffect(() => {
     try {
-      const fatchData = async ()=>{
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API}/product/product-detail/${_id}`)
+      const fatchData = async () => {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}/product/product-detail/${_id}`
+        );
         setProduct(res.data);
-      }
-      fatchData()
+      };
+      fatchData();
     } catch (err) {
-      console.log('data fatching server error',err);
+      console.log("data fatching server error", err);
     }
-  },[])
+  }, []);
   // minus count
   const minusCount = () => {
     if (count <= 1) return;
@@ -54,17 +59,42 @@ function ProductDetail({params}) {
     setCount(count + 1);
   };
   // handel buy button
-  const handelBuyNow = async ()=> {
-    if(!token){
-      toast.error('Login your account')
+  const handelBuyNow = async () => {
+    if (!token) {
+      toast.error("Login your account");
       setTimeout(() => {
-        router.push('/login')
+        router.push("/login");
       }, 500);
-    }else{
-
-      router.push(`/buy/${product?._id}.${count}/6624076ae777fb6e3c52f113.2/662338b8954b74a477fdb410.3`)
+    } else {
+      router.push(`/buy/${product?._id}.${count}`);
     }
-  }
+  };
+  // handel add-to-cart button
+  const handelAddToCart = () => {
+    setCartLodder(true);
+    const existingCart = JSON.parse(localStorage.getItem("cart"));
+    if (existingCart) {
+      const newCart = {
+        product: product?._id,
+        quantity: count,
+      };
+      existingCart.push(newCart);
+      const totalcart = JSON.stringify(existingCart);
+      localStorage.setItem("cart", totalcart);
+      console.log(totalcart);
+    } else {
+      const newCart = JSON.stringify([
+        {
+          product: product?._id,
+          quantity: count,
+        },
+      ]);
+      localStorage.setItem("cart", newCart);
+    }
+    setCartLodder(false);
+    toast.success("Product Successfully added");
+  };
+
   return (
     <div>
       {/* product info */}
@@ -73,25 +103,28 @@ function ProductDetail({params}) {
         <div className="flex flex-col lg:flex-row items-center min-h-[390px] gap-x-5 gap-y-10 w-full  border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 ">
           {/*---------left side product image*/}
           <div className="w-full lg:w-[30%] relative inline-flex border rounded-md shadow-lg">
-            <Link href={product?.imageUrl || 'lifer-bd.vercel.app'} target="_blank">
-            <Image
-              src={product.imageUrl}
-              height={1000}
-              width={1000}
-              alt="product image"
-              className="w-full lg:w-full md:w-[80%] mx-auto   rounded-md"
-            />
+            <Link
+              href={product?.imageUrl || "lifer-bd.vercel.app"}
+              target="_blank"
+            >
+              <Image
+                src={product.imageUrl}
+                height={1000}
+                width={1000}
+                alt="product image"
+                className="w-full lg:w-full md:w-[80%] mx-auto   rounded-md"
+              />
             </Link>
           </div>
           {/*--------center product detaisl */}
           <div className="lg:flex-1 mx-0 bg-white">
             {/* title */}
-            <p className="text-[15px] capitalize my-2">
-              {product.title}
-            </p>
+            <p className="text-[15px] capitalize my-2">{product.title}</p>
             <hr />
             {/* brnad */}
-            <p className="capitalize text-md mt-3">Brand : {product?.brand || 'no brand'}</p>
+            <p className="capitalize text-md mt-3">
+              Brand : {product?.brand || "no brand"}
+            </p>
             {/* like && share */}
             <div className=" flex gap-2">
               <span className="items-center flex">
@@ -110,7 +143,9 @@ function ProductDetail({params}) {
                 </span>
                 <span className="text-xl">{product.price}</span>
               </div>
-              <del className="text-lg text-gray-600 mt-2">{product.sellPrice}</del>
+              <del className="text-lg text-gray-600 mt-2">
+                {product.sellPrice}
+              </del>
               {/* off */}
               <div className="relative">
                 <div className="font-semibold bg-yellow-400 absolute top-0 px-2 py-1 rounded-md">
@@ -121,10 +156,9 @@ function ProductDetail({params}) {
             </div>
             {/* free delivery */}
             <div className="ms-2">
-              {
-                product.deliveryFree && <Image src={freeDelivery} alt="free delivery" />
-              }
-              
+              {product.deliveryFree && (
+                <Image src={freeDelivery} alt="free delivery" />
+              )}
             </div>
             <hr />
             {/* quantity counter */}
@@ -148,28 +182,39 @@ function ProductDetail({params}) {
               >
                 <FaPlus />
               </button>
-              <span className="text-gray-500 capitalize">{product.stock} item left</span>
+              <span className="text-gray-500 capitalize">
+                {product.stock} item left
+              </span>
             </div>
             {/* button */}
             <div className="flex gap-5 ">
               {/* add-to cart button */}
-              <button
-                className={`${
-                  count <= 0
-                    ? "bg-gray-400 text-gray-800 cursor-not-allowed"
-                    : "bg-orange-500 hover:bg-orange-600 text-white"
-                } capitalize  h-10 w-1/2 text-lg`}
-              >
-                add to cart
-              </button>
+              {cartLodder ? (
+                <button
+                  className={
+                    "bg-orange-500 hover:bg-orange-600 text-white capitalize  h-10 w-1/2 text-lg"
+                  }
+                  disabled
+                >
+                  <LoadingSpinner />
+                </button>
+              ) : (
+                <button
+                  className={
+                    "bg-orange-500 hover:bg-orange-600 text-white capitalize  h-10 w-1/2 text-lg"
+                  }
+                  onClick={handelAddToCart}
+                >
+                  add to cart
+                </button>
+              )}
+
               {/* buy-now button */}
               <button
                 onClick={handelBuyNow}
-                className={`${
-                  count <= 0
-                    ? "bg-gray-400 text-gray-800 cursor-not-allowed"
-                    : "bg-sky-500 hover:bg-sky-600 text-white"
-                } capitalize h-10  w-1/2 text-lg`}
+                className={
+                  "bg-sky-500 hover:bg-sky-600 text-white capitalize h-10  w-1/2 text-lg"
+                }
               >
                 buy now
               </button>
@@ -275,7 +320,7 @@ function ProductDetail({params}) {
           <ProductCard />
         </ProductContainer>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
   );
 }
