@@ -31,7 +31,7 @@ function Cart() {
   };
   // get cart from  localstoreg
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart"));
+    const cart = (JSON.parse(localStorage.getItem("cart"))).reverse();
     // fatch data
     const fatchData = async () => {
       const res = await axios.post(
@@ -65,6 +65,7 @@ function Cart() {
       });
     }
   };
+  // handel Group check-Out
   const handelCheckOut = async () => {
     setCheckOutLodder(true);
     const token = Cookies.get("clientToken");
@@ -98,6 +99,7 @@ function Cart() {
         <Headding
           Headding={`${cart?.length || "... "}  product in your cart`}
         />
+        {/* Group Check-Out */}
         {/* {groupOrder.length < 1 && */}
         {/*  groupOrder.map((i, index) => ( */}
         <div className="flex justify-end relative mb-5">
