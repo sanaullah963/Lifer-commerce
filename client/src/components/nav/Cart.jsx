@@ -72,7 +72,7 @@ function Cart() {
       router.push("/login");
     } else {
       const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_API}/user//verify-token`,
+        `${process.env.NEXT_PUBLIC_API}/user/verify-token`,
         {
           headers: {
             authorization: `bearer ${token}`,
