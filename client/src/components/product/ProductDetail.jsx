@@ -78,7 +78,6 @@ function ProductDetail({ params }) {
         product: product?._id,
         quantity: count,
       };
-      // console.log(existingCart);
       existingCart.map((i, index) => {
         if (i.product == product._id) {
           existingCart.splice(index, 1);
@@ -89,6 +88,9 @@ function ProductDetail({ params }) {
       const totalcart = JSON.stringify(existingCart);
       localStorage.setItem("cart", totalcart);
       toast.success("Product Successfully added");
+      setTimeout(() => {
+        location.reload();
+      }, 500);
     } else {
       const newCart = JSON.stringify([
         {
@@ -98,6 +100,9 @@ function ProductDetail({ params }) {
       ]);
       localStorage.setItem("cart", newCart);
       toast.success("Product Successfully added");
+      setTimeout(() => {
+        location.reload();
+      }, 500);
     }
     setCartLodder(false);
   };

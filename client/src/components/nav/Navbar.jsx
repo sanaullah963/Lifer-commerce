@@ -18,11 +18,14 @@ import Avatar from "react-avatar";
 function Navbar() {
   const [show, setShow] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [cart,setCart]=useState(0)
   const router = useRouter();
 
   const token = Cookies.get("clientToken");
   // if token then get user info
   useEffect(() => {
+    setCart((JSON.parse(localStorage.getItem('cart'))).length)
+
     const haveUser = async () => {
       if (token) {
         try {
@@ -41,7 +44,6 @@ function Navbar() {
       }
     };
     haveUser();
-    console.log();
   }, []);
   // logout handel
   const handelLogout = () => {
@@ -120,7 +122,7 @@ function Navbar() {
               className="bg-gray-600/50 h-7 w-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center relative cursor-pointer"
             >
               <span className="absolute text-[11px] sm:text-sm bottom-[-12px] font-semibold text-white bg-[#E36349] px-1 sm:px-2 rounded-md">
-                10
+                {cart ? cart : 0}
               </span>
               <span className="text-sm sm:text-xl text-[#ffff]">
                 <FaCartArrowDown />
