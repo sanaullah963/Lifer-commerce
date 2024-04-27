@@ -6,16 +6,7 @@ const userModel = require("../model/userModel");
 
 // insart product
 const insartProduct = async (req, res) => {
-  const { brand, categories, detail, price, sellPrice, stock, title, weight } =
-    await req.body.product;
-  // upload image on cloudinory
-  // console.log(req.file);
-  const uploadImageRes = await uploadOnCloudinory(req.file.path);
-  // console.log(uploadImageRes);
-  const { url, public_id } = uploadImageRes;
-  // //--------save on mongoDb
-  const percentage = (((price - sellPrice) / price) * 100).toFixed(1);
-  const newproduct = new ProductModel({
+  const {
     brand,
     categories,
     detail,
@@ -24,9 +15,35 @@ const insartProduct = async (req, res) => {
     stock,
     title,
     weight,
+    visibility,
+    condition,
+    warranty,
+  } = await req.body.product;
+  // upload image on cloudinory
+  const uploadImageRes = await uploadOnCloudinory(req.file.path);
+
+  const { url, public_id } = uploadImageRes;
+  // //--------save on mongoDb
+  const percentage = (((price - sellPrice) / price) * 100).toFixed(1);
+  // delivery charge
+  const charge = weight.split(",");
+  let insideDhaka = 39 +Number(charge[0]) ;
+  let outsideDhaka = 79 + Number(charge[0]);
+  const newproduct = new ProductModel({
+    brand,
+    categories,
+    detail,
+    price,
+    sellPrice,
+    stock,
+    title,
+    warranty,
     imageUrl: url,
     imagePublicID: public_id,
     percentage,
+    visibility,
+    condition,
+    deliveryConst: { outsideDhaka, insideDhaka, },
   });
   const uploadMongoRes = await newproduct.save();
   res.json({ data: uploadMongoRes });
@@ -184,7 +201,7 @@ const cartProductControl = async (req, res) => {
         }
       });
     });
-    res.send(allCart)
+    res.send(allCart);
   } catch (err) {
     console.log("data fatching error");
   }

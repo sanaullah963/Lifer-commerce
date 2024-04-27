@@ -18,6 +18,11 @@ function InsartProduct() {
   const handelChange = (e) => {
     const { value, name } = e.target;
     setProduct({ ...product, [name]: value });
+    console.log(name);
+    !product?.visibility && setProduct({...product,visibility:'public'})
+    !product?.condition && setProduct({...product,condition:'new'})
+    !product?.warranty && setProduct({...product,warranty:'0'})
+    console.log(product);
   };
   // handel image lodder showing
   const imageUpLoadding = () => {
@@ -32,6 +37,7 @@ function InsartProduct() {
   const { title, detail, price, sellPrice, brand, stock, categories, weight } =
     product;
   const handelSubmit = async () => {
+    console.log(product);
     if (
       !title ||
       !detail ||
@@ -59,16 +65,15 @@ function InsartProduct() {
             },
           }
         );
-        if (res?.status===200){
+        if (res?.status === 200) {
           setFormSubmitLodder(false);
           toast.success("Product Add Successfull");
           console.log(res);
-        } 
-        else return toast.error('Unknown error');
+        } else return toast.error("Unknown error");
       } catch (error) {
         console.log("product submit axios error in client");
         setFormSubmitLodder(false);
-        toast.error('Unknown error');
+        toast.error("Unknown error");
       }
     }
   };
@@ -199,27 +204,92 @@ function InsartProduct() {
             >
               <option selected>select weight</option>
               {productWeight.map((i, index) => (
-                <option key={index} value={i.weight}>
+                <option key={index} value={i.charge}>
                   {i.weight}
                 </option>
               ))}
             </select>
+            {/* select visibility */}
+            <div className="w-full">
+              <label htmlFor="visibility" className=" w-full">
+                Procuct visible stage :
+              </label>
+              <select
+                name="visibility"
+                id="visibility"
+                onChange={handelChange}
+                value={product.visibility}
+                className="w-full py-2 rounded hover:outline-green-400 outline-green-400 ps-1"
+              >
+                <option selected value={"public"}>
+                  Public
+                </option>
+                <option value={"private"}>Private</option>
+              </select>
+            </div>
+            {/* select condition */}
+            <div className="w-full">
+              <label htmlFor="condition" className=" w-full">
+                Procuct condition :
+              </label>
+              <select
+                name="condition"
+                id="condition"
+                onChange={handelChange}
+                value={product.condition}
+                className="w-full py-2 rounded hover:outline-green-400 outline-green-400 ps-1"
+              >
+                <option selected value={"new"}> new</option>
+                <option value={"seminew"}>Semi new</option>
+                <option value={"used"}>used</option>
+              </select>
+            </div>
+            {/* select warranty time */}
+            <div className="w-full">
+              <label htmlFor="warranty" className=" w-full">
+              warranty time :
+              </label>
+              <select
+                name="warranty"
+                id="warranty"
+                onChange={handelChange}
+                value={product.warranty}
+                className="w-full py-2 rounded hover:outline-green-400 outline-green-400 ps-1"
+              >
+                <option selected value={"0"}>0 Day</option>
+                <option value={"3d"}>3 Day</option>
+                <option value={"7d"}>7 Day</option>
+                <option value={"15d"}>15 Day</option>
+                <option value={"30d"}>30 Day</option>
+                <option value={"60d"}>60 Day</option>
+                <option value={"90d"}>90 Day</option>
+                <option value={"180d"}>180 Day</option>
+                <option value={"1y"}>1 Year</option>
+                <option value={"2y"}>2 Years</option>
+                <option value={"3y"}>3 Years</option>
+                <option value={"5y"}>5 Years</option>
+                <option value={"10y"}>10 Years</option>
+                
+              </select>
+            </div>
             {/* signup button */}
             <div className="max-w-md w-full">
-              {
-                formSubmitLodder ? (<button
-                  className="w-full text-white h-10 text-xl rounded-md bg-gray-400" disabled
-                  >
-                    {/* <CircleLoader color="#ffff" size={20} /> */}
-                    <LoadingSpinner/>
-                  </button>
-                ) : (
-                  <button
+              {formSubmitLodder ? (
+                <button
+                  className="w-full text-white h-10 text-xl rounded-md bg-gray-400"
+                  disabled
+                >
+                  {/* <CircleLoader color="#ffff" size={20} /> */}
+                  <LoadingSpinner />
+                </button>
+              ) : (
+                <button
                   className="w-full bg-[#e13614] text-white h-10 text-xl rounded-md hover:bg-primary"
-                  onClick={handelSubmit}>add</button>
-              )
-              }
-              
+                  onClick={handelSubmit}
+                >
+                  add
+                </button>
+              )}
             </div>
           </div>
         </div>
