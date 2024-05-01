@@ -59,7 +59,7 @@ const ProductModel = mongoose.Schema({
     default: false,
     require: true,
   },
-  deliveryConst: {
+  deliveryCost: {
     type: Object,
     insideDhaka: {
       type: Number,

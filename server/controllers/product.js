@@ -28,7 +28,7 @@ const insartProduct = async (req, res) => {
   // delivery charge
   const charge = weight.split(",");
   let insideDhaka = 39 +Number(charge[0]) ;
-  let outsideDhaka = 79 + Number(charge[0]);
+  let outsideDhaka = 69 + Number(charge[0]);
   const newproduct = new ProductModel({
     brand,
     categories,
@@ -43,7 +43,7 @@ const insartProduct = async (req, res) => {
     percentage,
     visibility,
     condition,
-    deliveryConst: { outsideDhaka, insideDhaka, },
+    deliveryCost: { outsideDhaka, insideDhaka, },
   });
   const uploadMongoRes = await newproduct.save();
   res.json({ data: uploadMongoRes });
@@ -125,7 +125,17 @@ const productDetailControl = async (req, res) => {
     if (!product) {
       return res.send({ status: "error", data: "Invalid product" });
     } else {
-      res.send(product);
+
+
+      const similarProduct = await productModel.find({categories : {$eq : product.categories}}).limit(10).select({
+        imageUrl: 1,
+        sellPrice: 1,
+        price: 1,
+        title: 1,
+        deliveryFree: 1,
+        percentage: 1,
+      })
+      res.send({product,similarProduct});
     }
   } catch (err) {
     console.log("server error");

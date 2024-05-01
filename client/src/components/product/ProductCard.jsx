@@ -39,9 +39,9 @@ function ProductCard({ _id,deliveryFree,title,price,sellPrice,imageUrl,percentag
         <div className="flex items-end gap-2">
           <div className="flex items-center text-lg">
             <TbCurrencyTaka />
-            <span className="text-primary">1199</span>
+            <span className="text-primary">{sellPrice}</span>
           </div>
-          <del className="text-sm">1586</del>
+          <del className="text-sm">{price}</del>
         </div>
       </div>
     </Link>

@@ -29,6 +29,7 @@ import LoadingSpinner from "../LoadingSpinner";
 function ProductDetail({ params }) {
   const [count, setCount] = useState(1);
   const [product, setProduct] = useState({});
+  const [similarProduct, setSimilarProduct] = useState([]);
   const [cart, setCart] = useState([]);
   const [cartLodder, setCartLodder] = useState(false);
   const router = useRouter();
@@ -42,7 +43,8 @@ function ProductDetail({ params }) {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API}/product/product-detail/${_id}`
         );
-        setProduct(res.data);
+        setProduct(res.data.product);
+        setSimilarProduct(res.data.similarProduct)
       };
       fatchData();
     } catch (err) {
@@ -106,7 +108,12 @@ function ProductDetail({ params }) {
     }
     setCartLodder(false);
   };
-
+  // insart date
+const insartDate = {
+  date:new Date(product?.insartDate).getDate(),
+  month:new Date(product?.insartDate).getMonth() + 1,
+  year:new Date(product?.insartDate).getFullYear(),
+}
   return (
     <div>
       {/* product info */}
@@ -130,9 +137,15 @@ function ProductDetail({ params }) {
           </div>
           {/*--------center product detaisl */}
           <div className="lg:flex-1 mx-0 bg-white">
+            
             {/* title */}
             <p className="text-[15px] capitalize my-2">{product.title}</p>
             <hr />
+            {/* insart date */}
+            <div className="mt-2">
+              <span>Date of add : </span>
+              <span className=" bg-gray-200 border border-gray-400 text-gray-500 px-3 py-1 text-sm rounded">{`${insartDate.date}/${insartDate.month}/${insartDate.year}`}</span>
+            </div>
             {/* brnad */}
             <p className="capitalize text-md mt-3">
               Brand : {product?.brand || "no brand"}
@@ -246,7 +259,7 @@ function ProductDetail({ params }) {
                   <p>inside dhaka :</p>
                   <p className="text-end flex items-center text-green-600">
                     <TbCurrencyTaka className="text-xl" />
-                    39
+                    {product?.deliveryCost?.insideDhaka || 39}
                   </p>
                 </div>
                 <p className="text-sm text-start ps-5 text-gray-400 mb-5">
@@ -260,7 +273,7 @@ function ProductDetail({ params }) {
                   <p>outside dhaka :</p>
                   <p className="text-end flex items-center text-green-600">
                     <TbCurrencyTaka className="text-xl" />
-                    89
+                    {product?.deliveryCost?.outsideDhaka || 79}
                   </p>
                 </div>
                 <p className="text-sm text-start ps-5 text-gray-400 mb-5">
@@ -296,7 +309,7 @@ function ProductDetail({ params }) {
               {/* warranty time */}
               <div className="flex text-lg capitalize items-center gap-3 font-[500] mb-5">
                 <FaShield className="text-xl" />
-                <p>no warranty available</p>
+                <p className={`${product?.warranty != '0' ?'text-green-500' : 'text-black' }`} >{product?.warranty != '0' ?  product?.warranty + ' warranty' : 'no warranty available'}</p>
                 {/* <p className="text-end flex items-center text-green-600">
                   not 
                 </p> */}
@@ -322,14 +335,23 @@ function ProductDetail({ params }) {
             "border-[4px] rounded-md shadow-lg shadow-gray-400 my-10 px-1 sm:px-3 py-3"
           }
         >
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          {
+            similarProduct.length > 0 && ( similarProduct.map(i=>(
+              <ProductCard
+                key={i._id}
+                deliveryFree={i.deliveryFree}
+                title={i.title}
+                price={i.price}
+                sellPrice={i.sellPrice}
+                imageUrl={i.imageUrl}
+                percentage={i.percentage}
+                _id={i._id}
+              />
+            ))
+              
+            )
+          }
+          
         </ProductContainer>
       </div>
       <ToastContainer />
