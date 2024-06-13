@@ -37,14 +37,14 @@ function Cart() {
     const cartData = JSON.parse(localStorage.getItem("cart"));
     if (cartData) {
       const cart = cartData.reverse();
-      const fetchData = async () => {
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API}/product/cart-product`,
-          cart
-        );
-        setCart(res.data);
-      };
-      fetchData();
+      // const fetchData = async () => {
+      //   const res = await axios.post(
+      //     `${process.env.NEXT_PUBLIC_API}/product/cart-product`,
+      //     cart
+      //   );
+      //   setCart(res.data);
+      // };
+      // fetchData();
     }
   }, []);
   // useEffect(() => {
@@ -141,10 +141,10 @@ function Cart() {
         {/* ))} */}
 
         {/* singel row */}
-        {cart.length <= 0 ? (
+        {cart?.length <= 0 ? (
           <LoadingSpinner />
         ) : (
-          cart.map(({ productList, quantity }) => (
+          cart?.map(({ productList, quantity }) => (
             <div key={productList._id}>
               <div className="flex gap-0 sm:gap-2 my-1 ">
                 {/* checkbox */}
