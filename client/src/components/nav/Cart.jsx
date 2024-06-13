@@ -31,14 +31,12 @@ function Cart() {
   };
   // get cart from  localstoreg
 
-
-
-  
   useEffect(() => {
-    const cart = (JSON.parse(localStorage.getItem("cart"))).reverse();
+    const cardData = JSON.parse(localStorage.getItem("cart"));
+    // const cart = (JSON.parse(localStorage.getItem("cart"))).reverse();
+    const cart = cardData.length > 1 && cardData.reverse();
     // fatch data
     const fatchData = async () => {
-      
       // if(cart.length < 1) return
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/product/cart-product`,
@@ -46,7 +44,7 @@ function Cart() {
       );
       setCart(res.data);
     };
-    fatchData();
+    cardData.length > 1 && fatchData();
   }, []);
   // handel remove button
   const handelRemove = (id) => {
