@@ -125,8 +125,6 @@ const productDetailControl = async (req, res) => {
     if (!product) {
       return res.send({ status: "error", data: "Invalid product" });
     } else {
-
-
       const similarProduct = await productModel.find({categories : {$eq : product.categories}}).limit(10).select({
         imageUrl: 1,
         sellPrice: 1,
@@ -216,6 +214,29 @@ const cartProductControl = async (req, res) => {
     console.log("data fatching error");
   }
 };
+// update react
+const updatereactControl = async (req,res)=>{
+  const {productId} = req.body
+  const {user} = req.headers
+  const update = await productModel.findOne({_id:productId})
+  // const updatee = await productModel.findOne({_id:'66320f69bae8d7b5c05f4e65'})
+console.log('update',update);
+  if(update.react){
+    console.log('if block update',update);
+  }else{
+    const reactUp = new productModel({
+      react : {
+        total : 1,
+        user:[user]
+      }
+    })
+  const rere= await reactUp.save()
+console.log('rere',rere);
+  }
+  // console.log('user',reactUp);
+  
+  res.send('success')
+}
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -224,4 +245,5 @@ module.exports = {
   productDetailControl,
   buyConrtol,
   cartProductControl,
+  updatereactControl,
 };

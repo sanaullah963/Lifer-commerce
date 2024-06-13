@@ -114,6 +114,30 @@ const insartDate = {
   month:new Date(product?.insartDate).getMonth() + 1,
   year:new Date(product?.insartDate).getFullYear(),
 }
+// handle share
+
+const handelShare =()=>{
+  navigator.clipboard.writeText(location.href)
+  toast.success('Coppy to clipboard')
+}
+// handle love react
+
+const handelLoveReact = async()=>{
+  try {
+    if(!token){
+      return toast.error('Plase Login')
+    }
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/product/update-react`,{productId:product._id},{
+      headers : {
+        Authorization : `barer ${token}`
+      }
+    })
+    console.log(res.data);
+  } catch (error) {
+    console.log('sever error');
+  }
+  console.log(product?.react);
+}
   return (
     <div>
       {/* product info */}
@@ -153,12 +177,13 @@ const insartDate = {
             {/* like && share */}
             <div className=" flex gap-2">
               <span className="items-center flex">
-                <span className="text-lg me-2">125</span>
-                <IoMdHeartEmpty className="text-4xl cursor-pointer" />
+                <span className="text-lg me-2">{product?.react}</span>
+                <button onClick={handelLoveReact}><IoMdHeartEmpty className="text-4xl cursor-pointer" /></button>
+                
               </span>
-              <span className="text-3xl cursor-pointer">
+              <button onClick={handelShare} className="text-3xl cursor-pointer">
                 <IoMdShare />
-              </span>
+              </button>
             </div>
             {/* price and off */}
             <div className=" flex gap-2 mt-5">

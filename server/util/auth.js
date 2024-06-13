@@ -7,12 +7,12 @@ const auth = async (req, res, next) => {
   // access token
   const mainToken = req.headers?.authorization;
   if (!mainToken) {
-    return res.send({ status: "error", data: "Invalid token" });
+    return res.send({ status: "error", data: "Invalid token",user:false });
   } else {
     const token = mainToken.split(" ")[1];
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
     if (!_id) {
-      return res.send({ status: "error", data: "Invalid token info" });
+      return res.send({ status: "error", data: "Invalid token info",user:false });
     } else {
       try {
         const respons = await userModel.findOne({ _id });

@@ -1,5 +1,6 @@
 const express = require("express");
 const upload = require("../util/multer");
+const auth = require("../util/auth");
 const {
   insartProduct,
   latestProductcontrol,
@@ -8,9 +9,9 @@ const {
   productDetailControl,
   buyConrtol,
   cartProductControl,
+  updatereactControl,
 } = require("../controllers/product");
 
-const auth = require("../util/auth");
 const router = express.Router();
 
 // insart Product
@@ -21,5 +22,6 @@ router.get("/discount-upto", discountUpToControl);
 router.get("/product-detail/:_id", productDetailControl);
 router.get("/buy-product", auth, buyConrtol);
 router.post("/cart-product", cartProductControl);
+router.post("/update-react",auth, updatereactControl);
 
 module.exports = router;

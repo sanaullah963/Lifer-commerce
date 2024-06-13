@@ -69,6 +69,17 @@ const ProductModel = mongoose.Schema({
     },
     require: true,
   },
+  react: {
+    type: Object,
+    require: false,
+    total: {
+      type: Number,
+      // default: 0,
+    },
+    user: {
+      type: Array,
+    },
+  },
   percentage: {
     type: Number,
     require: true,
