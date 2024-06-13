@@ -33,34 +33,21 @@ function Cart() {
 
 
 
+  
   useEffect(() => {
-    const cartData = JSON.parse(localStorage.getItem("cart"));
-    if (cartData) {
-      const cart = cartData.reverse();
-      // const fetchData = async () => {
-      //   const res = await axios.post(
-      //     `${process.env.NEXT_PUBLIC_API}/product/cart-product`,
-      //     cart
-      //   );
-      //   setCart(res.data);
-      // };
-      // fetchData();
-    }
-  }, []);
-  // useEffect(() => {
-  //   const cart = (JSON.parse(localStorage.getItem("cart"))).reverse();
-  //   // fatch data
-  //   const fatchData = async () => {
+    const cart = (JSON.parse(localStorage.getItem("cart"))).reverse();
+    // fatch data
+    const fatchData = async () => {
       
-  //     // if(cart.length < 1) return
-  //     const res = await axios.post(
-  //       `${process.env.NEXT_PUBLIC_API}/product/cart-product`,
-  //       cart
-  //     );
-  //     setCart(res.data);
-  //   };
-  //   fatchData();
-  // }, []);
+      // if(cart.length < 1) return
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/product/cart-product`,
+        cart
+      );
+      setCart(res.data);
+    };
+    fatchData();
+  }, []);
   // handel remove button
   const handelRemove = (id) => {
     const existingCart = JSON.parse(localStorage.getItem("cart"));
