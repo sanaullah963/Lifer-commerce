@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
 import product from "@/image/proudct/p4.jpg";
+import { IoIosArrowBack } from "react-icons/io";
 import Image from "next/image";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { MdDeleteOutline } from "react-icons/md";
@@ -34,17 +35,17 @@ function Cart() {
   useEffect(() => {
     const cardData = JSON.parse(localStorage.getItem("cart"));
     // const cart = (JSON.parse(localStorage.getItem("cart"))).reverse();
-    const cart = cardData?.length >= 1 && cardData.reverse();
+    const cartItem = cardData?.length >= 1 && cardData.reverse();
     // fatch data
     const fatchData = async () => {
       // if(cart.length < 1) return
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API}/product/cart-product`,
-        cart
+        cartItem
       );
       setCart(res.data);
     };
-    cardData?.length > 1 && fatchData();
+    cardData?.length > 0 && fatchData();
   }, []);
   // handel remove button
   const handelRemove = (id) => {
@@ -100,6 +101,14 @@ function Cart() {
   return (
     <div className="px-2 sm:px-5 bg-[#dff9fb] py-10">
       <div className="border-[4px] max-w-[820px] mx-auto rounded-md p-1 sm:p-2 md:py-5 shadow-lg shadow-gray-400 bg-white">
+        {/* back button */}
+        <div>
+          <button
+            onClick={()=>history.back()}
+            className="bg-gray-500 text-white py-1 px-2 mb-5 rounded flex items-center"
+          ><IoIosArrowBack/> <span>Back</span>
+          </button>
+        </div>
         <Headding
           Headding={`${cart?.length || "... "}  product in your cart`}
         />
@@ -128,6 +137,7 @@ function Cart() {
         {/* singel row */}
         {cart?.length <= 0 ? (
           <LoadingSpinner />
+          
         ) : (
           cart?.map(({ productList, quantity }) => (
             <div key={productList._id}>
