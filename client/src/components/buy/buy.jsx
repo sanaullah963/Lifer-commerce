@@ -36,7 +36,7 @@ function Odder({ params }) {
     <main>
       <div className="">
         {/* first box || address box */}
-        <BorderContainer className="  ">
+        <BorderContainer>
           <div className="flex w-full justify-between">
             {/* left side */}
             <div className=" text-sm sm:text-lg flex-1 ">

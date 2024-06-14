@@ -27,7 +27,7 @@ const insartProduct = async (req, res) => {
   const percentage = (((price - sellPrice) / price) * 100).toFixed(1);
   // delivery charge
   const charge = weight.split(",");
-  let insideDhaka = 39 +Number(charge[0]) ;
+  let insideDhaka = 39 + Number(charge[0]);
   let outsideDhaka = 69 + Number(charge[0]);
   const newproduct = new ProductModel({
     brand,
@@ -43,7 +43,7 @@ const insartProduct = async (req, res) => {
     percentage,
     visibility,
     condition,
-    deliveryCost: { outsideDhaka, insideDhaka, },
+    deliveryCost: { outsideDhaka, insideDhaka },
   });
   const uploadMongoRes = await newproduct.save();
   res.json({ data: uploadMongoRes });
@@ -125,15 +125,18 @@ const productDetailControl = async (req, res) => {
     if (!product) {
       return res.send({ status: "error", data: "Invalid product" });
     } else {
-      const similarProduct = await productModel.find({categories : {$eq : product.categories}}).limit(10).select({
-        imageUrl: 1,
-        sellPrice: 1,
-        price: 1,
-        title: 1,
-        deliveryFree: 1,
-        percentage: 1,
-      })
-      res.send({product,similarProduct});
+      const similarProduct = await productModel
+        .find({ categories: { $eq: product.categories } })
+        .limit(10)
+        .select({
+          imageUrl: 1,
+          sellPrice: 1,
+          price: 1,
+          title: 1,
+          deliveryFree: 1,
+          percentage: 1,
+        });
+      res.send({ product, similarProduct });
     }
   } catch (err) {
     console.log("server error");
@@ -150,6 +153,10 @@ const buyConrtol = async (req, res) => {
   let fullProductArr = [];
   let totalQuantity = 0;
   let totalPrice = 0;
+  let totaldelivary = 0;
+  let totalPay = 0;
+  let numberOfItem = 0;
+  let discount = 0;
   // split id & get id
   ids.map((item) => {
     const element = item.split(".");
@@ -162,25 +169,54 @@ const buyConrtol = async (req, res) => {
   // find data
   try {
     // const address = await userModel.findById({_id:user}).select({})
-    const response = await productModel
-      .find({ _id: allId })
-      .select({ title: 1, imageUrl: 1, sellPrice: 1, stock: 1 });
+    const response = await productModel.find({ _id: allId }).select({
+      title: 1,
+      imageUrl: 1,
+      sellPrice: 1,
+      stock: 1,
+      deliveryFree: 1,
+      deliveryCost: 1,
+    });
     if (response) {
       // map response &&
       response.map((item1) => {
         idAndQuantity.map((item2) => {
-          if (item1._id == item2._id) {
-            fullProductArr.push({ product: item1, quantity: item2.quantity }); // insart product
+          if (item1?._id == item2?._id) {
+            fullProductArr.push({ product: item1, quantity: item2?.quantity }); // insart product
             totalPrice =
-              totalPrice + Number(item1.sellPrice) * Number(item2.quantity); // total price
-            totalQuantity = totalQuantity + Number(item2.quantity); // total quantity
+              totalPrice + Number(item1?.sellPrice) * Number(item2?.quantity); // total price
+            totalQuantity = totalQuantity + Number(item2?.quantity); // total quantity
+            let singelDelivary = item1?.deliveryCost?.outsideDhaka || 0;
+
+            if (item2?.quantity < 3) {
+              totaldelivary = totaldelivary + singelDelivary;
+            } else if (item2?.quantity >= 3 && item2?.quantity < 5) {
+              totaldelivary = totaldelivary + singelDelivary * 2;
+            } else if (item2?.quantity >= 5 && item2?.quantity < 8) {
+              totaldelivary = totaldelivary + singelDelivary * 3;
+            } else if (item2?.quantity >= 8 && item2?.quantity < 13) {
+              totaldelivary = totaldelivary + singelDelivary * 5;
+            } else if (item2?.quantity >= 13 && item2?.quantity < 25) {
+              totaldelivary = totaldelivary + singelDelivary * 10;
+            }
+             else if (item2?.quantity >= 25 && item2?.quantity < 50) {
+              totaldelivary = totaldelivary + singelDelivary * 25;
+            }
+             else if (item2?.quantity >= 50) {
+              totaldelivary = totaldelivary + singelDelivary * 40;
+            }//total delivary
+
+            numberOfItem += 1;
+            totalPay = totalPrice + totaldelivary; // total pay
           }
         });
       });
+
+
       // send res
       res.send({
         productArr: fullProductArr,
-        priceDetail: { totalQuantity, totalPrice },
+        priceDetail: { totalQuantity, totalPrice, totalPay, totaldelivary,discount },
         user,
       });
     }
@@ -215,28 +251,28 @@ const cartProductControl = async (req, res) => {
   }
 };
 // update react
-const updatereactControl = async (req,res)=>{
-  const {productId} = req.body
-  const {user} = req.headers
-  const update = await productModel.findOne({_id:productId})
+const updatereactControl = async (req, res) => {
+  const { productId } = req.body;
+  const { user } = req.headers;
+  const update = await productModel.findOne({ _id: productId });
   // const updatee = await productModel.findOne({_id:'66320f69bae8d7b5c05f4e65'})
-console.log('update',update);
-  if(update.react){
-    console.log('if block update',update);
-  }else{
+  console.log("update", update);
+  if (update.react) {
+    console.log("if block update", update);
+  } else {
     const reactUp = new productModel({
-      react : {
-        total : 1,
-        user:[user]
-      }
-    })
-  const rere= await reactUp.save()
-console.log('rere',rere);
+      react: {
+        total: 1,
+        user: [user],
+      },
+    });
+    const rere = await reactUp.save();
+    console.log("rere", rere);
   }
   // console.log('user',reactUp);
-  
-  res.send('success')
-}
+
+  res.send("success");
+};
 module.exports = {
   insartProduct,
   latestProductcontrol,

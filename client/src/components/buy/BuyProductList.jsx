@@ -6,18 +6,18 @@ import Image from "next/image";
 import { MdOutlineDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
-
-function BuyProductList({ productArr,priceDetail }) {
-// remove button
-  const removeProduct=(_id)=>{
-    alert('Feature coming soon ):')
-  }
-// handelPlaceOrder
-const router=useRouter()
-const handelPlaceOrder =()=>{
-  // const bark = router.back()
-  console.log(router);
-}
+function BuyProductList({ productArr, priceDetail }) {
+  // remove button
+  const removeProduct = (_id) => {
+    alert("Feature coming soon ):");
+  };
+  console.log( priceDetail);
+  // handelPlaceOrder
+  const router = useRouter();
+  const handelPlaceOrder = () => {
+    // const bark = router.back()
+    console.log(router);
+  };
   return (
     <main>
       <BorderContainer className=" flex flex-col my-0 md:flex-row gap-1">
@@ -48,7 +48,10 @@ const handelPlaceOrder =()=>{
 
                   <div className="flex justify-between">
                     {/* remove product */}
-                    <button onClick={()=>removeProduct(product._id)} className="bg-red-400 text-white py-1 md:py-2 px-3 text-lg rounded-md  hover:bg-red-600 ">
+                    <button
+                      onClick={() => removeProduct(product._id)}
+                      className="bg-red-400 text-white py-1 md:py-2 px-3 text-lg rounded-md  hover:bg-red-600 "
+                    >
                       <MdOutlineDelete />
                     </button>
                     {/* price */}
@@ -68,19 +71,25 @@ const handelPlaceOrder =()=>{
           {/* order header */}
 
           <div className="flex justify-between border-y capitalize">
-            <span>product quantity</span> <span>{priceDetail?.totalQuantity || <LoadingSpinner/>}</span>
+            <span>product quantity</span>{" "}
+            <span>{priceDetail?.totalQuantity || <LoadingSpinner />}</span>
           </div>
           <div className="flex justify-between border-y capitalize">
-            <span>Total price</span> <span>{priceDetail?.totalPrice || <LoadingSpinner/>}</span>
+            <span>Total price</span>{" "}
+            <span>{priceDetail?.totalPrice || <LoadingSpinner />}</span>
+            
           </div>
           <div className="flex justify-between border-y capitalize">
-            <span>delivary cost</span> <span>not set</span>
+            <span>delivary cost</span>
+            <span>{priceDetail?.totaldelivary || <LoadingSpinner />}</span>
           </div>
           <div className="flex justify-between border-y capitalize">
-            <span>discount</span> <span>not set</span>
+            <span>discount</span> 
+            {priceDetail?.discount || '00'}
           </div>
           <div className="flex justify-between border-y capitalize">
-            <span>total pay</span> <span>notset</span>
+            <span>total pay</span> 
+            {priceDetail?.totalPay || <LoadingSpinner />}
           </div>
 
           {/* place order button */}

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../Container";
 import { GoPlus } from "react-icons/go";
 import Modal from "./Modal";
@@ -7,11 +7,16 @@ import BorderContainer from "../BorderContainer";
 
 function Profile() {
   const [show, setShow] = useState(false);
+  const [cart,setCart]=useState(0)
   //------- closemodal Handel
   function closeModal() {
     show && setShow(false);
   }
-
+  useEffect(() => {
+    const cardData = JSON.parse(localStorage.getItem('cart'))
+    cardData ? setCart(cardData.length): setCart(0)
+    
+  }, []);
   return (
     <main>
       <div className="">{show && <Modal closeModal={closeModal} />}</div>
@@ -32,7 +37,7 @@ function Profile() {
               {/* cart counting */}
               <div className=" border-2 border-blue-600 rounded-md flex items-center justify-center flex-col gap-2 py-6">
                 <div className="h-10 w-16 sm:h-16 sm:w-24 rounded-3xl bg-blue-200 text-blue-700 flex justify-center items-center font-bold text-xl sm:text-3xl shadow-md shadow-blue-500">
-                  25
+                  {cart}
                 </div>
                 <p className="capitalize text-sm sm:text-lg lg:text-2xl">in your cart</p>
               </div>
