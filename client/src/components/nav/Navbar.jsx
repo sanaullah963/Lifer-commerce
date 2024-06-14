@@ -24,6 +24,9 @@ function Navbar() {
   const token = Cookies.get("clientToken");
   // if token then get user info
   useEffect(() => {
+    const cardData = JSON.parse(localStorage.getItem('cart'))
+    
+    cardData ? setCart(cardData.length): setCart(0)
     // setCart((JSON.parse(localStorage.getItem('cart'))).length)
 
     const haveUser = async () => {

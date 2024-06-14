@@ -34,7 +34,7 @@ function Cart() {
   useEffect(() => {
     const cardData = JSON.parse(localStorage.getItem("cart"));
     // const cart = (JSON.parse(localStorage.getItem("cart"))).reverse();
-    const cart = cardData?.length > 1 && cardData.reverse();
+    const cart = cardData?.length >= 1 && cardData.reverse();
     // fatch data
     const fatchData = async () => {
       // if(cart.length < 1) return
