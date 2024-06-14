@@ -198,13 +198,14 @@ const buyConrtol = async (req, res) => {
               totaldelivary = totaldelivary + singelDelivary * 5;
             } else if (item2?.quantity >= 13 && item2?.quantity < 25) {
               totaldelivary = totaldelivary + singelDelivary * 10;
-            }
-             else if (item2?.quantity >= 25 && item2?.quantity < 50) {
+            } else if (item2?.quantity >= 25 && item2?.quantity < 50) {
               totaldelivary = totaldelivary + singelDelivary * 25;
-            }
-             else if (item2?.quantity >= 50) {
+            } else if (item2?.quantity >= 50) {
               totaldelivary = totaldelivary + singelDelivary * 40;
-            }//total delivary
+            } //total delivary
+             else{
+              totaldelivary = totaldelivary + singelDelivary * 50;
+            } //total delivary
 
             numberOfItem += 1;
             totalPay = totalPrice + totaldelivary; // total pay
@@ -212,11 +213,16 @@ const buyConrtol = async (req, res) => {
         });
       });
 
-
       // send res
       res.send({
         productArr: fullProductArr,
-        priceDetail: { totalQuantity, totalPrice, totalPay, totaldelivary,discount },
+        priceDetail: {
+          totalQuantity,
+          totalPrice,
+          totalPay,
+          totaldelivary,
+          discount,
+        },
         user,
       });
     }
