@@ -1,5 +1,7 @@
 "use client";
 import { districtArray } from "@/constant/data";
+import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,20 +24,40 @@ function Modal({ closeModal }) {
     });
   };
   // submit handel
-  const handelSubmit = () => {
-    const obj = JSON.stringify({
-      name,
-      number,
-      country,
-      district,
-      upazila: upazilaValue,
-      address,
-    });
+  const handelSubmit = async () => {
+    const token = Cookies.get("clientToken");
+    if (
+      !name ||
+      !number ||
+      !country ||
+      !district ||
+      !upazilaValue ||
+      !address
+    ) {
+      toast.error("Requiered fild are empty");
+    } else {
+      const obj = {
+        name,
+        number,
+        country,
+        district,
+        upazila: upazilaValue,
+        address,
+      };
+      // api request
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/user/user-address`,
+        obj,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(res);
 
-    console.log(obj);
-    console.log(typeof(obj));
-
-    closeModal();
+      closeModal();
+    }
   };
   return (
     <div className=" absolute h-auto top-0 right-0 left-0 bg-gray-200 px-2 md:px-10">
@@ -76,7 +98,7 @@ function Modal({ closeModal }) {
               </label>
               <input
                 id="number"
-                type="text"
+                type="number"
                 placeholder="Enter number"
                 className="outline-none border hover:border-green-400 focus:border-green-400 rounded px-2 py-1"
                 onChange={(e) => setNumber(e.target.value)}

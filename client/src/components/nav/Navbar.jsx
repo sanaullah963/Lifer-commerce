@@ -48,7 +48,6 @@ function Navbar() {
   }, []);
   // logout handel
   const handelLogout = () => {
-    console.log("logour");
     Cookies.remove("clientToken");
     setShow(false);
     location.reload();

@@ -4,10 +4,13 @@ import Container from "../Container";
 import { GoPlus } from "react-icons/go";
 import Modal from "./Modal";
 import BorderContainer from "../BorderContainer";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 function Profile() {
   const [show, setShow] = useState(false);
-  const [cart,setCart]=useState(0)
+  const [cart,setCart]=useState(0);
+  const router = useRouter()
   //------- closemodal Handel
   function closeModal() {
     show && setShow(false);
@@ -15,7 +18,9 @@ function Profile() {
   useEffect(() => {
     const cardData = JSON.parse(localStorage.getItem('cart'))
     cardData ? setCart(cardData.length): setCart(0)
-    
+    // access token
+    const token = Cookies.get("clientToken")
+    if(!token) return router.push('/')
   }, []);
   return (
     <main>
