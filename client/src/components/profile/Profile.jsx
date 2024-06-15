@@ -6,27 +6,54 @@ import Modal from "./Modal";
 import BorderContainer from "../BorderContainer";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import LoadingSpinner from "../LoadingSpinner";
 
 function Profile() {
   const [show, setShow] = useState(false);
-  const [cart,setCart]=useState(0);
-  const router = useRouter()
+  const [showSpnnier, setShowSpnnier] = useState(false);
+  const [cart, setCart] = useState(0);
+  const [address,setAddtess]=useState({})
+  const router = useRouter();
   //------- closemodal Handel
   function closeModal() {
     show && setShow(false);
   }
   useEffect(() => {
-    const cardData = JSON.parse(localStorage.getItem('cart'))
-    cardData ? setCart(cardData.length): setCart(0)
     // access token
-    const token = Cookies.get("clientToken")
-    if(!token) return router.push('/')
+    setShowSpnnier(true)
+    const token = Cookies.get("clientToken");
+    if (!token) return router.push("/");
+    // access and shwo total card item
+    const cardData = JSON.parse(localStorage.getItem("cart"));
+    cardData ? setCart(cardData.length) : setCart(0);
+    // get address and order
+    const fatchData = async () => {
+      try {
+        const data = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}/user/address-and-order`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setAddtess(data.data.address)
+
+      } catch (err) {
+        console.log("fatching error", err);
+      }
+    };
+    fatchData();
+    setShowSpnnier(false)
   }, []);
+  console.log(address);
   return (
     <main>
       <div className="">{show && <Modal closeModal={closeModal} />}</div>
       <div>
-        <BorderContainer className={'my-5'}>
+           {showSpnnier && <LoadingSpinner/>} 
+        <BorderContainer className={"my-5"}>
           {/* inner border */}
           <div className="flex flex-col md:flex-row gap-2 md:gap-5 mx-auto">
             <div className=" w-full md:w-1/2 grid grid-cols-2 gap-1 sm:gap-3 md:gap-5">
@@ -44,10 +71,11 @@ function Profile() {
                 <div className="h-10 w-16 sm:h-16 sm:w-24 rounded-3xl bg-blue-200 text-blue-700 flex justify-center items-center font-bold text-xl sm:text-3xl shadow-md shadow-blue-500">
                   {cart}
                 </div>
-                <p className="capitalize text-sm sm:text-lg lg:text-2xl">in your cart</p>
+                <p className="capitalize text-sm sm:text-lg lg:text-2xl">
+                  in your cart
+                </p>
               </div>
             </div>
-
             <div className=" flex-1 border-2 border-gray-400 bg-gray-100 rounded-md px-2 sm:px-3 py-2">
               <div className="">
                 <div className="flex justify-between items-center mb-3">
@@ -63,12 +91,12 @@ function Profile() {
                   </button>
                 </div>
                 <div className="">
-                  <p className="capitalize font-[500]">name sanaullah</p>
+                  <p className="capitalize font-[500]">name : {address?.address?.name}</p>
                   <p className="text-gray-600 text-sm">
-                    Baresal, pord rood, Gournadi, Barisal District -8200,
+                    {`${address?.address?.district} - ${address?.address?.upazila} - ${address?.address?.address} - `}
                     Bangladesh
                   </p>
-                  <p className="text-gray-600">01744584584</p>
+                  <p className="text-gray-600">{address?.address?.number}</p>
                 </div>
               </div>
             </div>
@@ -76,7 +104,7 @@ function Profile() {
         </BorderContainer>
 
         {/* recent order */}
-        <BorderContainer className={'my-5'}>
+        <BorderContainer className={"my-5"}>
           <h2 className="capitalize font-semibold text-xl">recent order</h2>
           <p className=" bg-red-300 text-red-800">
             {" "}

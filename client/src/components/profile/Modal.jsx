@@ -54,9 +54,7 @@ function Modal({ closeModal }) {
           },
         }
       );
-      console.log(res);
-
-      closeModal();
+      res.data.status == "success"? closeModal() : toast.error(res.data.masseg);
     }
   };
   return (

@@ -20,7 +20,7 @@ const userModel = mongoose.Schema({
       type: String,
     },
     number: {
-      type: Number,
+      type: String,
     },
     district: {
       type: String,

@@ -110,7 +110,17 @@ const userAddressControl = async (req, res) => {
     { address: { name, number, district, upazila, address } }
   );
   console.log(afterAdded);
-  res.send(afterAdded);
+  res.send({ status: "success", masseg: "Adderss update succcessfull" });
+};
+const addressAndOrderControl = async (req, res) => {
+  const { user } = req.headers;
+  try {
+    const address = await userModel.findById(user).select({address:1})
+    res.send({address});
+  } catch (err) {
+    console.log("fatching error", err);
+  }
+  
 };
 module.exports = {
   signupControl,
@@ -118,4 +128,5 @@ module.exports = {
   verifyToken,
   haveUserControl,
   userAddressControl,
+  addressAndOrderControl,
 };
