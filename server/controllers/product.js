@@ -182,38 +182,18 @@ const buyConrtol = async (req, res) => {
       response.map((item1) => {
         idAndQuantity.map((item2) => {
           if (item1?._id == item2?._id) {
+            console.log(item2);
             fullProductArr.push({ product: item1, quantity: item2?.quantity }); // insart product
             totalPrice =
               totalPrice + Number(item1?.sellPrice) * Number(item2?.quantity); // total price
             totalQuantity = totalQuantity + Number(item2?.quantity); // total quantity
-            let singelDelivary = (item1?.deliveryCost?.outsideDhaka || 0)*(item2?.quantity / 2);
-            totaldelivary = totaldelivary + singelDelivary
-
-            // if (item2?.quantity < 3) {
-            //   totaldelivary = totaldelivary + singelDelivary;
-            // } else if (item2?.quantity >= 3 && item2?.quantity < 5) {
-            //   totaldelivary = totaldelivary + singelDelivary * 2;
-            // } else if (item2?.quantity >= 5 && item2?.quantity < 8) {
-            //   totaldelivary = totaldelivary + singelDelivary * 3;
-            // } else if (item2?.quantity >= 8 && item2?.quantity < 13) {
-            //   totaldelivary = totaldelivary + singelDelivary * 5;
-            // } else if (item2?.quantity >= 13 && item2?.quantity < 25) {
-            //   totaldelivary = totaldelivary + singelDelivary * 10;
-            // } else if (item2?.quantity >= 25 && item2?.quantity < 50) {
-            //   totaldelivary = totaldelivary + singelDelivary * 25;
-            // } else if (item2?.quantity >= 50) {
-            //   totaldelivary = totaldelivary + singelDelivary * 40;
-            // } //total delivary
-            //  else{
-            //   totaldelivary = totaldelivary + singelDelivary * 50;
-            // } //total delivary
-
+            totaldelivary += item1?.deliveryCost?.outsideDhaka || 0;
             numberOfItem += 1;
             totalPay = totalPrice + totaldelivary; // total pay
           }
         });
       });
-
+      console.log(totaldelivary);
       // send res
       res.send({
         productArr: fullProductArr,

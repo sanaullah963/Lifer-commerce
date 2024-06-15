@@ -33,6 +33,7 @@ function Modal({ closeModal }) {
     });
 
     console.log(obj);
+    console.log(typeof(obj));
 
     closeModal();
   };

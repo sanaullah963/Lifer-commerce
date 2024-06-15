@@ -15,7 +15,7 @@ function BuyProductList({ productArr, priceDetail }) {
   // handelPlaceOrder
   const router = useRouter();
   const handelPlaceOrder = () => {
-    // const bark = router.back()
+    alert("Feature coming soon ):")
     console.log(router);
   };
   return (
@@ -45,7 +45,6 @@ function BuyProductList({ productArr, priceDetail }) {
                 {/* price & counter & price*/}
                 <div className="flex-1 w-full text-[15px] md:text-[17px]">
                   <p>{product.title}</p>
-
                   <div className="flex justify-between">
                     {/* remove product */}
                     <button
@@ -81,7 +80,7 @@ function BuyProductList({ productArr, priceDetail }) {
           </div>
           <div className="flex justify-between border-y capitalize">
             <span>delivary cost</span>
-            <span>{priceDetail?.totaldelivary || <LoadingSpinner />}</span>
+            <span>{priceDetail?.totaldelivary || '00'}</span>
           </div>
           <div className="flex justify-between border-y capitalize">
             <span>discount</span> 

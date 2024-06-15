@@ -12,9 +12,7 @@ function PopulerProduct() {
         <Headding Headding={'populer product'}/>
         <ProductContainer>
           <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
-          <ProductCard/>
+          
         </ProductContainer>
       </Container>
     </main>

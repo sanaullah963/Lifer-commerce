@@ -151,7 +151,7 @@ const handelLoveReact = async()=>{
               target="_blank"
             >
               <Image
-                src={product.imageUrl}
+                src={product?.imageUrl}
                 height={1000}
                 width={1000}
                 alt="product image"
@@ -163,7 +163,7 @@ const handelLoveReact = async()=>{
           <div className="lg:flex-1 mx-0 bg-white">
             
             {/* title */}
-            <p className="text-[15px] capitalize my-2">{product.title}</p>
+            <p className="text-[15px] capitalize my-2">{product?.title}</p>
             <hr />
             {/* insart date */}
             <div className="mt-2">
@@ -191,7 +191,7 @@ const handelLoveReact = async()=>{
                 <span className="text-3xl ">
                   <TbCurrencyTaka />
                 </span>
-                <span className="text-xl">{product.price}</span>
+                <span className="text-xl">{product?.price}</span>
               </div>
               <del className="text-lg text-gray-600 mt-2">
                 {product.sellPrice}
@@ -206,7 +206,7 @@ const handelLoveReact = async()=>{
             </div>
             {/* free delivery */}
             <div className="ms-2">
-              {product.deliveryFree && (
+              {product?.deliveryFree && (
                 <Image src={freeDelivery} alt="free delivery" />
               )}
             </div>
