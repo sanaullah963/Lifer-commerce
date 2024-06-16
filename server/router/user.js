@@ -5,7 +5,7 @@ const {
   verifyToken,
   haveUserControl,
   userAddressControl,
-  addressAndOrderControl,
+  getAddressConrtol,
 } = require("../controllers/user");
 const auth = require("../util/auth");
 
@@ -15,5 +15,5 @@ router.post("/login", loginControl);
 router.get("/verify-token", verifyToken);
 router.get("/user-name", haveUserControl);
 router.post("/user-address", auth, userAddressControl);
-router.get("/address-and-order",auth, addressAndOrderControl);
+router.get("/get-address",auth, getAddressConrtol);
 module.exports = router;

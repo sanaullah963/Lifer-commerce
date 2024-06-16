@@ -182,7 +182,6 @@ const buyConrtol = async (req, res) => {
       response.map((item1) => {
         idAndQuantity.map((item2) => {
           if (item1?._id == item2?._id) {
-            console.log(item2);
             fullProductArr.push({ product: item1, quantity: item2?.quantity }); // insart product
             totalPrice =
               totalPrice + Number(item1?.sellPrice) * Number(item2?.quantity); // total price
@@ -193,7 +192,6 @@ const buyConrtol = async (req, res) => {
           }
         });
       });
-      console.log(totaldelivary);
       // send res
       res.send({
         productArr: fullProductArr,

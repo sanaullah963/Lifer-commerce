@@ -11,7 +11,6 @@ function BuyProductList({ productArr, priceDetail }) {
   const removeProduct = (_id) => {
     alert("Feature coming soon ):");
   };
-  console.log( priceDetail);
   // handelPlaceOrder
   const router = useRouter();
   const handelPlaceOrder = () => {

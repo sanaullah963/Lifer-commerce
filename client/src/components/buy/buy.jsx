@@ -9,10 +9,13 @@ function Odder({ params }) {
  // access token
   const token = Cookies.get("clientToken");
   const [productLIst, setProductLIst] = useState({});
+  const [userAddress,setUserAddtess]=useState({})
+
   // fatch data
   useEffect(() => {
     const fatchData = async () => {
       try {
+        // get produc details API
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API}/product/buy-product`,
           {
@@ -23,6 +26,16 @@ function Odder({ params }) {
           }
         );
        setProductLIst(res.data);
+      //  get user address API
+      const addressRes = await axios.get(
+        `${process.env.NEXT_PUBLIC_API}/user/get-address`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setUserAddtess(addressRes.data.address)
       } catch (err) {
         console.log("server error", err);
       }
@@ -43,18 +56,18 @@ function Odder({ params }) {
               {/* name */}
               <div>
                 <span className="font-[500]">Name&nbsp;:</span>
-                <span className="text-gray-600">&nbsp;intisar sanaullah</span>
+                <span className="text-gray-600">&nbsp;{userAddress?.address?.name || 'not set'}</span>
               </div>
               {/* number */}
               <div>
                 <span className="font-[500]">Number&nbsp;:</span>
-                <span className="text-gray-600">&nbsp;01245685475</span>
+                <span className="text-gray-600">&nbsp;{userAddress?.address?.number|| 'Not set'}</span>
               </div>
               {/* address */}
               <div className="leading-4">
                 <span className="font-[500]">Address&nbsp;:</span>
                 <span className="text-gray-600">
-                  &nbsp;barishal,barishal sador,kawniya branch road,munshi vila
+                  &nbsp;{`${userAddress?.address?.district || 'Not set'} - ${userAddress?.address?.upazila || ' '} - ${userAddress?.address?.address || ''} `}
                 </span>
               </div>
             </div>

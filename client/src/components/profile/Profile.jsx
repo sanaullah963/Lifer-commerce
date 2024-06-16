@@ -27,11 +27,11 @@ function Profile() {
     // access and shwo total card item
     const cardData = JSON.parse(localStorage.getItem("cart"));
     cardData ? setCart(cardData.length) : setCart(0);
-    // get address and order
+    // get address API
     const fatchData = async () => {
       try {
         const data = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}/user/address-and-order`,
+          `${process.env.NEXT_PUBLIC_API}/user/get-address`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -47,7 +47,6 @@ function Profile() {
     fatchData();
     setShowSpnnier(false)
   }, []);
-  console.log(address);
   return (
     <main>
       <div className="">{show && <Modal closeModal={closeModal} />}</div>
