@@ -1,21 +1,46 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BorderContainer from "../BorderContainer";
 import LoadingSpinner from "../LoadingSpinner";
 import Image from "next/image";
 import { MdOutlineDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Cookies from "js-cookie";
 
-function BuyProductList({ productArr, priceDetail }) {
+function BuyProductList({ productArr, priceDetail, userAddress }) {
+  const router = useRouter();
   // remove button
   const removeProduct = (_id) => {
     alert("Feature coming soon ):");
   };
+  // use effect
+  useEffect(() => {
+    const token = Cookies.get("clientToken");
+    if (!token) return router.push("/");
+  }, []);
   // handelPlaceOrder
-  const router = useRouter();
   const handelPlaceOrder = () => {
-    alert("Feature coming soon ):")
-    console.log(router);
+    if (!userAddress) {
+      toast.error("Set address First");
+    } else {
+      let list = [];
+      productArr.map((i) => {
+        let newObj = {
+          ProductID: i.product._id,
+          quantity: i.quantity,
+        };
+        list.push(newObj);
+      });
+      const orderObj = {
+        userID: userAddress._id,
+        userAddress: userAddress.address,
+        totalprice: priceDetail.totalPay,
+        productList: list,
+      };
+      console.log(orderObj);
+    }
   };
   return (
     <main>
@@ -75,18 +100,17 @@ function BuyProductList({ productArr, priceDetail }) {
           <div className="flex justify-between border-y capitalize">
             <span>Total price</span>{" "}
             <span>{priceDetail?.totalPrice || <LoadingSpinner />}</span>
-            
           </div>
           <div className="flex justify-between border-y capitalize">
             <span>delivary cost</span>
-            <span>{priceDetail?.totaldelivary || '00'}</span>
+            <span>{priceDetail?.totaldelivary || "00"}</span>
           </div>
           <div className="flex justify-between border-y capitalize">
-            <span>discount</span> 
-            {priceDetail?.discount || '00'}
+            <span>discount</span>
+            {priceDetail?.discount || "00"}
           </div>
           <div className="flex justify-between border-y capitalize">
-            <span>total pay</span> 
+            <span>total pay</span>
             {priceDetail?.totalPay || <LoadingSpinner />}
           </div>
 
@@ -99,6 +123,7 @@ function BuyProductList({ productArr, priceDetail }) {
           </button>
         </div>
       </BorderContainer>
+      <ToastContainer />
     </main>
   );
 }

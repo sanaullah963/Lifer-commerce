@@ -42,7 +42,6 @@ function Odder({ params }) {
     };
     fatchData();
   }, []);
-
   // distrucer response
   const { user, productArr, priceDetail } = productLIst;
   return (
@@ -83,7 +82,7 @@ function Odder({ params }) {
           </div>
         </BorderContainer>
         {/* product & total price */}
-          <BuyProductList productArr={productArr} priceDetail={priceDetail}/>
+          <BuyProductList productArr={productArr} priceDetail={priceDetail} userAddress={userAddress}/>
         
       </div>
     </main>
