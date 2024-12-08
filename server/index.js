@@ -33,7 +33,7 @@ async function connect() {
     await mongoose.connect(process.env.MONGODB_URI);
     console.log("DB connected sucessfully");
   } catch (error) {
-    console.log("DB connection error");
+    console.log("DB connection error",error);
   }
 }
 connect();
