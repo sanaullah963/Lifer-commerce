@@ -1,8 +1,9 @@
+import All_Product from '@/components/admin/All_Product'
 import React from 'react'
 
 function page() {
   return (
-    <div>page</div>
+    <div><All_Product/></div>
   )
 }
 

@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import { TbCurrencyTaka } from "react-icons/tb";
 import delivaryFreeImg from "@/image/free_delivery.svg";
-import product1 from "@/image/proudct/product1.jpeg";
 import Link from "next/link";
 
 function ProductCard({ _id,deliveryFree,title,price,sellPrice,imageUrl,percentage }) {
