@@ -12,7 +12,7 @@ export default function Home() {
     <main>
       <CarouselComponent />
       <SpatialDeals />
-      <PopulerProduct />
+      {/* <PopulerProduct /> */}
       <LatestProduct />
       <FreeDeliveryProduct />
       <DiscountUpTo />

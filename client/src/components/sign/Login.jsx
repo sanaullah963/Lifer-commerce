@@ -9,6 +9,7 @@ import VerifyToken from "../verifyToken";
 import Cookies from "js-cookie";
 
 function Login() {
+
   const [formData, setFormData] = useState({});
   const [loaderState, setLoaderState] = useState(false);
   // verify token
@@ -38,9 +39,10 @@ function Login() {
           toast.success(res.data.data);
           Cookies.set('clientToken',res.data.token,{ expires: 1 })
           setTimeout(()=>{
-            // history.back()
-            location.reload()
+             
+             location.reload()
           },500)
+          history.back()
         }
       } catch (err) {
         console.log("server side error");
