@@ -9,20 +9,20 @@ function Home() {
 
   return (
     <Container>
-      <div className="grid bg-slate-200 content-center gap-10 items-center grid-flow-row grid-cols-2 md:grid-cols-3">
+      <div className="grid bg-slate-200 p-2 content-center gap-2 sm:gap-10 items-center grid-flow-row grid-cols-2 md:grid-cols-3">
         {/* total product */}
         <div onClick={()=>router.push('/admin/product')} className="cursor-pointer bg-green-400 h-40 flex flex-col capitalize font-semibold rounded-md justify-center items-center">
-          <p className="text-white text-2xl font-bold">total product</p>
+          <p className="text-white text-xl sm:text-2xl font-bold">total product</p>
           <p>500</p>
         </div>
-        {/* total order */}
+        {/* order */}
         <div onClick={()=>router.push('/admin/order')} className="cursor-pointer bg-green-400 h-40  flex flex-col capitalize font-semibold rounded-md justify-center items-center">
-          <p className="text-white text-2xl font-bold">order</p>
+          <p className="text-white text-xl sm:text-2xl font-bold">order</p>
           <p>500</p>
         </div>
         {/* add product */}
         <div onClick={()=>router.push('/admin/insartproduct')} className="cursor-pointer bg-green-400 h-40  flex flex-col capitalize font-semibold rounded-md justify-center items-center">
-          <p className="text-white text-2xl font-bold">add new Product</p>
+          <p className="text-white text-xl sm:text-2xl font-bold">add Product</p>
           <p><FaPlus /></p>
         </div>
       </div>
