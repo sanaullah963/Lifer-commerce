@@ -14,19 +14,22 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import axios from "axios";
 import Avatar from "react-avatar";
+import { adminArray } from "@/constant/data";
+import { FaLongArrowAltRight } from "react-icons/fa";
 
 function Navbar() {
   const [show, setShow] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
-  const [cart,setCart]=useState(0)
+  const [cart, setCart] = useState(0);
   const router = useRouter();
 
   const token = Cookies.get("clientToken");
   // if token then get user info
   useEffect(() => {
-    const cardData = JSON.parse(localStorage.getItem('cart'))
-    cardData ? setCart(cardData.length): setCart(0)
-    
+    const cardData = JSON.parse(localStorage.getItem("cart"));
+    cardData ? setCart(cardData.length) : setCart(0);
+
     const haveUser = async () => {
       if (token) {
         try {
@@ -39,6 +42,10 @@ function Navbar() {
             }
           );
           setUserInfo(res.data);
+          const admin = adminArray.some(
+            (admin) => admin === res?.data?.numberORemail
+          );
+          setIsAdmin(admin);
         } catch (err) {
           console.log("data fatching error");
         }
@@ -140,6 +147,15 @@ function Navbar() {
           </nav>
         </div>
       </div>
+      {/* go to admin panel desktop button */}
+      {isAdmin && (
+        <div className="hidden sm:block bg-green-600 text-right px-10 text-white underline">
+          <Link className="" href={"/admin"}>
+            Click Here Go Admin panel
+          </Link>
+        </div>
+      )}
+
       {/* mobile screen login button */}
       {show && (
         <div className="absolute flex justify-end w-full z-10">
@@ -167,6 +183,17 @@ function Navbar() {
                 </button>
                 <p>Log-out</p>
               </div>
+              {/* admin panel button */}
+              {isAdmin && (
+                <div className=" py-2 ps-2">
+                  <Link
+                    href={"/admin"}
+                    className="bg-green-800 text-white py-2 px-2 text-lg rounded-md  hover:bg-gray-800 w-full "
+                  >
+                    Admin
+                  </Link>
+                </div>
+              )}
             </div>
           ) : (
             // if not-have user

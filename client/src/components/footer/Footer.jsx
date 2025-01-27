@@ -56,12 +56,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <a
-        href="/admin"
-        className="py-4  bg-green-700 text-green-400"
-      >
-        Admin
-      </a>
+      
     </main>
   );
 }

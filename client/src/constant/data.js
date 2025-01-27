@@ -14,7 +14,7 @@ export const spatialDealsArray = [
   { title: "Eid Deals - Eid Bazar", image: dealssix },
   { title: "Eid Deals - Gadget Festivals", image: dealsseven },
 ];
-
+// district array
 export const districtArray = [
   {
     district: "Bagerhat",
@@ -36,13 +36,7 @@ export const districtArray = [
   },
   {
     district: "Barguna",
-    upazila: [
-      "Amtali",
-      "Barguna Sadar",
-      "Betagi",
-      "Patharghata",
-      "Taltali",
-    ],
+    upazila: ["Amtali", "Barguna Sadar", "Betagi", "Patharghata", "Taltali"],
   },
   {
     district: "Barishal",
@@ -166,14 +160,7 @@ export const districtArray = [
   },
   {
     district: "Dhaka",
-    upazila: [
-      "Dhamrai",
-      "Dohar",
-      "Dhaka",
-      "Keraniganj",
-      "Nawabganj",
-      "Savar",
-    ],
+    upazila: ["Dhamrai", "Dohar", "Dhaka", "Keraniganj", "Nawabganj", "Savar"],
   },
   {
     district: "Dinajpur",
@@ -228,13 +215,7 @@ export const districtArray = [
   },
   {
     district: "Gazipur",
-    upazila: [
-      "Gazipur Sadar",
-      "Kaliakair",
-      "Kaliganj",
-      "Kapasia",
-      'Sreepur',
-    ],
+    upazila: ["Gazipur Sadar", "Kaliakair", "Kaliganj", "Kapasia", "Sreepur"],
   },
   {
     district: "Gopalganj",
@@ -300,13 +281,7 @@ export const districtArray = [
   },
   {
     district: "Joypurhat",
-    upazila: [
-      "Akkelpur",
-      "Joypurhat Sadar",
-      "Kalai",
-      "Khetlal",
-      "Panchbibi",
-    ],
+    upazila: ["Akkelpur", "Joypurhat Sadar", "Kalai", "Khetlal", "Panchbibi"],
   },
   {
     district: "Khagrachhari",
@@ -379,13 +354,7 @@ export const districtArray = [
   },
   {
     district: "Lakshmipur",
-    upazila: [
-      "Kamalnagar",
-      "Lakshmipur Sadar",
-      "Ramganj",
-      "Raipur",
-      "Ramgati",
-    ],
+    upazila: ["Kamalnagar", "Lakshmipur Sadar", "Ramganj", "Raipur", "Ramgati"],
   },
   {
     district: "Lalmonirhat",
@@ -563,13 +532,7 @@ export const districtArray = [
   },
   {
     district: "Panchagarh",
-    upazila: [
-      "Atwari",
-      "Boda",
-      "Debiganj",
-      "Panchagarh Sadar",
-      "Tetulia",
-    ],
+    upazila: ["Atwari", "Boda", "Debiganj", "Panchagarh Sadar", "Tetulia"],
   },
   {
     district: "Patuakhali",
@@ -763,12 +726,15 @@ export const productCategoriesArray = [
   "Tools & Home Improvement",
 ];
 // product weight
-export const productWeight =[
-  {weight:"Under 2 KG",charge:[0,0]},
-  {weight:"2-5 KG",charge:[10,20]},
-  {weight:"5-10 KG",charge:[25,50]},
-  {weight:"10-15 KG",charge:[40,70]},
-  {weight:"15-25 KG",charge:[100,170]},
-  {weight:"25-40 KG",charge:[250,400]},
-  {weight:"40-60 KG",charge:[430,550]},
-]
+export const productWeight = [
+  { weight: "Under 2 KG", charge: [0, 0] },
+  { weight: "2-5 KG", charge: [10, 20] },
+  { weight: "5-10 KG", charge: [25, 50] },
+  { weight: "10-15 KG", charge: [40, 70] },
+  { weight: "15-25 KG", charge: [100, 170] },
+  { weight: "25-40 KG", charge: [250, 400] },
+  { weight: "40-60 KG", charge: [430, 550] },
+];
+
+// admin email array
+export const adminArray = ["Hiron@gmail.com","sanaullah@gmail.com"];

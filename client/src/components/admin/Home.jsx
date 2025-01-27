@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 
 function Home() {
   const router = useRouter()
+
   return (
     <Container>
       <div className="grid bg-slate-200 content-center gap-10 items-center grid-flow-row grid-cols-2 md:grid-cols-3">

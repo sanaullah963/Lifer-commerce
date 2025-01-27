@@ -18,7 +18,6 @@ function LatestProduct() {
           `${process.env.NEXT_PUBLIC_API}/product/latest-product`
         );
         setProduct(res.data);
-        console.log(res);
       } catch (err) {
         console.log("internal server error");
       }
