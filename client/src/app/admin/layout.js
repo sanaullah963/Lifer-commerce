@@ -19,7 +19,7 @@ const userData = async () => {
       );
       return res.data;
     } catch (err) {
-      console.log("data fatching error", err);
+      console.log("data fatching error");
     }
   }
 };
@@ -44,5 +44,4 @@ const layout = ({ children }) => {
 
   return <main>{children}</main>;
 };
-
 export default layout;
