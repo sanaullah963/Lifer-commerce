@@ -24,7 +24,7 @@ const userData = async () => {
   }
 };
 
-const layout = ({ children }) => {
+const Layout = ({ children }) => {
   const [user, setUser] = useState(null);
   const router = useRouter();
 
@@ -44,4 +44,4 @@ const layout = ({ children }) => {
 
   return <main>{children}</main>;
 };
-export default layout;
+export default Layout;
