@@ -42,6 +42,8 @@ function Odder({ params }) {
     };
     fatchData();
   }, []);
+
+  
   // distrucer response
   const { user, productArr, priceDetail } = productLIst;
   return (

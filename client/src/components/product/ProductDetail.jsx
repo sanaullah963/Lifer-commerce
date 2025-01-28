@@ -121,7 +121,6 @@ const handelShare =()=>{
   toast.success('Coppy to clipboard')
 }
 // handle love react
-
 const handelLoveReact = async()=>{
   try {
     if(!token){
@@ -136,7 +135,7 @@ const handelLoveReact = async()=>{
   } catch (error) {
     console.log('sever error');
   }
-  console.log(product?.react);
+  // console.log(product?.react);
 }
   return (
     <div>
@@ -191,10 +190,10 @@ const handelLoveReact = async()=>{
                 <span className="text-3xl ">
                   <TbCurrencyTaka />
                 </span>
-                <span className="text-xl">{product?.price}</span>
+                <span className="text-xl">{product?.sellPrice}</span>
               </div>
               <del className="text-lg text-gray-600 mt-2">
-                {product.sellPrice}
+                {product?.price}
               </del>
               {/* off */}
               <div className="relative">

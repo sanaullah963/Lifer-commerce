@@ -20,10 +20,11 @@ function BuyProductList({ productArr, priceDetail, userAddress }) {
     const token = Cookies.get("clientToken");
     if (!token) return router.push("/");
   }, []);
-  // handelPlaceOrder
+
+  // submit order handel
   const handelPlaceOrder = () => {
-    if (!userAddress) {
-      toast.error("Set address First");
+    if (!userAddress?.address) {
+      toast.error("Go to profile and Set address");
     } else {
       let list = [];
       productArr.map((i) => {
