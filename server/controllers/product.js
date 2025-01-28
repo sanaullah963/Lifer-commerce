@@ -3,6 +3,7 @@ const uploadOnCloudinory = require("../util/cloudinory");
 const ProductModel = require("../model/productModel");
 const productModel = require("../model/productModel");
 const userModel = require("../model/userModel");
+const orderModel = require("../model/orderModel");
 
 // insart product
 const insartProduct = async (req, res) => {
@@ -241,7 +242,6 @@ const updatereactControl = async (req, res) => {
   const { user } = req.headers;
   const update = await productModel.findOne({ _id: productId });
   // const updatee = await productModel.findOne({_id:'66320f69bae8d7b5c05f4e65'})
-  console.log("update", update);
   if (update.react) {
     console.log("if block update", update);
   } else {
@@ -258,6 +258,23 @@ const updatereactControl = async (req, res) => {
 
   res.send("success");
 };
+// submit order
+const submitOrderControl = async (req, res) => {
+  const { order } = req.body;
+  console.log("order is", order);
+  const newOrderModel = new orderModel({
+    userId: order.userID,
+    userAddress: order.userAddress,
+    totalPrice: order.totalprice,
+    productList: order.productList,
+  });
+  const submited = await newOrderModel.save();
+  console.log("order model", newOrderModel);
+  if (!submited) {
+    res.send("error");
+  }
+  res.send("success");
+};
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -267,4 +284,5 @@ module.exports = {
   buyConrtol,
   cartProductControl,
   updatereactControl,
+  submitOrderControl,
 };

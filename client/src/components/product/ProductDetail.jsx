@@ -131,7 +131,7 @@ const handelLoveReact = async()=>{
         Authorization : `barer ${token}`
       }
     })
-    console.log(res.data);
+    // console.log(res.data);
   } catch (error) {
     console.log('sever error');
   }

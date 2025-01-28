@@ -10,6 +10,7 @@ const {
   buyConrtol,
   cartProductControl,
   updatereactControl,
+  submitOrderControl,
 } = require("../controllers/product");
 
 const router = express.Router();
@@ -23,5 +24,6 @@ router.get("/product-detail/:_id", productDetailControl);
 router.get("/buy-product", auth, buyConrtol);
 router.post("/cart-product", cartProductControl);
 router.post("/update-react",auth, updatereactControl);
+router.post("/submit-order",auth,submitOrderControl)
 
 module.exports = router;

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 function BuyProductList({ productArr, priceDetail, userAddress }) {
   const router = useRouter();
@@ -15,14 +16,15 @@ function BuyProductList({ productArr, priceDetail, userAddress }) {
   const removeProduct = (_id) => {
     alert("Feature coming soon ):");
   };
+  const token = Cookies.get("clientToken");
   // use effect
   useEffect(() => {
-    const token = Cookies.get("clientToken");
+    // const token = Cookies.get("clientToken");
     if (!token) return router.push("/");
   }, []);
 
   // submit order handel
-  const handelPlaceOrder = () => {
+  const handelPlaceOrder = async () => {
     if (!userAddress?.address) {
       toast.error("Go to profile and Set address");
     } else {
@@ -40,9 +42,31 @@ function BuyProductList({ productArr, priceDetail, userAddress }) {
         totalprice: priceDetail.totalPay,
         productList: list,
       };
-      console.log(orderObj);
-    }
+      // submit order api
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_API}/product/submit-order`,
+          { order: orderObj },
+          {
+            headers: {
+              Authorization: `barer ${token}`,
+            },
+          }
+        );
+        console.log(res.data);
+        if (res.data == "error") toast.error("Error");
+        else {
+          toast.success("Order Submited");
+          setTimeout(() => {
+            router.back();
+          }, 2000);
+        }
+      } catch (error) {
+        console.log("sever errors", error);
+      }
+    } //end else-block
   };
+
   return (
     <main>
       <BorderContainer className=" flex flex-col my-0 md:flex-row gap-1">
