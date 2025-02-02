@@ -15,10 +15,12 @@ function Profile() {
   const [cart, setCart] = useState(0);
   const [address,setAddtess]=useState({})
   const router = useRouter();
+  const [orderData,setOrderData]=useState([])
   //------- closemodal Handel
   function closeModal() {
     show && setShow(false);
   }
+  // access token && get user address
   useEffect(() => {
     // access token
     setShowSpnnier(true)
@@ -45,13 +47,33 @@ function Profile() {
       }
     };
     fatchData();
+    // get indivisul order data
+    const fatchOrder = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}/product/order/indivisul`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setOrderData(res.data)
+      } catch (err) {
+        console.log("order fatching error", err);
+      }
+    }
+    fatchOrder()
     setShowSpnnier(false)
   }, []);
+  console.log('order data',orderData)
+  console.log('order length',orderData.length)
   return (
     <main>
       <div className="">{show && <Modal closeModal={closeModal} />}</div>
       <div>
            {showSpnnier && <LoadingSpinner/>} 
+           {/* address and total order count section */}
         <BorderContainer className={"my-5"}>
           {/* inner border */}
           <div className="flex flex-col md:flex-row gap-2 md:gap-5 mx-auto">
@@ -59,7 +81,7 @@ function Profile() {
               {/* product orderd */}
               <div className=" border-2 border-green-600 rounded-md flex items-center justify-center flex-col gap-2 py-6">
                 <div className="h-10 w-16 sm:h-16 sm:w-24 rounded-3xl bg-green-200 text-green-700 flex justify-center items-center font-bold text-xl sm:text-3xl shadow-md shadow-green-500">
-                  25
+                  {orderData.length}
                 </div>
                 <p className="capitalize text-sm sm:text-lg lg:text-xl">
                   Products ordered

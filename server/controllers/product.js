@@ -275,6 +275,16 @@ const submitOrderControl = async (req, res) => {
   }
   res.send("success");
 };
+// admin-panel quantity
+const adminDashbordControl = async (req, res) => {};
+
+// individual order
+const indivisulOrderControl = async (req, res) => {
+  const { user } = req.headers;
+  console.log("user", user);
+  const order = await orderModel.find({ userId: user });
+  res.send(order);
+};
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -285,4 +295,6 @@ module.exports = {
   cartProductControl,
   updatereactControl,
   submitOrderControl,
+  adminDashbordControl,
+  indivisulOrderControl,
 };
