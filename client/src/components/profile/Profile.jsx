@@ -8,6 +8,8 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner";
+import { Button } from "../ui/button";
+import OrderTable from "./OrderTable";
 
 function Profile() {
   const [show, setShow] = useState(false);
@@ -66,12 +68,11 @@ function Profile() {
     fatchOrder()
     setShowSpnnier(false)
   }, []);
-  console.log('order data',orderData)
-  console.log('order length',orderData.length)
   return (
     <main>
       <div className="">{show && <Modal closeModal={closeModal} />}</div>
       <div>
+        
            {showSpnnier && <LoadingSpinner/>} 
            {/* address and total order count section */}
         <BorderContainer className={"my-5"}>
@@ -127,10 +128,7 @@ function Profile() {
         {/* recent order */}
         <BorderContainer className={"my-5"}>
           <h2 className="capitalize font-semibold text-xl">recent order</h2>
-          <p className=" bg-red-300 text-red-800">
-            {" "}
-            this section desgine after connect backend and upload product
-          </p>
+          <OrderTable orderData={orderData}/>
         </BorderContainer>
         {/* model */}
       </div>

@@ -4,6 +4,7 @@ const ProductModel = require("../model/productModel");
 const productModel = require("../model/productModel");
 const userModel = require("../model/userModel");
 const orderModel = require("../model/orderModel");
+const e = require("express");
 
 // insart product
 const insartProduct = async (req, res) => {
@@ -281,9 +282,33 @@ const adminDashbordControl = async (req, res) => {};
 // individual order
 const indivisulOrderControl = async (req, res) => {
   const { user } = req.headers;
-  console.log("user", user);
-  const order = await orderModel.find({ userId: user });
-  res.send(order);
+
+  // const orders = await orderModel.find({ userId: user });
+  // let prototypeOrer = orders;
+
+  try {
+    const orders = await orderModel.find({ userId: user });
+
+    // Iterate through each order
+    for (let i = 0; i < orders.length; i++) {
+      const order = orders[i];
+      // Iterate through each product in the productList of the current order
+      for (let j = 0; j < order.productList.length; j++) {
+        const product = order.productList[j];
+        // Find product details based on productId
+        const orderProduct = await productModel.findById(product.ProductID, {
+          title: 1,
+          imageUrl: 1,
+        });
+        // Update productList with product details
+        order.productList[j].ProductDetail = orderProduct;
+      }
+    }
+    // Send the modified orders array as a response
+    res.send(orders);
+  } catch (err) {
+    console.log("server error", err);
+  }
 };
 module.exports = {
   insartProduct,
