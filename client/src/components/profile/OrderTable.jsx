@@ -59,10 +59,11 @@ function OrderTable({ orderData }) {
                 className="w-10 h-10 sm:w-16 sm:h-16"
               />
             </TableCell>
+            {/* title */}
             <TableCell className=" border-x w-40">
               {order.productList[0].ProductDetail.title}
             </TableCell>
-
+          {/* order id row */}
             <TableCell>
               <span className="flex flex-col gap-y-2 items-center justify-start">
                 {order._id.slice(-12)}
@@ -89,9 +90,12 @@ function OrderTable({ orderData }) {
             </TableCell>
             <TableCell>৳ {order.totalPrice}</TableCell>
             <TableCell className="border-x">{order.status}</TableCell>
-            <TableCell>
-              <button className="p-1 bg-red-600 text-white rounded-md">
+            <TableCell >
+              <button className="p-1 bg-red-600 hover:bg-red-700 text-white rounded-md block my-auto mb-1">
                 Cancel
+              </button>
+              <button className="p-1 px-2 bg-green-600 hover:bg-green-700 text-white block rounded-md">
+                Detail
               </button>
             </TableCell>
           </TableRow>
