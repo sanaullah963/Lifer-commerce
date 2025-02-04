@@ -10,20 +10,17 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
 import Image from "next/image";
-import { Button } from "../ui/button";
+import { toast, ToastContainer } from "react-toastify";
 
 function OrderTable({ orderData }) {
   let lodder1 = true;
-  console.log(orderData);
-  if (orderData.length > 0) {
-    lodder1 = false;
-  }
+  if (orderData.length > 0) lodder1 = false;
 
   if (lodder1) {
     return (
@@ -33,69 +30,6 @@ function OrderTable({ orderData }) {
     );
   }
   return (
-    // <Accordion type="single" collapsible>
-    //   <Table>
-    //     <TableHeader>
-    //       <TableRow>
-    //         <TableHead>Order ID</TableHead>
-    //         <TableHead>Products</TableHead>
-    //         <TableHead>Price</TableHead>
-    //         <TableHead>Status</TableHead>
-    //       </TableRow>
-    //     </TableHeader>
-    //     <TableBody>
-    //       {orderData.map((order) => (
-    //         <AccordionItem key={order._id} value={order._id}>
-    //           {/* Row acts as the clickable trigger */}
-    //           {/* <AccordionTrigger asChild> */}
-    //             {/* <div> */}
-    //             <TableRow className="cursor-pointer">
-    //               <TableCell>{order._id}</TableCell>
-    //               <TableCell>{order.productList.length}</TableCell>
-    //               <TableCell>৳ {order.totalPrice}</TableCell>
-    //               <TableCell>{order.status}</TableCell>
-    //             </TableRow>
-    //             {/* </div> */}
-    //            {/* </AccordionTrigger> */}
-
-    //           {/* Expanded Content */}
-    //           <AccordionContent>
-    //             <TableRow>
-    //               <TableCell colSpan={4}>
-    //                 <div className="p-3 bg-gray-100 rounded-md">
-    //                   <p>
-    //                     <strong>Order Date:</strong>{" "}
-    //                     {new Date(order.createdAt).toLocaleString()}
-    //                   </p>
-    //                   <p>
-    //                     <strong>Shipping Address:</strong>{" "}
-    //                     {order?.userAddress?.street}, {order?.userAddress?.city}
-    //                   </p>
-    //                   <p>
-    //                     <strong>Payment Method:</strong> {order?.paymentMethod}
-    //                   </p>
-    //                   <p>
-    //                     <strong>Products:</strong>
-    //                   </p>
-    //                   <ul className="list-disc pl-5">
-    //                     {order.productList.map((product, index) => (
-    //                       <li key={index}>
-    //                         {product.name} - ৳{product.price} x{" "}
-    //                         {product.quantity}
-    //                       </li>
-    //                     ))}
-
-    //                   </ul>
-    //                 </div>
-    //               </TableCell>
-    //             </TableRow>
-    //           </AccordionContent>
-    //         </AccordionItem>
-    //       ))}
-    //     </TableBody>
-    //   </Table>
-    // </Accordion>
-
     <Table>
       {/* table heading */}
       <TableHeader>
@@ -132,9 +66,22 @@ function OrderTable({ orderData }) {
             <TableCell>
               <span className="flex flex-col gap-y-2 items-center justify-start">
                 {order._id.slice(-12)}
-                <button className="text-lg ps-2">
-                  <MdOutlineCopyAll />
-                </button>
+                <HoverCard>
+                  <HoverCardTrigger>
+                    <button
+                      onClick={() => (
+                        navigator.clipboard.writeText(order._id),
+                        toast.success("Order ID Copied")
+                      )}
+                      className="text-lg ps-2"
+                    >
+                      <MdOutlineCopyAll />
+                    </button>
+                  </HoverCardTrigger>
+                  <HoverCardContent>
+                    Click to copy Order ID
+                  </HoverCardContent>
+                </HoverCard>
               </span>
             </TableCell>
             <TableCell className="  border-x">
@@ -150,6 +97,7 @@ function OrderTable({ orderData }) {
           </TableRow>
         ))}
       </TableBody>
+      <ToastContainer />
     </Table>
   );
 }

@@ -8,7 +8,6 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner";
-import { Button } from "../ui/button";
 import OrderTable from "./OrderTable";
 
 function Profile() {
