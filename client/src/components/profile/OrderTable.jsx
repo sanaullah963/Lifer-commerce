@@ -1,28 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdOutlineCopyAll } from "react-icons/md";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
+import {Table,TableBody,TableCell,TableHead,TableHeader,TableRow,} from "@/components/ui/table";
+import {HoverCard,HoverCardContent,HoverCardTrigger,} from "@/components/ui/hover-card";
 
 import Image from "next/image";
 import { toast, ToastContainer } from "react-toastify";
+import OrderDetailModal from "./OrderDetailModal";
 
 function OrderTable({ orderData }) {
-  let lodder1 = true;
-  if (orderData.length > 0) lodder1 = false;
+  const [showModal, setShowModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
-  if (lodder1) {
+  // open order detail modal
+  const openModal = (order) => {
+    setSelectedOrder(order);
+    console.log(order);
+    setShowModal(true);
+  };
+  // close order detail modal
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedOrder(null);
+  };
+
+  let lodder = true;
+  if (orderData.length > 0) lodder = false;
+
+  if (lodder) {
     return (
       <div className="flex items-center justify-center h-96">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
@@ -63,7 +68,7 @@ function OrderTable({ orderData }) {
             <TableCell className=" border-x w-40">
               {order.productList[0].ProductDetail.title}
             </TableCell>
-          {/* order id row */}
+            {/* order id row */}
             <TableCell>
               <span className="flex flex-col gap-y-2 items-center justify-start">
                 {order._id.slice(-12)}
@@ -79,9 +84,7 @@ function OrderTable({ orderData }) {
                       <MdOutlineCopyAll />
                     </button>
                   </HoverCardTrigger>
-                  <HoverCardContent>
-                    Click to copy Order ID
-                  </HoverCardContent>
+                  <HoverCardContent>Click to copy Order ID</HoverCardContent>
                 </HoverCard>
               </span>
             </TableCell>
@@ -90,11 +93,13 @@ function OrderTable({ orderData }) {
             </TableCell>
             <TableCell>৳ {order.totalPrice}</TableCell>
             <TableCell className="border-x">{order.status}</TableCell>
-            <TableCell >
-              <button className="p-1 bg-red-600 hover:bg-red-700 text-white rounded-md block my-auto mb-1">
+            <TableCell>
+              <button className="p-1 bg-red-600 hover:bg-red-700 text-white rounded-md block my-auto mb-1"
+              onClick={() => console.log('Cancel clicked')} >
                 Cancel
               </button>
-              <button className="p-1 px-2 bg-green-600 hover:bg-green-700 text-white block rounded-md">
+              <button className="p-1 px-2 bg-green-600 hover:bg-green-700 text-white block rounded-md"
+              onClick={() => openModal(order)}>
                 Detail
               </button>
             </TableCell>
@@ -102,6 +107,9 @@ function OrderTable({ orderData }) {
         ))}
       </TableBody>
       <ToastContainer />
+      {showModal && (
+        <OrderDetailModal order={selectedOrder} onClose={closeModal} />
+      )}
     </Table>
   );
 }

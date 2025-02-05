@@ -299,6 +299,7 @@ const indivisulOrderControl = async (req, res) => {
         const orderProduct = await productModel.findById(product.ProductID, {
           title: 1,
           imageUrl: 1,
+          sellPrice: 1,
         });
         // Update productList with product details
         order.productList[j].ProductDetail = orderProduct;

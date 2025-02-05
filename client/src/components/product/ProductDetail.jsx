@@ -114,6 +114,7 @@ const insartDate = {
   month:new Date(product?.insartDate).getMonth() + 1,
   year:new Date(product?.insartDate).getFullYear(),
 }
+
 // handle share
 const handelShare =()=>{
   navigator.clipboard.writeText(location.href)
