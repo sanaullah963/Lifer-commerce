@@ -45,15 +45,19 @@ function OrderDetailModal({ order, onClose }) {
             <h3 className="text-lg font-semibold mb-2">Shipping Address</h3>
             <p className="text-gray-700">
               <span className="font-semibold">Name:</span>{" "}
-              {order.userAddress.name}
+              {order?.userAddress?.name}
             </p>
             <p className="text-gray-700">
-              <span className="font-semibold">Upazila:</span>{" "}
-              {order.userAddress.upazila}
+              <span className="font-semibold">Name:</span>{" "}
+              {order?.userAddress?.number}
             </p>
             <p className="text-gray-700">
               <span className="font-semibold">District:</span>{" "}
               {order.userAddress.district}
+            </p>
+            <p className="text-gray-700">
+              <span className="font-semibold">Upazila:</span>{" "}
+              {order.userAddress.upazila}
             </p>
             <p className="text-gray-700">
               <span className="font-semibold">Address:</span>{" "}

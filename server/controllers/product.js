@@ -282,13 +282,34 @@ const adminDashbordControl = async (req, res) => {};
 // individual order
 const indivisulOrderControl = async (req, res) => {
   const { user } = req.headers;
-
-  // const orders = await orderModel.find({ userId: user });
-  // let prototypeOrer = orders;
-
   try {
-    const orders = await orderModel.find({ userId: user });
-
+    const orders = await orderModel.find({ userId: user }).sort({ _id: -1 });
+    // Iterate through each order
+    for (let i = 0; i < orders.length; i++) {
+      const order = orders[i];
+      // Iterate through each product in the productList of the current order
+      for (let j = 0; j < order.productList.length; j++) {
+        const product = order.productList[j];
+        // Find product details based on productId
+        const orderProduct = await productModel.findById(product.ProductID, {
+          title: 1,
+          imageUrl: 1,
+          sellPrice: 1,
+        });
+        // Update productList with product details
+        order.productList[j].ProductDetail = orderProduct;
+      }
+    }
+    // Send the modified orders array as a response
+    res.send(orders);
+  } catch (err) {
+    console.log("server error", err);
+  }
+};
+// all order
+const allOrderControl = async (req, res) => {
+  try {
+    const orders = await orderModel.find().sort({ _id: -1 });
     // Iterate through each order
     for (let i = 0; i < orders.length; i++) {
       const order = orders[i];
@@ -323,4 +344,5 @@ module.exports = {
   submitOrderControl,
   adminDashbordControl,
   indivisulOrderControl,
+  allOrderControl,
 };

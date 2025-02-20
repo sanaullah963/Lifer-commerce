@@ -8,14 +8,15 @@ import Image from "next/image";
 import { toast, ToastContainer } from "react-toastify";
 import OrderDetailModal from "./OrderDetailModal";
 
-function OrderTable({ orderData }) {
+function OrderTable({ orderData, isAdimn }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-
+  isAdimn?console.log('admin'):console.log('not')
+  
+  
   // open order detail modal
   const openModal = (order) => {
     setSelectedOrder(order);
-    console.log(order);
     setShowModal(true);
   };
   // close order detail modal
@@ -66,7 +67,7 @@ function OrderTable({ orderData }) {
             </TableCell>
             {/* title */}
             <TableCell className=" border-x w-40">
-              {order.productList[0].ProductDetail.title}
+              {order?.productList[0].ProductDetail?.title}
             </TableCell>
             {/* order id row */}
             <TableCell>
@@ -89,10 +90,10 @@ function OrderTable({ orderData }) {
               </span>
             </TableCell>
             <TableCell className="  border-x">
-              {order.productList.length}
+              {order?.productList.length}
             </TableCell>
-            <TableCell>৳ {order.totalPrice}</TableCell>
-            <TableCell className="border-x">{order.status}</TableCell>
+            <TableCell>৳ {order?.totalPrice}</TableCell>
+            <TableCell className="border-x">{order?.status}</TableCell>
             <TableCell>
               <button className="p-1 bg-red-600 hover:bg-red-700 text-white rounded-md block my-auto mb-1"
               onClick={() => console.log('Cancel clicked')} >
@@ -100,7 +101,7 @@ function OrderTable({ orderData }) {
               </button>
               <button className="p-1 px-2 bg-green-600 hover:bg-green-700 text-white block rounded-md"
               onClick={() => openModal(order)}>
-                Detail
+                View
               </button>
             </TableCell>
           </TableRow>

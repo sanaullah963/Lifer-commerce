@@ -13,6 +13,7 @@ const {
   submitOrderControl,
   adminDashbordControl,
   indivisulOrderControl,
+  allOrderControl,
 } = require("../controllers/product");
 
 const router = express.Router();
@@ -31,6 +32,7 @@ router.get('/admin/quantity',auth,adminDashbordControl);
 
 // order route
 router.get('/order/indivisul',auth,indivisulOrderControl);
+router.get('/order/all-order',auth,allOrderControl);
 
 
 

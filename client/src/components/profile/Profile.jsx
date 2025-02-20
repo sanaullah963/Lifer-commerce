@@ -127,9 +127,9 @@ function Profile() {
         {/* recent order */}
         <BorderContainer className={"my-5"}>
           <h2 className="capitalize font-semibold text-xl">recent order</h2>
-          <OrderTable orderData={orderData}/>
+          <OrderTable orderData={orderData} isAdimn={false}/>
         </BorderContainer>
-        {/* model */}
+
       </div>
     </main>
   );
