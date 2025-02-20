@@ -5,11 +5,11 @@ import delivaryFreeImg from "@/image/free_delivery.svg";
 import Link from "next/link";
 
 function ProductCard({ _id,deliveryFree,title,price,sellPrice,imageUrl,percentage }) {
-  // let title = "Joypuri Ari Work Salwar Kameez for Women - JSS 12 (Multicolor)";
+
   return (
     <Link
       href={`/product/${_id}`}
-      className="border-2 relative hover:shadow-xl group cursor-pointer rounded-xl pb-3"
+      className="relative group cursor-pointer rounded-xl pb-3"
     >
       <span className="h-[23px] block"></span>
       {/* discount */}
