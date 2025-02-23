@@ -332,6 +332,17 @@ const allOrderControl = async (req, res) => {
     console.log("server error", err);
   }
 };
+
+const adminAllProductControl = async (req, res) => {
+  console.log('req.user',req.headers.user);
+  
+  try {
+    const allProduct = await productModel.find().sort({ _id: -1 });
+    res.send(allProduct);
+  } catch (err) {
+    console.log("server error", err);
+  }
+}
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -345,4 +356,5 @@ module.exports = {
   adminDashbordControl,
   indivisulOrderControl,
   allOrderControl,
+  adminAllProductControl,
 };

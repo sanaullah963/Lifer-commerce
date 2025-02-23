@@ -17,7 +17,7 @@ function Home() {
           <p>500</p>
         </Link>
         {/* order */}
-        <Link href={'/admin/product'} className="cursor-pointer bg-green-400 h-40 flex flex-col capitalize font-semibold rounded-md justify-center items-center" >
+        <Link href={'/admin/order'} className="cursor-pointer bg-green-400 h-40 flex flex-col capitalize font-semibold rounded-md justify-center items-center" >
           <p className="text-white text-xl sm:text-2xl font-bold">order</p>
           <p>500</p>
           <p className="text-purple-600 ">new 25</p>

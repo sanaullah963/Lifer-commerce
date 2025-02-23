@@ -14,6 +14,7 @@ const {
   adminDashbordControl,
   indivisulOrderControl,
   allOrderControl,
+  adminAllProductControl,
 } = require("../controllers/product");
 
 const router = express.Router();
@@ -29,6 +30,7 @@ router.post("/cart-product", cartProductControl);
 router.post("/update-react",auth, updatereactControl);
 router.post("/submit-order",auth,submitOrderControl);
 router.get('/admin/quantity',auth,adminDashbordControl);
+router.get('/admin/allProduct',auth,adminAllProductControl);
 
 // order route
 router.get('/order/indivisul',auth,indivisulOrderControl);

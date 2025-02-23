@@ -5,6 +5,7 @@ const auth = async (req, res, next) => {
   
   // access token
   const mainToken = req.headers?.authorization;
+
   if (!mainToken) {
     return res.send({ status: "error", data: "Invalid token", user: false });
   } else {

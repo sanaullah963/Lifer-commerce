@@ -2,19 +2,25 @@
 import React, { useEffect, useState } from 'react'
 import Container from '../Container'
 import ProductContainer from '../product/ProductContainer'
-import Headding from '../Headding'
+import Cookies from "js-cookie";
 import LoadingSpinner from '../LoadingSpinner'
 import axios from 'axios'
 import ProductCard from '../product/ProductCard'
-
+import { useRouter } from "next/navigation";
 function All_Product() {
-  const [product, setProduct] = useState([]);
-
+  const [allProduct, setProduct] = useState([]);
+  const router = useRouter();
   useEffect(() => {
+     const token = Cookies.get("clientToken");
+        if (!token) return router.push("/");
     const fatchData = async () => {
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}/product/latest-product`
+          `${process.env.NEXT_PUBLIC_API}/product/admin/allProduct`,{
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setProduct(res.data);
         console.log(res);
@@ -23,25 +29,24 @@ function All_Product() {
       }
     };
     fatchData();
+    
   }, []);
-
+  console.log(allProduct);
 
   return (
     <main>
       <Container className={""}>
         {/* image must be 1:1 */}
-        {product.length <= 0 ? (
+        {allProduct.length <= 0 ? (
           // lodding spinner
           <div className="flex justify-start">
             <LoadingSpinner />
-            {
-              
-            }
             <p>empty list</p>
           </div>
         ) : (
           <ProductContainer>
-            {product.map((i) => (
+
+            {allProduct.length > 0 && allProduct.map((i) => (
               <ProductCard
                 key={i._id}
                 deliveryFree={i.deliveryFree}
@@ -54,7 +59,6 @@ function All_Product() {
               />
             ))}
           </ProductContainer>
-          
         )}
       </Container>
     </main>
