@@ -26,7 +26,7 @@ import Review from "./Review";
 import ProductDetailHeadding from "./ProductDetailHeadding";
 import LoadingSpinner from "../LoadingSpinner";
 import LatestProduct from "../spacal/LatestProduct";
-
+import { adminArray } from "@/constant/data";
 function ProductDetail({ params }) {
   const [count, setCount] = useState(1);
   const [product, setProduct] = useState({});
@@ -37,6 +37,8 @@ function ProductDetail({ params }) {
   // access token
   const token = Cookies.get("clientToken");
   const _id = params.detail[0];
+  const isAdimn = adminArray.includes(Cookies.get("numOrEmail"));
+  
   // fatch product detail
   useEffect(() => {
     try {
@@ -115,7 +117,6 @@ function ProductDetail({ params }) {
     month: new Date(product?.insartDate).getMonth() + 1,
     year: new Date(product?.insartDate).getFullYear(),
   };
-
   // handle share
   const handelShare = () => {
     navigator.clipboard.writeText(location.href);

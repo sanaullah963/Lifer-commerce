@@ -8,7 +8,7 @@ import axios from 'axios'
 import ProductCard from '../product/ProductCard'
 import { useRouter } from "next/navigation";
 function All_Product() {
-  const [allProduct, setProduct] = useState([]);
+  const [allProduct, setAllProduct] = useState([]);
   const router = useRouter();
   useEffect(() => {
      const token = Cookies.get("clientToken");
@@ -22,8 +22,7 @@ function All_Product() {
             },
           }
         );
-        setProduct(res.data);
-        console.log(res);
+        setAllProduct(res.data);
       } catch (err) {
         console.log("internal server error");
       }
@@ -31,8 +30,8 @@ function All_Product() {
     fatchData();
     
   }, []);
-  console.log(allProduct);
-
+  allProduct?.user && Cookies.set("numOrEmail", allProduct.user.numberORemail);
+  
   return (
     <main>
       <Container className={""}>
@@ -46,7 +45,7 @@ function All_Product() {
         ) : (
           <ProductContainer>
 
-            {allProduct.length > 0 && allProduct.map((i) => (
+            {allProduct.allProduct.length > 0 && allProduct.allProduct.map((i) => (
               <ProductCard
                 key={i._id}
                 deliveryFree={i.deliveryFree}

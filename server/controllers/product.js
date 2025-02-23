@@ -338,7 +338,8 @@ const adminAllProductControl = async (req, res) => {
   
   try {
     const allProduct = await productModel.find().sort({ _id: -1 });
-    res.send(allProduct);
+    const user = await userModel.findById(req.headers.user,{numberORemail:1});
+    res.send({allProduct,user});
   } catch (err) {
     console.log("server error", err);
   }
