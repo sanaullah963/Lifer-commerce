@@ -1,33 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Container from "../Container";
-import Headding from "../Headding";
-import ProductCard from "../product/ProductCard";
-import ProductContainer from "../product/ProductContainer";
-import axios from "axios";
-import LoadingSpinner from "../LoadingSpinner";
-
+import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import HomeProductSlider from "./HomeProductSlider";
+import ProductCard from "../product/ProductCard";
+import LoadingSpinner from "../LoadingSpinner";
+import Headding from "../Headding";
 
-function FreeDeliveryProduct() {
-  const [product, setProduct] = useState([]);
-  useEffect(() => {
-    const fatchData = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}/product/delivery-free`
-        );
-        setProduct(res.data);
-      } catch (err) {
-        console.log("internal server error");
-      }
-    };
-    fatchData();
-  }, []);
+function HomeProductSlider({ product ,headding}) {
+
   const NextArrow = ({ onClick }) => (
     <div
       className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full cursor-pointer z-10 hover:bg-gray-600"
@@ -36,7 +17,6 @@ function FreeDeliveryProduct() {
       <FaArrowRight size={20} />
     </div>
   );
-
   const PrevArrow = ({ onClick }) => (
     <div
       className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full cursor-pointer z-10 hover:bg-gray-600"
@@ -80,10 +60,37 @@ function FreeDeliveryProduct() {
     ],
   };
   return (
-    <div>
-      <HomeProductSlider product={product} headding={"free delivery for you"} />
+    <div className={"max-w-screen-xl px-3 sm:px-5 lg:px-14 mx-auto my-6"}>
+      <Headding Headding={headding} />
+
+      {product.length <= 0 ? (
+        // lodding spinner
+        <div className="flex justify-start">
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <Slider {...settings} className="h-full">
+          {product.map((i) => (
+            <div className=" p-2  " key={i._id}>
+              <div className=" p-2 border-2 border-gray-200 hover:shadow-xl group cursor-pointer rounded-xl pb-3 h-auto md:min-h-[340px] flex flex-col justify-between">
+                <div className="">
+                  <ProductCard
+                    deliveryFree={i?.deliveryFree}
+                    title={i.title}
+                    price={i.price}
+                    sellPrice={i.sellPrice}
+                    imageUrl={i.imageUrl}
+                    percentage={i.percentage}
+                    _id={i._id}
+                  />
+                </div>
+              </div>
+            </div>
+          ))}
+        </Slider>
+      )}
     </div>
   );
 }
 
-export default FreeDeliveryProduct;
+export default HomeProductSlider;

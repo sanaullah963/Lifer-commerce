@@ -11,6 +11,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Home from "@/app/page";
+import HomeProductSlider from "./HomeProductSlider";
 
 function DiscountUpTo() {
   let discount = 40
@@ -77,38 +79,10 @@ function DiscountUpTo() {
   return (
     <main>
       
-      <Container>
-        <Headding Headding={`discount up to ${discount}%`} />
-        {product.length <= 0 ? (
-          // lodding spinner
-          <div className="flex justify-start">
-            <LoadingSpinner />
-          </div>
-        ) : (
-          <Slider {...settings} className="h-full">
-            {product.map((i) => (
-              <div  className=" p-2  " key={i._id} >
-                <div className=" p-2 border-2 border-gray-200 hover:shadow-xl group cursor-pointer rounded-xl pb-3 h-auto md:min-h-[380px] flex flex-col justify-between">
-                  <div className="">
-                    <ProductCard   
-                deliveryFree={i?.deliveryFree}
-                title={i.title}
-                price={i.price}
-                sellPrice={i.sellPrice}
-                imageUrl={i.imageUrl}
-                percentage={i.percentage}
-                _id={i._id}
-              />
-                  </div>
-                  
-                </div>
-                
-              </div>
-              
-            ))}
-          </Slider>
-        )}
-      </Container>
+          <HomeProductSlider product={product} headding={`discount up to ${discount}%`} />
+          
+        
+     
     </main>
   );
 }
