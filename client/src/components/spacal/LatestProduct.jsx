@@ -29,15 +29,20 @@ function LatestProduct() {
     fatchData();
   }, []);
 
-
   const NextArrow = ({ onClick }) => (
-    <div className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full cursor-pointer z-10 hover:bg-gray-600" onClick={onClick}>
+    <div
+      className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full cursor-pointer z-10 hover:bg-gray-600"
+      onClick={onClick}
+    >
       <FaArrowRight size={20} />
     </div>
   );
 
   const PrevArrow = ({ onClick }) => (
-    <div className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full cursor-pointer z-10 hover:bg-gray-600" onClick={onClick}>
+    <div
+      className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full cursor-pointer z-10 hover:bg-gray-600"
+      onClick={onClick}
+    >
       <FaArrowLeft size={20} />
     </div>
   );
@@ -49,8 +54,8 @@ function LatestProduct() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    nextArrow: <NextArrow />, 
-    prevArrow: <PrevArrow />, 
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -78,10 +83,7 @@ function LatestProduct() {
 
   return (
     <main className={"my-6"}>
-      
-          <HomeProductSlider product={product} headding={"latest product"} />
-
-      
+      <HomeProductSlider product={product} headding={"latest product"} />
     </main>
   );
 }

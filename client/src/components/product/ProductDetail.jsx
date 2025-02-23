@@ -25,6 +25,7 @@ import ProductCard from "./ProductCard";
 import Review from "./Review";
 import ProductDetailHeadding from "./ProductDetailHeadding";
 import LoadingSpinner from "../LoadingSpinner";
+import LatestProduct from "../spacal/LatestProduct";
 
 function ProductDetail({ params }) {
   const [count, setCount] = useState(1);
@@ -44,7 +45,7 @@ function ProductDetail({ params }) {
           `${process.env.NEXT_PUBLIC_API}/product/product-detail/${_id}`
         );
         setProduct(res.data.product);
-        setSimilarProduct(res.data.similarProduct)
+        setSimilarProduct(res.data.similarProduct);
       };
       fatchData();
     } catch (err) {
@@ -109,34 +110,38 @@ function ProductDetail({ params }) {
     setCartLodder(false);
   };
   // insart date
-const insartDate = {
-  date:new Date(product?.insartDate).getDate(),
-  month:new Date(product?.insartDate).getMonth() + 1,
-  year:new Date(product?.insartDate).getFullYear(),
-}
+  const insartDate = {
+    date: new Date(product?.insartDate).getDate(),
+    month: new Date(product?.insartDate).getMonth() + 1,
+    year: new Date(product?.insartDate).getFullYear(),
+  };
 
-// handle share
-const handelShare =()=>{
-  navigator.clipboard.writeText(location.href)
-  toast.success('Coppy to clipboard')
-}
-// handle love react
-const handelLoveReact = async()=>{
-  try {
-    if(!token){
-      return toast.error('Plase Login')
-    }
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API}/product/update-react`,{productId:product._id},{
-      headers : {
-        Authorization : `barer ${token}`
+  // handle share
+  const handelShare = () => {
+    navigator.clipboard.writeText(location.href);
+    toast.success("Coppy to clipboard");
+  };
+  // handle love react
+  const handelLoveReact = async () => {
+    try {
+      if (!token) {
+        return toast.error("Plase Login");
       }
-    })
-    // console.log(res.data);
-  } catch (error) {
-    console.log('sever error');
-  }
-  // console.log(product?.react);
-}
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/product/update-react`,
+        { productId: product._id },
+        {
+          headers: {
+            Authorization: `barer ${token}`,
+          },
+        }
+      );
+      // console.log(res.data);
+    } catch (error) {
+      console.log("sever error");
+    }
+    // console.log(product?.react);
+  };
   return (
     <div>
       {/* product info */}
@@ -160,7 +165,6 @@ const handelLoveReact = async()=>{
           </div>
           {/*--------center product detaisl */}
           <div className="lg:flex-1 mx-0 bg-white">
-            
             {/* title */}
             <p className="text-[15px] capitalize my-2">{product?.title}</p>
             <hr />
@@ -177,8 +181,9 @@ const handelLoveReact = async()=>{
             <div className=" flex gap-2">
               <span className="items-center flex">
                 <span className="text-lg me-2">{product?.react}</span>
-                <button onClick={handelLoveReact}><IoMdHeartEmpty className="text-4xl cursor-pointer" /></button>
-                
+                <button onClick={handelLoveReact}>
+                  <IoMdHeartEmpty className="text-4xl cursor-pointer" />
+                </button>
               </span>
               <button onClick={handelShare} className="text-3xl cursor-pointer">
                 <IoMdShare />
@@ -192,9 +197,7 @@ const handelLoveReact = async()=>{
                 </span>
                 <span className="text-xl">{product?.sellPrice}</span>
               </div>
-              <del className="text-lg text-gray-600 mt-2">
-                {product?.price}
-              </del>
+              <del className="text-lg text-gray-600 mt-2">{product?.price}</del>
               {/* off */}
               <div className="relative">
                 <div className="font-semibold bg-yellow-400 absolute top-0 px-2 py-1 rounded-md">
@@ -333,7 +336,15 @@ const handelLoveReact = async()=>{
               {/* warranty time */}
               <div className="flex text-lg capitalize items-center gap-3 font-[500] mb-5">
                 <FaShield className="text-xl" />
-                <p className={`${product?.warranty != '0' ?'text-green-500' : 'text-black' }`} >{product?.warranty != '0' ?  product?.warranty + ' warranty' : 'no warranty available'}</p>
+                <p
+                  className={`${
+                    product?.warranty != "0" ? "text-green-500" : "text-black"
+                  }`}
+                >
+                  {product?.warranty != "0"
+                    ? product?.warranty + " warranty"
+                    : "no warranty available"}
+                </p>
                 {/* <p className="text-end flex items-center text-green-600">
                   not 
                 </p> */}
@@ -353,31 +364,29 @@ const handelLoveReact = async()=>{
         </div>
       </div>
       {/*----------similar product section */}
-      <div className="px-3 max-w-md sm:max-w-screen-xl mx-auto sm:w-full">
-        <ProductContainer
-          className={
-            "border-[4px] rounded-md shadow-lg shadow-gray-400 my-10 px-1 sm:px-3 py-3"
-          }
-        >
-          {
-            similarProduct.length > 0 && ( similarProduct.map(i=>(
-              <ProductCard
-                key={i._id}
-                deliveryFree={i.deliveryFree}
-                title={i.title}
-                price={i.price}
-                sellPrice={i.sellPrice}
-                imageUrl={i.imageUrl}
-                percentage={i.percentage}
-                _id={i._id}
-              />
-            ))
-              
-            )
-          }
-          
-        </ProductContainer>
-      </div>
+      {/* <div className="px-3 max-w-md sm:max-w-screen-xl mx-auto sm:w-full"> */}
+        <Container>
+          <ProductContainer
+            className={
+              "border-[4px] rounded-md shadow-lg shadow-gray-400 my-10 px-1 sm:px-3 py-3"
+            }
+          >
+            {similarProduct.length > 0 &&
+              similarProduct.map((i) => (
+                <ProductCard
+                  key={i._id}
+                  deliveryFree={i.deliveryFree}
+                  title={i.title}
+                  price={i.price}
+                  sellPrice={i.sellPrice}
+                  imageUrl={i.imageUrl}
+                  percentage={i.percentage}
+                  _id={i._id}
+                />
+              ))}
+          </ProductContainer>
+        </Container>
+      {/* </div> */}
       <ToastContainer />
     </div>
   );

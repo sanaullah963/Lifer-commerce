@@ -72,8 +72,8 @@ function HomeProductSlider({ product ,headding}) {
         <Slider {...settings} className="h-full">
           {product.map((i) => (
             <div className=" p-2  " key={i._id}>
-              <div className=" p-2 border-2 border-gray-200 hover:shadow-xl group cursor-pointer rounded-xl pb-3 h-auto md:min-h-[340px] flex flex-col justify-between">
-                <div className="">
+              {/* <div className=" p-2 border-2 border-gray-200 hover:shadow-xl group cursor-pointer rounded-xl pb-3 h-auto md:min-h-[340px] flex flex-col justify-between"> */}
+                {/* <div className=""> */}
                   <ProductCard
                     deliveryFree={i?.deliveryFree}
                     title={i.title}
@@ -83,8 +83,8 @@ function HomeProductSlider({ product ,headding}) {
                     percentage={i.percentage}
                     _id={i._id}
                   />
-                </div>
-              </div>
+                {/* </div> */}
+              {/* </div> */}
             </div>
           ))}
         </Slider>
