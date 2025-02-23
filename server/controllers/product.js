@@ -332,10 +332,9 @@ const allOrderControl = async (req, res) => {
     console.log("server error", err);
   }
 };
-
+// admin dashbord all product
 const adminAllProductControl = async (req, res) => {
-  console.log('req.user',req.headers.user);
-  
+
   try {
     const allProduct = await productModel.find().sort({ _id: -1 });
     const user = await userModel.findById(req.headers.user,{numberORemail:1});
@@ -344,6 +343,21 @@ const adminAllProductControl = async (req, res) => {
     console.log("server error", err);
   }
 }
+// delete product
+const deleteProductControl = async (req, res) => {
+  const { _id } = req.params;
+  try {
+    const deleteProduct = await productModel.findByIdAndDelete(_id);
+    if (!deleteProduct) {
+      return res.send({ status: "error", data: "Invalid product" });
+    }
+    res.send({ status: "success", data: "Product deleted successfully" });
+  } catch (err) {
+    console.log("server error", err);
+  }
+}
+
+
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -358,4 +372,5 @@ module.exports = {
   indivisulOrderControl,
   allOrderControl,
   adminAllProductControl,
+  deleteProductControl
 };

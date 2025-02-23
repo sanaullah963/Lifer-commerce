@@ -15,6 +15,7 @@ const {
   indivisulOrderControl,
   allOrderControl,
   adminAllProductControl,
+  deleteProductControl,
 } = require("../controllers/product");
 
 const router = express.Router();
@@ -31,7 +32,8 @@ router.post("/update-react",auth, updatereactControl);
 router.post("/submit-order",auth,submitOrderControl);
 router.get('/admin/quantity',auth,adminDashbordControl);
 router.get('/admin/allProduct',auth,adminAllProductControl);
-
+// delete product
+router.delete("/delete/:_id", auth, deleteProductControl);
 // order route
 router.get('/order/indivisul',auth,indivisulOrderControl);
 router.get('/order/all-order',auth,allOrderControl);
