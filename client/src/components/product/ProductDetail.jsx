@@ -11,10 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { FaMinus } from "react-icons/fa6";
 import { FaPlus } from "react-icons/fa6";
-import product1 from "@/image/proudct/p6.png";
 import freeDelivery from "@/image/free_delivery.svg";
 import { IoMdHeartEmpty } from "react-icons/io";
-import { IoHeartSharp } from "react-icons/io5";
 import { IoMdShare } from "react-icons/io";
 import { HiOutlineCash } from "react-icons/hi";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -25,8 +23,8 @@ import ProductCard from "./ProductCard";
 import Review from "./Review";
 import ProductDetailHeadding from "./ProductDetailHeadding";
 import LoadingSpinner from "../LoadingSpinner";
-import LatestProduct from "../spacal/LatestProduct";
 import { adminArray } from "@/constant/data";
+import { Button } from "../ui/button";
 function ProductDetail({ params }) {
   const [count, setCount] = useState(1);
   const [product, setProduct] = useState({});
@@ -38,7 +36,7 @@ function ProductDetail({ params }) {
   const token = Cookies.get("clientToken");
   const _id = params.detail[0];
   const isAdimn = adminArray.includes(Cookies.get("numOrEmail"));
-  
+
   // fatch product detail
   useEffect(() => {
     try {
@@ -143,11 +141,45 @@ function ProductDetail({ params }) {
     }
     // console.log(product?.react);
   };
+  // handle delete
+
+  const handleDelete = async () => {
+    
+    try {
+      if(!isAdimn){
+        return toast.error("You are not admin");
+      }
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API}/product/delete/${product._id}`,
+        {
+          headers: {
+            Authorization: `barer ${token}`,
+          },
+          isAdimn,
+        }
+      );
+      if (res.data.status == "success") {
+        toast.success("Product deleted");
+        setTimeout(() => {
+          router.back();
+        }, 500);
+      }
+    } catch (error) {
+      console.log("server error",error);
+    }
+  };
   return (
     <div>
       {/* product info */}
       <div className="max-w-[450px] md:max-w-[650px] lg:max-w-screen-lg mx-auto my-10 xl:max-w-screen-xl px-2 xl:px-14">
         {/*--------product image & price & delivery */}
+        <div className=" flex gap-2 justify-end">
+          <Button className={"bg-red-600"}>Edit</Button>
+          <Button onClick={handleDelete} className={"bg-red-600"}>
+            Delete
+          </Button>
+        </div>
+
         <div className="flex flex-col lg:flex-row items-center min-h-[390px] gap-x-5 gap-y-10 w-full  border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 ">
           {/*---------left side product image*/}
           <div className="w-full lg:w-[30%] relative inline-flex border rounded-md shadow-lg">
@@ -366,27 +398,27 @@ function ProductDetail({ params }) {
       </div>
       {/*----------similar product section */}
       {/* <div className="px-3 max-w-md sm:max-w-screen-xl mx-auto sm:w-full"> */}
-        <Container>
-          <ProductContainer
-            className={
-              "border-[4px] rounded-md shadow-lg shadow-gray-400 my-10 px-1 sm:px-3 py-3"
-            }
-          >
-            {similarProduct.length > 0 &&
-              similarProduct.map((i) => (
-                <ProductCard
-                  key={i._id}
-                  deliveryFree={i.deliveryFree}
-                  title={i.title}
-                  price={i.price}
-                  sellPrice={i.sellPrice}
-                  imageUrl={i.imageUrl}
-                  percentage={i.percentage}
-                  _id={i._id}
-                />
-              ))}
-          </ProductContainer>
-        </Container>
+      <Container>
+        <ProductContainer
+          className={
+            "border-[4px] rounded-md shadow-lg shadow-gray-400 my-10 px-1 sm:px-3 py-3"
+          }
+        >
+          {similarProduct.length > 0 &&
+            similarProduct.map((i) => (
+              <ProductCard
+                key={i._id}
+                deliveryFree={i.deliveryFree}
+                title={i.title}
+                price={i.price}
+                sellPrice={i.sellPrice}
+                imageUrl={i.imageUrl}
+                percentage={i.percentage}
+                _id={i._id}
+              />
+            ))}
+        </ProductContainer>
+      </Container>
       {/* </div> */}
       <ToastContainer />
     </div>
