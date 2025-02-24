@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { MdOutlineCopyAll } from "react-icons/md";
-
-import {Table,TableBody,TableCell,TableHead,TableHeader,TableRow,} from "@/components/ui/table";
-import {HoverCard,HoverCardContent,HoverCardTrigger,} from "@/components/ui/hover-card";
+import { MdCancelPresentation } from "react-icons/md";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 import Image from "next/image";
 import { toast, ToastContainer } from "react-toastify";
@@ -11,9 +22,7 @@ import OrderDetailModal from "./OrderDetailModal";
 function OrderTable({ orderData, isAdimn }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  isAdimn?console.log('admin'):console.log('not')
-  
-  
+
   // open order detail modal
   const openModal = (order) => {
     setSelectedOrder(order);
@@ -58,7 +67,7 @@ function OrderTable({ orderData, isAdimn }) {
           >
             <TableCell className="w-16 h-16">
               <Image
-                src={order.productList[0].ProductDetail.imageUrl}
+                src={order.productList[0].ProductDetail?.imageUrl }
                 width={100}
                 height={100}
                 alt="product"
@@ -94,14 +103,28 @@ function OrderTable({ orderData, isAdimn }) {
             </TableCell>
             <TableCell>৳ {order?.totalPrice}</TableCell>
             <TableCell className="border-x">{order?.status}</TableCell>
-            <TableCell>
-              <button className="p-1 bg-red-600 hover:bg-red-700 text-white rounded-md block my-auto mb-1"
-              onClick={() => console.log('Cancel clicked')} >
+            {/* action button */}
+            <TableCell className="flex flex-col ">
+              {/* cancel button */}
+              <button
+                className="py-2 px-2 bg-red-600 hover:bg-red-700 text-white rounded block my-auto mb-1"
+                onClick={() => console.log("Cancel clicked")}
+              >
                 Cancel
               </button>
-              <button className="p-1 px-2 bg-green-600 hover:bg-green-700 text-white block rounded-md"
-              onClick={() => openModal(order)}>
-                View
+              {/* procesing button */}
+              <button
+                className="py-2 px-2 bg-yellow-500 hover:bg-yellow-700 text-white rounded block my-auto mb-1"
+                onClick={() => console.log("Procesing clicked")}
+              >
+                Procesing
+              </button>
+              {/* details button */}
+              <button
+                className="p-1 px-2 bg-green-600 hover:bg-green-700 text-white block rounded"
+                onClick={() => openModal(order)}
+              >
+                Details
               </button>
             </TableCell>
           </TableRow>

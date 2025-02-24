@@ -57,11 +57,11 @@ function OrderDetailModal({ order, onClose }) {
             </p>
             <p className="text-gray-700">
               <span className="font-semibold">Upazila:</span>{" "}
-              {order.userAddress.upazila}
+              {order?.userAddress?.upazila}
             </p>
             <p className="text-gray-700">
               <span className="font-semibold">Address:</span>{" "}
-              {order.userAddress.address}
+              {order?.userAddress?.address}
             </p>
           </div>
 
@@ -69,24 +69,24 @@ function OrderDetailModal({ order, onClose }) {
           <div>
             <h3 className="text-lg font-semibold mb-2">Products</h3>
             <div className=" max-h-80 overflow-y-auto">
-              {order.productList.map((product, index) => (
+              {order?.productList.map((product, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-4 p-3 border rounded-md mb-2"
                 >
                   <Image
-                    src={product.ProductDetail.imageUrl}
-                    alt={product.ProductDetail.title}
+                    src={product?.ProductDetail?.imageUrl}
+                    alt={product?.ProductDetail?.title}
                     width={60}
                     height={60}
                     className="rounded-md object-cover"
                   />
                   <div>
                     <p className="font-semibold">
-                      {product.ProductDetail.title}
+                      {product?.ProductDetail?.title || "product deleted by admin"}
                     </p>
                     <p className="text-gray-600">
-                      ৳ {`${product.ProductDetail.sellPrice} x ${product.quantity} = ৳ ${product.ProductDetail.sellPrice * product.quantity}`}
+                      ৳ {`${product?.ProductDetail?.sellPrice} x ${product?.quantity} = ৳ ${product?.ProductDetail?.sellPrice * product?.quantity}`}
                     </p>
                   </div>
                 </div>
