@@ -4,6 +4,7 @@ import Navbar from "@/components/nav/Navbar";
 import PopulerProduct from "@/components/product/PopulerProduct";
 import DiscountUpTo from "@/components/spacal/DiscountUpTo";
 import FreeDeliveryProduct from "@/components/spacal/FreeDeliveryProduct";
+import HomeCatagory from "@/components/spacal/HomeCatagory";
 import LatestProduct from "@/components/spacal/LatestProduct";
 import SpatialDeals from "@/components/spacal/SpatialDeals";
 
@@ -12,6 +13,7 @@ export default function Home() {
     <main>
       <CarouselComponent />
       <SpatialDeals />
+      <HomeCatagory />
       {/* <PopulerProduct /> */}
       <LatestProduct />
       <FreeDeliveryProduct />

@@ -143,7 +143,6 @@ function ProductDetail({ params }) {
     // console.log(product?.react);
   };
   // handle delete
-
   const handleDelete = async () => {
     try {
       if (!isAdmin) {
@@ -183,7 +182,7 @@ function ProductDetail({ params }) {
 
         <div className="flex flex-col lg:flex-row items-center min-h-[390px] gap-x-5 gap-y-10 w-full  border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 ">
           {/*---------left side product image*/}
-          <div className="w-full lg:w-[30%] relative inline-flex border rounded-md shadow-lg">
+          <div className="w-full lg:w-[30%] relative flex justify-center items-center border rounded-md shadow-lg">
             <Link
               href={product?.imageUrl || "lifer-bd.vercel.app"}
               target="_blank"

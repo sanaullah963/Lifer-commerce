@@ -27,7 +27,6 @@ function Home() {
           <p className="text-white text-xl sm:text-2xl font-bold">add Product</p>
           <p><FaPlus /></p>
         </Link>
-
       </div>
     </Container>
   );

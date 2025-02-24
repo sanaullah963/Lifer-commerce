@@ -130,7 +130,7 @@ const productDetailControl = async (req, res) => {
     } else {
       const similarProduct = await productModel
         .find({ categories: { $eq: product.categories } })
-        .limit(10)
+        .limit(20)
         .select({
           imageUrl: 1,
           sellPrice: 1,
@@ -138,7 +138,7 @@ const productDetailControl = async (req, res) => {
           title: 1,
           deliveryFree: 1,
           percentage: 1,
-        });
+        }).sort({ _id: -1 });
       res.send({ product, similarProduct });
     }
   } catch (err) {
