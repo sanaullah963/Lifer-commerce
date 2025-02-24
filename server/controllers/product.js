@@ -5,6 +5,7 @@ const productModel = require("../model/productModel");
 const userModel = require("../model/userModel");
 const orderModel = require("../model/orderModel");
 const e = require("express");
+const deleteImgCloudinory = require("../util/deleteImgCloudinory");
 
 // insart product
 const insartProduct = async (req, res) => {
@@ -347,13 +348,15 @@ const adminAllProductControl = async (req, res) => {
 const deleteProductControl = async (req, res) => {
   const { _id } = req.params;
   try {
-    // Delete the image from Cloudinary
 
+    // find product
     const findProduct = await productModel.findById(_id);
-
-    const deleteImage = await uploadOnCloudinory(findProduct.imagePublicID);
-    console.log("deleteProduct", findProduct);
-    console.log("deleteImage", deleteImage);
+    if (!findProduct) {
+      return res.send({ status: "error", data:"Product not found" });
+    }
+    // delete image from cloudinory
+    await deleteImgCloudinory(findProduct.imagePublicID);
+    // delete product
     const deleteProduct = await productModel.findByIdAndDelete(_id);
     if (!deleteProduct) {
       return res.send({ status: "error", data: "Invalid product" });

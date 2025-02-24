@@ -1,5 +1,5 @@
 const cloudinary = require("cloudinary").v2;
-const { log } = require("console");
+
 const fs = require("fs")
 require('dotenv').config()
 

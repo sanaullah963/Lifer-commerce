@@ -176,8 +176,8 @@ function ProductDetail({ params }) {
         
         {isClient && isAdmin && (
           <div className="flex gap-2 justify-end">
-            <div className="px-3 py-1 bg-rose-600 rounded-lg text-white hover:bg-slate-900">Edit</div>
-            <div className="px-3 py-1 bg-rose-600 rounded-lg text-white hover:bg-slate-900" onClick={handleDelete}>Delete</div>
+            <button className="px-3 py-1 bg-rose-600 rounded-lg text-white hover:bg-slate-900">Edit</button>
+            <button className="px-3 py-1 bg-rose-600 rounded-lg text-white hover:bg-slate-900" onClick={handleDelete}>Delete</button>
           </div>
         )}
 
