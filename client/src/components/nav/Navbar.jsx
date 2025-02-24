@@ -15,7 +15,6 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import Avatar from "react-avatar";
 import { adminArray } from "@/constant/data";
-import { FaLongArrowAltRight } from "react-icons/fa";
 
 function Navbar() {
   const [show, setShow] = useState(false);
@@ -56,6 +55,7 @@ function Navbar() {
   // logout handel
   const handelLogout = () => {
     Cookies.remove("clientToken");
+    Cookies.remove("numberORemail");
     setShow(false);
     location.reload();
   };

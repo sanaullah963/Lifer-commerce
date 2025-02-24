@@ -32,7 +32,8 @@ function All_Product() {
     fatchData();
     
   }, []);
-  allProduct?.user && Cookies.set("numOrEmail", allProduct.user.numberORemail);
+
+  // allProduct?.user && Cookies.set("numOrEmail", allProduct.user.numberORemail);
   
   return (
     <main>

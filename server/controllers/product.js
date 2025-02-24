@@ -347,6 +347,13 @@ const adminAllProductControl = async (req, res) => {
 const deleteProductControl = async (req, res) => {
   const { _id } = req.params;
   try {
+    // Delete the image from Cloudinary
+
+    const findProduct = await productModel.findById(_id);
+
+    const deleteImage = await uploadOnCloudinory(findProduct.imagePublicID);
+    console.log("deleteProduct", findProduct);
+    console.log("deleteImage", deleteImage);
     const deleteProduct = await productModel.findByIdAndDelete(_id);
     if (!deleteProduct) {
       return res.send({ status: "error", data: "Invalid product" });

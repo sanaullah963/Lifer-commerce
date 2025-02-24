@@ -60,7 +60,7 @@ const loginControl = async (req, res) => {
         });
         const exp = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000);
         res.cookie("token", token, { expires: exp, httpOnly: true });
-        res.send({ status: "success", data: "login successfull", token });
+        res.send({ status: "success", data: "login successfull", token, numberORemail:findUser.numberORemail });
       }
     } catch (err) {
       console.log("mongodb data fatching error", err);

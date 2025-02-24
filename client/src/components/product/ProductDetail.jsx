@@ -24,19 +24,19 @@ import Review from "./Review";
 import ProductDetailHeadding from "./ProductDetailHeadding";
 import LoadingSpinner from "../LoadingSpinner";
 import { adminArray } from "@/constant/data";
-import { Button } from "../ui/button";
+
 function ProductDetail({ params }) {
   const [count, setCount] = useState(1);
   const [product, setProduct] = useState({});
   const [similarProduct, setSimilarProduct] = useState([]);
   const [cart, setCart] = useState([]);
   const [cartLodder, setCartLodder] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   // access token
   const token = Cookies.get("clientToken");
   const _id = params.detail[0];
-  const isAdimn = adminArray.includes(Cookies.get("numOrEmail"));
-
+  const isAdmin = adminArray.includes(Cookies.get("numberORemail"));
   // fatch product detail
   useEffect(() => {
     try {
@@ -51,6 +51,7 @@ function ProductDetail({ params }) {
     } catch (err) {
       console.log("data fatching server error", err);
     }
+    setIsClient(true);
   }, []);
   // minus count
   const minusCount = () => {
@@ -144,9 +145,8 @@ function ProductDetail({ params }) {
   // handle delete
 
   const handleDelete = async () => {
-    
     try {
-      if(!isAdimn){
+      if (!isAdmin) {
         return toast.error("You are not admin");
       }
       const res = await axios.delete(
@@ -155,7 +155,7 @@ function ProductDetail({ params }) {
           headers: {
             Authorization: `barer ${token}`,
           },
-          isAdimn,
+          isAdmin,
         }
       );
       if (res.data.status == "success") {
@@ -165,7 +165,7 @@ function ProductDetail({ params }) {
         }, 500);
       }
     } catch (error) {
-      console.log("server error",error);
+      console.log("server error", error);
     }
   };
   return (
@@ -173,12 +173,13 @@ function ProductDetail({ params }) {
       {/* product info */}
       <div className="max-w-[450px] md:max-w-[650px] lg:max-w-screen-lg mx-auto my-10 xl:max-w-screen-xl px-2 xl:px-14">
         {/*--------product image & price & delivery */}
-        <div className=" flex gap-2 justify-end">
-          <Button className={"bg-red-600"}>Edit</Button>
-          <Button onClick={handleDelete} className={"bg-red-600"}>
-            Delete
-          </Button>
-        </div>
+        
+        {isClient && isAdmin && (
+          <div className="flex gap-2 justify-end">
+            <div className="px-3 py-1 bg-rose-600 rounded-lg text-white hover:bg-slate-900">Edit</div>
+            <div className="px-3 py-1 bg-rose-600 rounded-lg text-white hover:bg-slate-900" onClick={handleDelete}>Delete</div>
+          </div>
+        )}
 
         <div className="flex flex-col lg:flex-row items-center min-h-[390px] gap-x-5 gap-y-10 w-full  border-[4px] rounded-md p-2 shadow-lg shadow-gray-400 ">
           {/*---------left side product image*/}
