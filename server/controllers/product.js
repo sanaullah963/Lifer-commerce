@@ -348,7 +348,6 @@ const adminAllProductControl = async (req, res) => {
 const deleteProductControl = async (req, res) => {
   const { _id } = req.params;
   try {
-
     // find product
     const findProduct = await productModel.findById(_id);
     if (!findProduct) {
@@ -366,7 +365,25 @@ const deleteProductControl = async (req, res) => {
     console.log("server error", err);
   }
 }
-
+// delete order
+const deleteOrderControl = async (req, res) => {
+  const { _id } = req.params;
+  try {
+    // find order
+    const findOrder = await orderModel.findById(_id);
+    if (!findOrder) {
+      return res.send({ status: "error", data: "Order not found" });
+    }
+    // delete order
+    const deleteOrder = await orderModel.findByIdAndDelete(_id);
+    if (!deleteOrder) {
+      return res.send({ status: "error", data: "Invalid order" });
+    }
+    res.send({ status: "success", data: "Order deleted successfully" });
+  } catch (err) {
+    console.log("server error", err);
+  }
+}
 
 module.exports = {
   insartProduct,
@@ -382,5 +399,6 @@ module.exports = {
   indivisulOrderControl,
   allOrderControl,
   adminAllProductControl,
-  deleteProductControl
+  deleteProductControl,
+  deleteOrderControl,
 };

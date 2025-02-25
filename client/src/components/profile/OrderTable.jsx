@@ -16,13 +16,18 @@ import {
 } from "@/components/ui/hover-card";
 
 import Image from "next/image";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import OrderDetailModal from "./OrderDetailModal";
+import { adminArray } from "@/constant/data";
+import Cookies from "js-cookie";
+import axios from "axios";
 
-function OrderTable({ orderData, isAdimn }) {
+function OrderTable({ orderData }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-
+  const isAdimn = adminArray.includes(Cookies.get("numberORemail"));
+  const [orderDeletLoading, setOrderDeletLoading] = useState(false);
   // open order detail modal
   const openModal = (order) => {
     setSelectedOrder(order);
@@ -33,10 +38,9 @@ function OrderTable({ orderData, isAdimn }) {
     setShowModal(false);
     setSelectedOrder(null);
   };
-
+  // lodder
   let lodder = true;
   if (orderData.length > 0) lodder = false;
-
   if (lodder) {
     return (
       <div className="flex items-center justify-center h-96">
@@ -44,6 +48,32 @@ function OrderTable({ orderData, isAdimn }) {
       </div>
     );
   }
+  // order delete handel
+  const orderDeleteOrder = async(id,index) => {
+    setOrderDeletLoading(true);
+    console.log("delete clicked", id);
+    try {
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_API}/product/order/delete/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("clientToken")}`,
+          },
+    });
+    console.log("order delete success",res.data);
+    toast.success(res.data?.data || "Order Deleted");
+    orderData.splice(index,1);
+    setOrderDeletLoading(false);
+    } catch (error) {
+      console.log("order delete error",error);
+      
+    }
+  };
+  // processing order handel
+  const orderProcessing = async(id) => {
+    console.log("processing clicked", id);
+    toast.success("Order Processing");
+  };
   return (
     <Table>
       {/* table heading */}
@@ -60,7 +90,7 @@ function OrderTable({ orderData, isAdimn }) {
       </TableHeader>
       {/* teble body row */}
       <TableBody>
-        {orderData.map((order) => (
+        {orderData.map((order,index) => (
           <TableRow
             className="text-[12px] leading-tight sm:text-sm"
             key={order._id}
@@ -108,17 +138,21 @@ function OrderTable({ orderData, isAdimn }) {
               {/* cancel button */}
               <button
                 className="py-2 px-2 bg-red-600 hover:bg-red-700 text-white rounded block my-auto mb-1"
-                onClick={() => console.log("Cancel clicked")}
+                onClick={() => orderDeleteOrder(order._id,index)}
               >
-                Cancel
+                {orderDeletLoading ? ('lodding'):"Cancel"}
               </button>
               {/* procesing button */}
-              <button
-                className="py-2 px-2 bg-yellow-500 hover:bg-yellow-700 text-white rounded block my-auto mb-1"
-                onClick={() => console.log("Procesing clicked")}
-              >
-                Procesing
-              </button>
+              {
+                isAdimn && (
+                  <button
+                    className="py-2 px-2 bg-yellow-500 hover:bg-yellow-700 text-white rounded block my-auto mb-1"
+                    onClick={() => orderProcessing(order._id)}
+                  >
+                    Procesing
+                  </button>
+                )
+              }
               {/* details button */}
               <button
                 className="p-1 px-2 bg-green-600 hover:bg-green-700 text-white block rounded"
@@ -134,6 +168,7 @@ function OrderTable({ orderData, isAdimn }) {
       {showModal && (
         <OrderDetailModal order={selectedOrder} onClose={closeModal} />
       )}
+      
     </Table>
   );
 }

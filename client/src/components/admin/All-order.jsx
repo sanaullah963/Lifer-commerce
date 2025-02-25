@@ -35,14 +35,13 @@ const AllOrder = () => {
     fatchOrder();
   }, []);
 
-  console.log("Updated Order Data: outside useEffect", orderData);
   return (
     <Container>
       {/* <div className="">{show && <Modal closeModal={closeModal} />}</div> */}
        {/* All order */}
        <BorderContainer className={"my-5"}>
           <h2 className="capitalize font-semibold text-xl">All order</h2>
-          <OrderTable orderData={orderData} isAdimn={true}/>
+          <OrderTable orderData={orderData}/>
         </BorderContainer>
     </Container>
   );

@@ -69,6 +69,7 @@ function OrderDetailModal({ order, onClose }) {
           <div>
             <h3 className="text-lg font-semibold mb-2">Products</h3>
             <div className=" max-h-80 overflow-y-auto">
+              {/* order multiple product */}
               {order?.productList.map((product, index) => (
                 <div
                   key={index}
