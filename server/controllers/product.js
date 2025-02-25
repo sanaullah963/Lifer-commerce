@@ -384,6 +384,35 @@ const deleteOrderControl = async (req, res) => {
     console.log("server error", err);
   }
 }
+// order processing
+const orderProcessingControl = async (req, res) => {
+  const { _id } = req.body;
+  console.log(_id);
+  try {
+    // find order
+    const findOrder = await orderModel.findById(_id);
+    if (!findOrder) {
+      return res.send({ status: "error", data: "Order not found" });
+    }
+    // update order status
+    const updateOrder = await orderModel.findByIdAndUpdate(_id, { status: "Processing" });
+    // decrement stock and increment sold
+    findOrder.productList.map(async (item) => {
+      const product = await productModel.findById(item.ProductID);
+      await productModel.findByIdAndUpdate(item.ProductID, {
+        stock: product.stock - item.quantity,
+        sold: product.sold + item.quantity,
+      });
+    });
+    // insart all product id from order ProductList to user orderProduct
+    await userModel.findByIdAndUpdate(findOrder.userId, {
+      $push: { orderProduct: findOrder.productList },
+    });
+    res.send({ status: "success", data: "Order processing successfully" });
+  } catch (err) {
+    console.log("server error", err);
+  }
+}
 
 module.exports = {
   insartProduct,
@@ -401,4 +430,5 @@ module.exports = {
   adminAllProductControl,
   deleteProductControl,
   deleteOrderControl,
+  orderProcessingControl,
 };

@@ -17,6 +17,7 @@ const {
   adminAllProductControl,
   deleteProductControl,
   deleteOrderControl,
+  orderProcessingControl
 } = require("../controllers/product");
 
 const router = express.Router();
@@ -27,7 +28,6 @@ router.get("/latest-product", latestProductcontrol);
 router.get("/delivery-free", deliveryFreeProductControl);
 router.get("/discount-upto", discountUpToControl);
 router.get("/product-detail/:_id", productDetailControl);
-router.get("/buy-product", auth, buyConrtol);
 router.post("/cart-product", cartProductControl);
 router.post("/update-react",auth, updatereactControl);
 router.post("/submit-order",auth,submitOrderControl);
@@ -36,9 +36,10 @@ router.get('/admin/allProduct',auth,adminAllProductControl);
 // delete product
 router.delete("/delete/:_id", auth, deleteProductControl);
 // order route
+router.get("/buy-product", auth, buyConrtol);
 router.get('/order/indivisul',auth,indivisulOrderControl);
 router.get('/order/all-order',auth,allOrderControl);
 router.delete('/order/delete/:_id',auth,deleteOrderControl);
-
+router.post('/order/processing',auth,orderProcessingControl);
 
 module.exports = router;

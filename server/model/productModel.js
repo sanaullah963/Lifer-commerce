@@ -84,5 +84,9 @@ const ProductModel = mongoose.Schema({
     type: Number,
     require: true,
   },
+  sold:{
+    type:Array,
+    require:false,
+  }
 });
 module.exports = mongoose.model("product", ProductModel);

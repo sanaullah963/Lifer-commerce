@@ -22,12 +22,16 @@ import OrderDetailModal from "./OrderDetailModal";
 import { adminArray } from "@/constant/data";
 import Cookies from "js-cookie";
 import axios from "axios";
+import LoadingSpinner from "../LoadingSpinner";
 
 function OrderTable({ orderData }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const isAdimn = adminArray.includes(Cookies.get("numberORemail"));
+  const isAdmin = adminArray.includes(Cookies.get("numberORemail"));
   const [orderDeletLoading, setOrderDeletLoading] = useState(false);
+  const [orderProcessingLoading, setOrderProcessingLoading] = useState(false);
+
+      const token = Cookies.get("clientToken");
   // open order detail modal
   const openModal = (order) => {
     setSelectedOrder(order);
@@ -51,13 +55,12 @@ function OrderTable({ orderData }) {
   // order delete handel
   const orderDeleteOrder = async(id,index) => {
     setOrderDeletLoading(true);
-    console.log("delete clicked", id);
     try {
       const res = await axios.delete(
         `${process.env.NEXT_PUBLIC_API}/product/order/delete/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${Cookies.get("clientToken")}`,
+            Authorization: `Bearer ${token}`,
           },
     });
     console.log("order delete success",res.data);
@@ -66,13 +69,22 @@ function OrderTable({ orderData }) {
     setOrderDeletLoading(false);
     } catch (error) {
       console.log("order delete error",error);
-      
     }
   };
   // processing order handel
-  const orderProcessing = async(id) => {
-    console.log("processing clicked", id);
-    toast.success("Order Processing");
+  const orderProcessing = async(_id) => {
+    // send product id to server
+    setOrderProcessingLoading(true);
+    try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_API}/product/order/processing`,{_id},{ headers: {
+            Authorization: `Bearer ${token}`, // for auth
+          },});
+        console.log("order ",res.data);
+    } catch (error) {
+      console.log("order processing error",error);
+    }
+    setOrderProcessingLoading(false);
   };
   return (
     <Table>
@@ -136,20 +148,28 @@ function OrderTable({ orderData }) {
             {/* action button */}
             <TableCell className="flex flex-col ">
               {/* cancel button */}
-              <button
+              {
+                order?.status == 'pending' ? (<button
+                  className="py-2 px-2 bg-red-600 hover:bg-red-700 text-white rounded block my-auto mb-1"
+                  onClick={() => orderDeleteOrder(order._id,index)}
+                >
+                  {orderDeletLoading ? (<LoadingSpinner/>):"Cancel"}
+                </button>):isAdmin && (<button
                 className="py-2 px-2 bg-red-600 hover:bg-red-700 text-white rounded block my-auto mb-1"
                 onClick={() => orderDeleteOrder(order._id,index)}
               >
-                {orderDeletLoading ? ('lodding'):"Cancel"}
-              </button>
+                {orderDeletLoading ? (<LoadingSpinner/>):"Cancel"}
+              </button>)
+              }
+
               {/* procesing button */}
               {
-                isAdimn && (
+               order?.status == 'pending' && isAdmin && (
                   <button
                     className="py-2 px-2 bg-yellow-500 hover:bg-yellow-700 text-white rounded block my-auto mb-1"
                     onClick={() => orderProcessing(order._id)}
                   >
-                    Procesing
+                    {orderProcessingLoading ? (<LoadingSpinner/>):"Processing"}
                   </button>
                 )
               }

@@ -37,5 +37,9 @@ const userModel = mongoose.Schema({
     require: true,
     default: Date.now(),
   },
+  orderProduct:{
+    type:Array,
+    require:false,
+  }
 });
 module.exports = mongoose.model("user", userModel);
