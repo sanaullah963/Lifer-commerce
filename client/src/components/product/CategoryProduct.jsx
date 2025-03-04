@@ -1,11 +1,9 @@
 "use client";
 import axios from "axios";
-
 import React, { useEffect, useState } from "react";
 import Container from "../Container";
 import ProductContainer from "./ProductContainer";
 import ProductCard from "./ProductCard";
-import Head from "next/head";
 import Headding from "../Headding";
 
 function CategoryProduct({ category }) {
@@ -29,7 +27,6 @@ function CategoryProduct({ category }) {
     <div>
       <Container>
         <Headding Headding={category} />
-
         <ProductContainer>
           {product.map((item) => (
             <ProductCard
