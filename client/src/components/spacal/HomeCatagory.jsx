@@ -15,15 +15,12 @@ function HomeCatagory() {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API}/product/all-category`
         );
-
-        console.log(res.data);
         setCatagory(res.data);
       } catch (error) {
         console.log(error);
       }
     };
     getCategory();
-    console.log(catagory);
   }, []);
   return (
     <div>
@@ -31,7 +28,7 @@ function HomeCatagory() {
         <Headding Headding="Catagory" />
         <div className="grid grid-cols-2  md:grid-cols-4 lg:grid-cols-7 gap-4">
           {catagory.map((item, index) => (
-            <Link href="" key={index} className="bg-gray-100 p-4">
+            <Link href={`/catagorys/${item.category}`} key={index} className="bg-gray-100 p-4">
               <div className=" bg-neutral-600 rounded-full w-20 h-20 mx-auto">
                 <Image
                   src={item.image}

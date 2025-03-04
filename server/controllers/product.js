@@ -430,9 +430,17 @@ const allProductCatagoryControl = async (req, res) => {
         } 
       }
     ]);
-    console.log(allCatagory);
-    
     res.send(allCatagory);
+  } catch (err) {
+    console.log("server error", err);
+  }
+}
+//get singel category product
+const singelCatagoryControl = async (req, res) => {
+  const { category } = req.params;
+  try {
+    const singelCatagory = await productModel.find({ categories: category });
+    res.send(singelCatagory);
   } catch (err) {
     console.log("server error", err);
   }
@@ -455,4 +463,5 @@ module.exports = {
   deleteOrderControl,
   orderProcessingControl,
   allProductCatagoryControl,
+  singelCatagoryControl,
 };
