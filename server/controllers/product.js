@@ -413,7 +413,30 @@ const orderProcessingControl = async (req, res) => {
     console.log("server error", err);
   }
 }
-
+//all category
+const allProductCatagoryControl = async (req, res) => {
+  try {
+    const allCatagory = await productModel.aggregate([
+      {
+        $group: {
+          _id: "$categories",
+          firstProduct: { $first: "$$ROOT" }
+        },
+      },
+      { 
+        $project: { 
+          category: "$_id", 
+          image: "$firstProduct.imageUrl",
+        } 
+      }
+    ]);
+    console.log(allCatagory);
+    
+    res.send(allCatagory);
+  } catch (err) {
+    console.log("server error", err);
+  }
+}
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -431,4 +454,5 @@ module.exports = {
   deleteProductControl,
   deleteOrderControl,
   orderProcessingControl,
+  allProductCatagoryControl,
 };
