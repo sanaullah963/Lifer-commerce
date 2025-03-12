@@ -59,6 +59,27 @@ function Navbar() {
     setShow(false);
     location.reload();
   };
+  // search handel
+  const handelSearch = (e) => {
+    e.preventDefault();
+    const search = e.target.value;
+    
+    if(search.length>2){
+      setTimeout(async() => {
+        console.log(search);
+        try {
+          const res = await axios.get(
+            `${process.env.NEXT_PUBLIC_API}/product/search?query=${search}`
+          );
+          console.log('search res',res.data);
+          
+        } catch (error) {
+          console.log('search error',error);
+          
+        }
+      }, 2000);
+    }
+  };
 
   return (
     <div className="">
@@ -75,6 +96,7 @@ function Navbar() {
                 type="text"
                 placeholder="Search"
                 className="w-full ps-2 rounded-s-md outline-none"
+                onChange={handelSearch}
               />
               <button className="text-2xl px-2">
                 <IoSearch />

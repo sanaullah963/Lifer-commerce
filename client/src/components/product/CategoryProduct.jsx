@@ -15,7 +15,6 @@ function CategoryProduct({ category }) {
         const res = await axios.get(
           `${process.env.NEXT_PUBLIC_API}/product/singel-category/${category}`
         );
-        console.log(res.data);
         setProduct(res.data);
       } catch (error) {
         console.log(error);

@@ -445,6 +445,25 @@ const singelCatagoryControl = async (req, res) => {
     console.log("server error", err);
   }
 }
+// proudct search controle
+const productSearchControle = async(req,res)=>{
+  const { query } = req.query;
+  console.log(query);
+  if(!query){
+    return res.send([])
+  }
+  const products = await productModel.find({
+    title: { $regex: query, $options: "i" }
+  }).select({
+    imageUrl: 1,    
+    title: 1,
+
+  })
+  res.send(products);
+  
+  
+  
+}
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -464,4 +483,5 @@ module.exports = {
   orderProcessingControl,
   allProductCatagoryControl,
   singelCatagoryControl,
+  productSearchControle,
 };

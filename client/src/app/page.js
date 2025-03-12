@@ -14,7 +14,8 @@ export default function Home() {
   return (
     <main>
       <CarouselComponent />
-      <SpatialDeals />
+      {/* spatial deald is not complate so  */}
+      {/* <SpatialDeals /> */}
       <HomeCatagory />
       {/* <PopulerProduct /> */}
       <LatestProduct />
