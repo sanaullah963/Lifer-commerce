@@ -15,12 +15,17 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import Avatar from "react-avatar";
 import { adminArray } from "@/constant/data";
+import LoadingSpinner from "../LoadingSpinner";
+
 
 function Navbar() {
   const [show, setShow] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [cart, setCart] = useState(0);
+  const [showSuggestion, setShowSuggestion] = useState(false);
+  const [suggestion, setSuggestion] = useState([]);
+
   const router = useRouter();
 
   const token = Cookies.get("clientToken");
@@ -63,22 +68,27 @@ function Navbar() {
   const handelSearch = (e) => {
     e.preventDefault();
     const search = e.target.value;
-    
-    if(search.length>2){
-      setTimeout(async() => {
-        console.log(search);
+    setShowSuggestion(true)
+    if (search.length > 2) {
+      setTimeout(async () => {
         try {
           const res = await axios.get(
             `${process.env.NEXT_PUBLIC_API}/product/search?query=${search}`
           );
-          console.log('search res',res.data);
-          
+          setSuggestion(res.data);
+          // res.data && setShowSuggestion(true);
         } catch (error) {
-          console.log('search error',error);
-          
+          console.log("search error", error);
         }
       }, 2000);
     }
+  };
+  // search item handel
+  const itemHandel = () => {
+    setShowSuggestion(false);
+    history.reload()
+    console.log('helo');
+    
   };
 
   return (
@@ -243,6 +253,36 @@ function Navbar() {
           )}
         </div>
       )}
+      <div className="w-full flex justify-center top-6">
+        {/* search suggestion section */}
+        <div className="absolute bg-yellow-400/70 w-screen max-w-screen-sm z-10 flex flex-col justify-center items-center px-2 gap-y-2">
+          {showSuggestion && suggestion.length < 1 ? (
+            <div className="py-3"><LoadingSpinner/></div>
+          ) : (
+            suggestion.map((i) => (
+              <Link
+                href={`/product/${i._id}`}
+                className="w-full flex flex-col"
+                onClick={itemHandel}
+                key={i._id}
+              >
+                <div className="bg-orange-500/50 w-full px-1 gap-x-1 rounded-md flex justify-between  cursor-pointer ">
+                  <p className="flex-1">{i.title}</p>
+                  <div className="w-2/12 my-auto">
+                    <Image
+                      src={i.imageUrl}
+                      alt="image"
+                      width={50}
+                      height={50}
+                      className="rounded-md"
+                    />
+                  </div>
+                </div>
+              </Link>
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 }

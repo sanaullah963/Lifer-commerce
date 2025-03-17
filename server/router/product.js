@@ -48,5 +48,6 @@ router.get('/order/all-order',auth,allOrderControl);
 router.delete('/order/delete/:_id',auth,deleteOrderControl);
 router.post('/order/processing',auth,orderProcessingControl);
 // search product
-router.get('/search',productSearchControle)
+router.get('/search',productSearchControle);
+
 module.exports = router;

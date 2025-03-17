@@ -448,7 +448,6 @@ const singelCatagoryControl = async (req, res) => {
 // proudct search controle
 const productSearchControle = async(req,res)=>{
   const { query } = req.query;
-  console.log(query);
   if(!query){
     return res.send([])
   }
@@ -457,12 +456,8 @@ const productSearchControle = async(req,res)=>{
   }).select({
     imageUrl: 1,    
     title: 1,
-
-  })
+  }).limit(10);
   res.send(products);
-  
-  
-  
 }
 module.exports = {
   insartProduct,
