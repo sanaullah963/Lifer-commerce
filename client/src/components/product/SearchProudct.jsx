@@ -1,6 +1,11 @@
 "use client";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Container from "../Container";
+import Headding from "../Headding";
+import ProductContainer from "./ProductContainer";
+import ProductCard from "./ProductCard";
+import LatestProduct from "../spacal/LatestProduct";
 
 function SearchProudct({ keyword }) {
   const [product,setProduct]=useState([])
@@ -25,7 +30,29 @@ function SearchProudct({ keyword }) {
   }, []);
   console.log(product);
   
-  return <div>SearchProudct</div>;
+  return <div>
+  <Container>
+    <Headding Headding={orKeyword} />
+    <ProductContainer>
+      { product.length > 0 ? (product.map((item) => (
+        <ProductCard
+          key={item._id}
+          _id={item._id}
+          deliveryFree={item.deliveryFree}
+          title={item.title}
+          price={item.price}
+          sellPrice={item.sellPrice}
+          imageUrl={item.imageUrl}
+          percentage={item.percentage}
+        />
+      ))) : (
+        <p className="text-red-500">Product not fuond</p>
+      ) 
+      }
+    </ProductContainer>
+  </Container>
+    <LatestProduct/>
+</div>;
 }
 
 export default SearchProudct;

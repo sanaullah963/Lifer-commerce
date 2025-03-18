@@ -468,15 +468,13 @@ const productSearchListControle = async(req,res)=>{
   const products = await productModel.find({
     title: { $regex: query, $options: "i" }
   }).select({
-    imageUrl: 1,    
+    imageUrl: 1,
+    sellPrice: 1,
+    price: 1,
     title: 1,
-  }); 
-  // if(!products){
-  //   res.send({status:false});
-
-  // }else{
-  //   res.send({status:true,data:products});
-  // }
+    deliveryFree: 1,
+    percentage: 1,
+  });
   res.send(products);
 }
 module.exports = {
