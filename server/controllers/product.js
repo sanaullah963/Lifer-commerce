@@ -459,6 +459,26 @@ const productSearchControle = async(req,res)=>{
   }).limit(10);
   res.send(products);
 }
+// proudct search indivisul page controle
+const productSearchListControle = async(req,res)=>{
+  const { query } = req.query;
+  if(!query){
+    return res.send([])
+  }
+  const products = await productModel.find({
+    title: { $regex: query, $options: "i" }
+  }).select({
+    imageUrl: 1,    
+    title: 1,
+  }); 
+  // if(!products){
+  //   res.send({status:false});
+
+  // }else{
+  //   res.send({status:true,data:products});
+  // }
+  res.send(products);
+}
 module.exports = {
   insartProduct,
   latestProductcontrol,
@@ -479,4 +499,5 @@ module.exports = {
   allProductCatagoryControl,
   singelCatagoryControl,
   productSearchControle,
+  productSearchListControle,
 };

@@ -17,12 +17,12 @@ import Avatar from "react-avatar";
 import { adminArray } from "@/constant/data";
 import LoadingSpinner from "../LoadingSpinner";
 
-
 function Navbar() {
   const [show, setShow] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [cart, setCart] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
   const [showSuggestion, setShowSuggestion] = useState(false);
   const [suggestion, setSuggestion] = useState([]);
 
@@ -68,7 +68,8 @@ function Navbar() {
   const handelSearch = (e) => {
     e.preventDefault();
     const search = e.target.value;
-    setShowSuggestion(true)
+    setSearchValue(e.target.value)
+    search ? setShowSuggestion(true) : setShowSuggestion(false);
     if (search.length > 2) {
       setTimeout(async () => {
         try {
@@ -76,21 +77,20 @@ function Navbar() {
             `${process.env.NEXT_PUBLIC_API}/product/search?query=${search}`
           );
           setSuggestion(res.data);
-          // res.data && setShowSuggestion(true);
         } catch (error) {
           console.log("search error", error);
         }
-      }, 2000);
+      }, 1500);
     }
   };
   // search item handel
   const itemHandel = () => {
     setShowSuggestion(false);
-    history.reload()
-    console.log('helo');
-    
   };
-
+  // search button handel
+  const searchBtnHandel = () => {
+    setShowSuggestion(false)
+  };
   return (
     <div className="">
       <div className="bg-yellow-400">
@@ -108,9 +108,9 @@ function Navbar() {
                 className="w-full ps-2 rounded-s-md outline-none"
                 onChange={handelSearch}
               />
-              <button className="text-2xl px-2">
+              <Link href={`/search/${searchValue}`} className="text-2xl px-2 my-auto hover:text-red-900" onClick={searchBtnHandel}>
                 <IoSearch />
-              </button>
+              </Link>
             </div>
             {/* login && signup */}
             {userInfo?.name ? (
@@ -134,7 +134,6 @@ function Navbar() {
                   >
                     <IoExitOutline />
                   </button>
-                  {/* <Link href={"/signup"}>Sign-Up</Link> */}
                 </div>
               </div>
             ) : (
@@ -253,11 +252,13 @@ function Navbar() {
           )}
         </div>
       )}
+      {/* search suggestion section */}
       <div className="w-full flex justify-center top-6">
-        {/* search suggestion section */}
         <div className="absolute bg-yellow-400/70 w-screen max-w-screen-sm z-10 flex flex-col justify-center items-center px-2 gap-y-2">
-          {showSuggestion && suggestion.length < 1 ? (
-            <div className="py-3"><LoadingSpinner/></div>
+          {!showSuggestion ? '': suggestion.length < 1 ? (
+            <div className="py-3">
+              <LoadingSpinner />
+            </div>
           ) : (
             suggestion.map((i) => (
               <Link
