@@ -29,8 +29,6 @@ function LatestProduct() {
     fatchData();
   }, []);
 
-
-
   return (
     <main className={"my-6"}>
       <HomeProductSlider product={product} headding={"latest product"} />
